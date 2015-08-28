@@ -5293,6 +5293,15 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+/* Icons */
+.icon-circle {
+  font-size: 100px;
+  border: 5px solid white;
+  border-radius: 170px;
+  line-height: 170px;
+  width: 240px;
+  padding: 30px 30px 30px 30px; }
+
 * {
   position: relative;
   box-sizing: border-box; }
@@ -5304,28 +5313,20 @@ body {
 header {
   max-height: 600px;
   height: 600px;
-  overflow: hidden; }
-  header img {
-    position: fixed;
-    top: 0px;
-    left: 50%;
-    margin-left: -600px;
-    width: 1200px;
-    margin-top: -185px; }
-    @media screen and (min-width: 1200px) {
-      header img {
-        top: auto;
-        left: auto;
-        margin: -175px 0 0 0;
-        width: 100%; } }
-  header .cover {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3); }
+  overflow: hidden;
+  background: url("../images/desktop.jpg");
+  background-repeat: repeat;
+  background-position: center 0px;
+  background-attachment: fixed; }
+
+.cover {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3); }
 
 .name {
   font-size: 21px;
@@ -5399,7 +5400,8 @@ h2 {
       background-position: -50px 0px; }
 
 .instagram-wrap {
-  background: #eeeeee; }
+  background: #eeeeee;
+  padding: 40px 0 70px 0; }
 
 .instagram-content h3 {
   text-transform: uppercase;
@@ -5407,8 +5409,30 @@ h2 {
   font-size: 12px;
   font-weight: 700;
   text-align: center;
-  padding: 50px 0;
+  padding: 25px 0;
   color: #bbbbbb; }
+.instagram-content h1 {
+  text-align: center;
+  color: #bbbbbb; }
+  .instagram-content h1 .icon-circle {
+    border-color: #bbbbbb; }
+
+.sub-titles {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center; }
+  @media screen and (min-width: 1200px) {
+    .sub-titles {
+      top: 10%; } }
+  .sub-titles h3 {
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    padding: 25px 0;
+    color: white; }
 
 .photo-box {
   margin: 0 0 30px 0; }
@@ -5435,6 +5459,15 @@ h2 {
     text-overflow: ellipsis; }
     .photo-box .description .with a {
       cursor: pointer; }
+
+.first-image {
+  max-height: 400px;
+  height: 400px;
+  overflow: hidden;
+  background: url("../images/workspace.jpg");
+  background-repeat: repeat;
+  background-position: center 0px;
+  background-attachment: fixed; }
 
 footer {
   background: #FFF;
