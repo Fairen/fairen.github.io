@@ -257,6 +257,7 @@ footer {
     background: $white;
     padding: $padding*3 0;
     text-align: center;
+    margin : $margin*10 0 0 0;
  
     @media screen and (min-width: $screen-lg) {
         padding: $padding*10 0;
