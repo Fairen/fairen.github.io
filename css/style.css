@@ -5419,12 +5419,12 @@ h2 {
 
 .sub-titles {
   position: absolute;
-  top: 10%;
+  top: 30%;
   width: 100%;
   text-align: center; }
   @media screen and (min-width: 1200px) {
     .sub-titles {
-      top: 10%; } }
+      top: 30%; } }
   .sub-titles h3 {
     text-transform: uppercase;
     letter-spacing: 0.5em;
@@ -5461,8 +5461,8 @@ h2 {
       cursor: pointer; }
 
 .first-image {
-  max-height: 400px;
-  height: 400px;
+  max-height: 650px;
+  height: 650px;
   overflow: hidden;
   background: url("../images/workspace.jpg");
   background-repeat: repeat;
@@ -5520,5 +5520,20 @@ footer {
   @media screen and (min-width: 992px) {
     .footer-bottom {
       padding: 40px 0; } }
+
+.curveUpColor, .curveDownColor {
+  position: absolute;
+  left: 0;
+  z-index: 1; }
+
+.curveDownColor {
+  margin-bottom: -100px; }
+
+.curveUpColor {
+  margin-top: -100px; }
+
+.curveGrey {
+  fill: #eeeeee;
+  stroke: #eeeeee; }
 
 /*# sourceMappingURL=style.css.map */
