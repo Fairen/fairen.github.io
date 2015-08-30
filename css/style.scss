@@ -164,6 +164,10 @@ h2 {
     background: $lightgrey;
     padding : $padding*4 0 $padding*7 0;
 }
+
+.instagram-wrap-white {
+    background: white;
+}
  
 .instagram-content {
     h3 {
@@ -206,6 +210,20 @@ h2 {
     }
 }
 
+.project-title{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-weight: 300;
+    font-size : 36px;
+    text-align: center;
+}
+
+.project-date{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-weight: 200;
+    font-size : 18px;
+    text-align: center;
+    text-transform : capitalize;
+}
 .photo-box {
     margin: 0 0 $margin*3 0;
 
@@ -254,10 +272,14 @@ h2 {
 }
 
 footer {
+    .icon-circle{
+        border-color: $grey;
+        color : $grey;
+    }
     background: $white;
     padding: $padding*3 0;
     text-align: center;
-    margin : $margin*10 0 0 0;
+    margin : $margin*1 0 0 0;
  
     @media screen and (min-width: $screen-lg) {
         padding: $padding*10 0;
@@ -336,4 +358,19 @@ footer {
 .curveGrey{
     fill: $lightgrey;      
     stroke: $lightgrey;
+}
+
+.curveWhite{
+    fill: white;      
+    stroke: white;
+}
+
+#map{
+    height : 500px;
+}
+
+.projects{
+    .items{
+        margin-top: $margin*7.5;
+    }
 }

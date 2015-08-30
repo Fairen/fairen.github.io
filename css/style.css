@@ -5403,6 +5403,9 @@ h2 {
   background: #eeeeee;
   padding: 40px 0 70px 0; }
 
+.instagram-wrap-white {
+  background: white; }
+
 .instagram-content h3 {
   text-transform: uppercase;
   letter-spacing: 0.5em;
@@ -5433,6 +5436,19 @@ h2 {
     text-align: center;
     padding: 25px 0;
     color: white; }
+
+.project-title {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 300;
+  font-size: 36px;
+  text-align: center; }
+
+.project-date {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 200;
+  font-size: 18px;
+  text-align: center;
+  text-transform: capitalize; }
 
 .photo-box {
   margin: 0 0 30px 0; }
@@ -5473,7 +5489,10 @@ footer {
   background: #FFF;
   padding: 30px 0;
   text-align: center;
-  margin: 100px 0 0 0; }
+  margin: 10px 0 0 0; }
+  footer .icon-circle {
+    border-color: #585c65;
+    color: #585c65; }
   @media screen and (min-width: 1200px) {
     footer {
       padding: 100px 0; } }
@@ -5536,5 +5555,15 @@ footer {
 .curveGrey {
   fill: #eeeeee;
   stroke: #eeeeee; }
+
+.curveWhite {
+  fill: white;
+  stroke: white; }
+
+#map {
+  height: 500px; }
+
+.projects .items {
+  margin-top: 75px; }
 
 /*# sourceMappingURL=style.css.map */
