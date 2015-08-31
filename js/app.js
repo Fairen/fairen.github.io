@@ -35,6 +35,46 @@
             });
           });
       }
+
+      $.fn.vparallax = function(options) {
+   
+          var windowHeight = $(window).height();
+   
+          // Establish default settings
+          var settings = $.extend({
+              speed        : 0.15,
+              way          : 'l'
+          }, options);
+   
+          // Iterate over each object in collection
+          return this.each( function() {
+   
+            // Save a reference to the element
+            var $this = $(this);
+   
+            // Set up Scroll Handler
+            $(document).scroll(function(){
+   
+                  var scrollTop = $(window).scrollTop();
+                        var offset = $this.offset().top;
+                        var height = $this.outerHeight();
+   
+            // Check if above or below viewport
+        if (offset + height <= scrollTop || offset >= scrollTop + windowHeight) {
+          return;
+        }
+   
+        var yBgPosition = Math.round((offset - scrollTop) * settings.speed);
+
+        if(settings.way === 'r'){
+            yBgPosition  = yBgPosition * (-1); 
+        }
+   
+            $this.css('transform', 'translate3d('+yBgPosition+'px, 0px, 0px)');
+                  
+            });
+          });
+      }
   }(jQuery));
 
 $(function() {
@@ -62,6 +102,16 @@ $(function() {
 
     $('.parallax-container').parallax({
         speed : .100
+    });
+
+    $('.vparallax-r').vparallax({
+        speed : .100,
+        way   : 'r'
+    });
+
+    $('.vparallax-l').vparallax({
+        speed : .100,
+        way   : 'l'
     });
 
     // When the window has finished loading create our google map below

@@ -23,6 +23,10 @@ $font-family-sans-serif: $main-font;
 
 @import 'bootstrap';
 
+body{
+    overflow-x : hidden;
+}
+
 /* Icons */
 .icon-circle{
     font-size: 100px;
@@ -271,6 +275,16 @@ h2 {
     background-attachment: fixed;
 }
 
+.work-image{
+    max-height: 650px;
+    height: 650px;
+    overflow: hidden;
+    background: url("../images/work.jpg");
+    background-repeat: repeat;
+    background-position: center 0px;
+    background-attachment: fixed;
+}
+
 footer {
     .icon-circle{
         border-color: $grey;
@@ -282,7 +296,7 @@ footer {
     margin : $margin*1 0 0 0;
  
     @media screen and (min-width: $screen-lg) {
-        padding: $padding*10 0;
+        padding: $padding*3 0;
     }
  
     h4 {
@@ -307,8 +321,9 @@ footer {
         width: 70%;
         padding: $padding*2 $padding*5;
         margin-top: $margin*2;
-        color: $white;
-        background: $grey;
+        color: lighten($grey, 20%);
+        background: $white;
+        border : 2px solid lighten($grey, 20%);
         font-size: 13px;
         letter-spacing: 1px;
         text-decoration: none;
@@ -324,7 +339,9 @@ footer {
         }
  
         &:hover {
-            background: lighten($grey, 5%);
+            background: lighten($grey, 20%);
+            border-color : lighten($grey, 20%);
+            color: $white;
         }
     }
 }
@@ -366,11 +383,41 @@ footer {
 }
 
 #map{
-    height : 500px;
+    height : 600px;
 }
 
 .projects{
     .items{
         margin-top: $margin*7.5;
     }
+}
+
+.work{
+    .items{
+        margin-top: $margin*10;
+        margin-bottom: $margin*5;
+        &:last-child{
+            margin-bottom: $margin*10;
+        }
+    }
+    .skill{
+        padding : 10% 0 0 0;
+        h3{
+            font-family: 'Yanone Kaffeesatz', sans-serif;
+            font-weight: 300;
+            font-size : 36px;
+            text-align: left;
+            letter-spacing : 0.2em;
+        }
+        p{
+            font-family: 'Yanone Kaffeesatz', sans-serif;
+            font-weight: 200;
+            font-size : 18px;
+            text-align: justify;
+        }
+    }
+}
+
+.vparallax-container{
+    padding : 0 $padding*10 0 $padding*10; 
 }
