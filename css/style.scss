@@ -23,9 +23,6 @@ $font-family-sans-serif: $main-font;
 
 @import 'bootstrap';
 
-body{
-    overflow-x : hidden;
-}
 
 /* Icons */
 .icon-circle{
@@ -43,6 +40,7 @@ body{
 }
  
 body {
+    overflow-x : hidden;
     color: $grey;
     font-size: $font-size;
 }
@@ -408,6 +406,7 @@ footer {
             font-size : 36px;
             text-align: left;
             letter-spacing : 0.2em;
+            color: $grey;
         }
         p{
             font-family: 'Yanone Kaffeesatz', sans-serif;

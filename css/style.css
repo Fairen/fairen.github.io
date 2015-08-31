@@ -5293,9 +5293,6 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
-body {
-  overflow-x: hidden; }
-
 /* Icons */
 .icon-circle {
   font-size: 100px;
@@ -5310,6 +5307,7 @@ body {
   box-sizing: border-box; }
 
 body {
+  overflow-x: hidden;
   color: #585c65;
   font-size: 16px; }
 
@@ -5593,7 +5591,8 @@ footer {
     font-weight: 300;
     font-size: 36px;
     text-align: left;
-    letter-spacing: 0.2em; }
+    letter-spacing: 0.2em;
+    color: #585c65; }
   .work .skill p {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     font-weight: 200;
