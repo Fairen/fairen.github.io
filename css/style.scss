@@ -23,6 +23,9 @@ $font-family-sans-serif: $main-font;
 
 @import 'bootstrap';
 
+.cursor-pointer{
+    cursor: pointer;
+}
 
 /* Icons */
 .icon-circle{
@@ -342,6 +345,61 @@ footer {
             color: $white;
         }
     }
+    .fa-twitter{
+            font-size: 36px;
+            border: 2px solid $grey;
+            border-radius: 30px;
+            padding: 6px 7px;
+            color: $white;
+            background-color: $grey;
+            vertical-align: bottom;
+            margin: 20px;
+    }
+    .fa-twitter:hover{
+            border: 2px solid #2daae4;
+            color: $white;
+            background-color: #2daae4;
+    }
+    .fa-github{
+            font-size: 61px;
+            line-height: 52px;
+            margin: 20px;
+            color: $grey;
+    }
+    .fa-github:hover{
+        color: #4078c0;
+    }
+    .fa-instagram{
+            font-size: 36px;
+            border: 2px solid $grey;
+            border-radius: 100px;
+            color: $white;
+            background-color: $grey;
+            padding: 6px 9px;
+            vertical-align: bottom;
+            margin: 20px;
+    }
+    .fa-instagram:hover{
+        border: 2px solid #125688;
+        color: $white;
+        background-color: #125688;
+    }
+    .fa-send{
+        font-size: 32px;
+        border: 2px solid $grey;
+        border-radius: 100px;
+        color: $white;
+        background-color: $grey;
+        padding: 8px 11px 8px 5px;
+        vertical-align: bottom;
+        margin: 20px;
+    }
+    .fa-send:hover{
+        border: 2px solid #2272b9;
+        color: $white;
+        background-color: #2272b9;
+    }
+
 }
 
 .footer-bottom {
@@ -380,6 +438,7 @@ footer {
     stroke: white;
 }
 
+#footer-block,
 #map{
     height : 600px;
 }
@@ -419,4 +478,13 @@ footer {
 
 .vparallax-container{
     padding : 0 $padding*10 0 $padding*10; 
+}
+
+.picture-row{
+    text-align: right;
+    margin-top: $margin*3;
+    img{
+        height: 80px;
+        width: auto;
+    }
 }

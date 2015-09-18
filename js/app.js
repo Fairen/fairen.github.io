@@ -6,7 +6,8 @@
    
           // Establish default settings
           var settings = $.extend({
-              speed        : 0.15
+              speed         : 0.15,
+              type          : 'background-position'
           }, options);
    
           // Iterate over each object in collection
@@ -30,7 +31,12 @@
         var yBgPosition = Math.round((offset - scrollTop) * settings.speed);
    
                           // Apply the Y Background Position to Set the Parallax Effect
-            $this.css('background-position', 'center ' + yBgPosition + 'px');
+              if(settings.type === "background-position"){
+
+                $this.css('background-position', 'center ' + yBgPosition + 'px');
+              }else{
+                $this.css('transform', 'translate3d(0px, 0px, '+yBgPosition+'px)');
+              }
                   
             });
           });
@@ -102,8 +108,8 @@ $(function() {
 
     $('.parallax-container').parallax({
         speed : .100
-    });
-
+    }); 
+    
     $('.vparallax-r').vparallax({
         speed : .100,
         way   : 'r'
