@@ -39,7 +39,7 @@ html .background:before, body .background:before {
   background-color: rgba(0, 0, 0, 0.3);
 }
 html .background:first-child, body .background:first-child {
-  background-image: url(img/marseille.jpg);
+  background-image: url(../img/marseille.jpg);
   -webkit-transform: translateY(-15vh);
           transform: translateY(-15vh);
 }
@@ -48,13 +48,13 @@ html .background:first-child .content-wrapper, body .background:first-child .con
           transform: translateY(15vh);
 }
 html .background:nth-child(2), body .background:nth-child(2) {
-  background-image: url(img/frontend.jpg);
+  background-image: url(../img/frontend.jpg);
 }
 html .background:nth-child(3), body .background:nth-child(3) {
-  background-image: url(img/backend.jpg);
+  background-image: url(../img/backend.jpg);
 }
 html .background:nth-child(4), body .background:nth-child(4) {
-  background-image: url(img/devops.jpg);
+  background-image: url(../img/devops.jpg);
   -webkit-box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
           box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
 }

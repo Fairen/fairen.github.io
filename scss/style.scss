@@ -45,20 +45,20 @@ html, body {
       background-color: rgba(0,0,0,.3);
     }
     &:first-child {
-      background-image: url(img/marseille.jpg);
+      background-image: url(../img/marseille.jpg);
       transform: translateY(-$parallax-offset / 2);
       .content-wrapper {
         transform: translateY($parallax-offset /2);
       }
     }
     &:nth-child(2) {
-      background-image: url(img/frontend.jpg);
+      background-image: url(../img/frontend.jpg);
     }
     &:nth-child(3) {
-      background-image: url(img/backend.jpg);
+      background-image: url(../img/backend.jpg);
     }
     &:nth-child(4) {
-      background-image: url(img/devops.jpg);
+      background-image: url(../img/devops.jpg);
       box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
     }
   }
