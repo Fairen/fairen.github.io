@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100");
+html, body {
+  overflow: hidden;
+  font-family: 'Roboto Mono', monospace;
+  background: #212121;
+  height: 100%;
+  /* Set stacking context of slides */
+}
+html a, body a {
+  style: none;
+  color: inherit;
+}
+html .background, body .background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow: hidden;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  height: 130vh;
+  position: fixed;
+  width: 100%;
+  -webkit-transform: translateY(30vh);
+          transform: translateY(30vh);
+  -webkit-transition: all 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+  transition: all 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+}
+html .background:before, body .background:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+html .background:first-child, body .background:first-child {
+  background-image: url(http://www.sra-architectes.com/wp-content/uploads/2011/09/Tour_cma_cgm_1_credits_Exmagina.jpg);
+  -webkit-transform: translateY(-15vh);
+          transform: translateY(-15vh);
+}
+html .background:first-child .content-wrapper, body .background:first-child .content-wrapper {
+  -webkit-transform: translateY(15vh);
+          transform: translateY(15vh);
+}
+html .background:nth-child(2), body .background:nth-child(2) {
+  background-image: url(https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg?cs=srgb&dl=business-computer-connection-450035.jpg&fm=jpg);
+}
+html .background:nth-child(3), body .background:nth-child(3) {
+  background-image: url(https://images.pexels.com/photos/716661/pexels-photo-716661.jpeg?cs=srgb&dl=black-and-white-blueprint-blur-716661.jpg&fm=jpg);
+}
+html .background:nth-child(4), body .background:nth-child(4) {
+  background-image: url(https://www.cmsattler.de/wp-content/uploads/2016/12/Claus_Michael_Sattler_Bau_und_Konsolidierung_von_Rechenzentren_2-1.jpg);
+  -webkit-box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+}
+html .background:nth-child(1), body .background:nth-child(1) {
+  z-index: 3;
+}
+html .background:nth-child(2), body .background:nth-child(2) {
+  z-index: 2;
+}
+html .background:nth-child(3), body .background:nth-child(3) {
+  z-index: 1;
+}
+html .content-wrapper, body .content-wrapper {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  color: #fff;
+  font-family: Montserrat;
+  text-transform: uppercase;
+  -webkit-transform: translateY(40vh);
+          transform: translateY(40vh);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
+  transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
+}
+html .content-title, body .content-title {
+  font-size: 12vh;
+  line-height: 1.4;
+}
+html .background.up-scroll, body .background.up-scroll {
+  -webkit-transform: translate3d(0, -15vh, 0);
+          transform: translate3d(0, -15vh, 0);
+}
+html .background.up-scroll .content-wrapper, body .background.up-scroll .content-wrapper {
+  -webkit-transform: translateY(15vh);
+          transform: translateY(15vh);
+}
+html .background.up-scroll + .background, body .background.up-scroll + .background {
+  -webkit-transform: translate3d(0, 30vh, 0);
+          transform: translate3d(0, 30vh, 0);
+}
+html .background.up-scroll + .background .content-wrapper, body .background.up-scroll + .background .content-wrapper {
+  -webkit-transform: translateY(30vh);
+          transform: translateY(30vh);
+}
+html .background.down-scroll, body .background.down-scroll {
+  -webkit-transform: translate3d(0, -130vh, 0);
+          transform: translate3d(0, -130vh, 0);
+}
+html .background.down-scroll .content-wrapper, body .background.down-scroll .content-wrapper {
+  -webkit-transform: translateY(40vh);
+          transform: translateY(40vh);
+}
+html .background.down-scroll + .background:not(.down-scroll), body .background.down-scroll + .background:not(.down-scroll) {
+  -webkit-transform: translate3d(0, -15vh, 0);
+          transform: translate3d(0, -15vh, 0);
+}
+html .background.down-scroll + .background:not(.down-scroll) .content-wrapper, body .background.down-scroll + .background:not(.down-scroll) .content-wrapper {
+  -webkit-transform: translateY(15vh);
+          transform: translateY(15vh);
+}
+html .nav-bar-icon, body .nav-bar-icon {
+  position: absolute;
+  right: 20px;
+  top: 220px;
+  line-height: 18px;
+}
+html .nav-bar-icon .menu-icon, body .nav-bar-icon .menu-icon {
+  color: white;
+  margin: 0 10px;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+html .container, body .container {
+  height: 100%;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+html .text, body .text {
+  font-weight: 100;
+  font-size: 28px;
+  color: #FAFAFA;
+}
+html .text .dud, body .text .dud {
+  color: #757575;
+}
