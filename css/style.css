@@ -39,7 +39,7 @@ html .background:before, body .background:before {
   background-color: rgba(0, 0, 0, 0.3);
 }
 html .background:first-child, body .background:first-child {
-  background-image: url(http://www.sra-architectes.com/wp-content/uploads/2011/09/Tour_cma_cgm_1_credits_Exmagina.jpg);
+  background-image: url(img/marseille.jpg);
   -webkit-transform: translateY(-15vh);
           transform: translateY(-15vh);
 }
@@ -48,13 +48,13 @@ html .background:first-child .content-wrapper, body .background:first-child .con
           transform: translateY(15vh);
 }
 html .background:nth-child(2), body .background:nth-child(2) {
-  background-image: url(https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg?cs=srgb&dl=business-computer-connection-450035.jpg&fm=jpg);
+  background-image: url(img/frontend.jpg);
 }
 html .background:nth-child(3), body .background:nth-child(3) {
-  background-image: url(https://images.pexels.com/photos/716661/pexels-photo-716661.jpeg?cs=srgb&dl=black-and-white-blueprint-blur-716661.jpg&fm=jpg);
+  background-image: url(img/backend.jpg);
 }
 html .background:nth-child(4), body .background:nth-child(4) {
-  background-image: url(https://www.cmsattler.de/wp-content/uploads/2016/12/Claus_Michael_Sattler_Bau_und_Konsolidierung_von_Rechenzentren_2-1.jpg);
+  background-image: url(img/devops.jpg);
   -webkit-box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
           box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
 }
