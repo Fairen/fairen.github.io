@@ -121,7 +121,7 @@ html, body {
   .nav-bar-icon{
     position: absolute;
     right: 20px;
-    top: 220px;
+    top: calc( 30vh + 20px);
     line-height: 18px;
     .menu-icon{
       color : white;
