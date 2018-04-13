@@ -52,6 +52,29 @@ function slideDurationTimeout(slideDuration) {
 // ------------- ADD EVENT LISTENER ------------- //
 var mousewheelEvent = isFirefox ? "DOMMouseScroll" : "wheel";
 window.addEventListener(mousewheelEvent, _.throttle(parallaxScroll, 60), false);
+var hammer = new Hammer(document.querySelector('.container'));
+hammer.on("panup",(evt) => {
+  if (ticking != true) {
+    //Down scroll
+    ticking = true;
+    if (currentSlideNumber !== totalSlideNumber - 1) {
+      currentSlideNumber++;
+      nextItem();
+    }
+    slideDurationTimeout(slideDurationSetting);
+  }
+});
+hammer.on("pandown",(evt) => {
+  if (ticking != true) {
+    //Up scroll
+    ticking = true;
+    if (currentSlideNumber !== 0) {
+      currentSlideNumber--;
+    }
+    previousItem();
+    slideDurationTimeout(slideDurationSetting);
+  }
+});
 
 // ------------- SLIDE MOTION ------------- //
 function nextItem() {
