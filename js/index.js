@@ -154,7 +154,7 @@ const phrases = [
   '    ',
   'I\'m Mathieu VACHER',
   '    ',
-  'I\'m a FullStack Developper at  @Viveris_techno',
+  'I\'m a FullStack Developper at  @ThalesGroup',
   '📍 Marseille',
   '    ',
   'Welcome to my portfolio',
