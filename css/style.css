@@ -140,10 +140,11 @@ html .background.down-scroll + .background:not(.down-scroll) .content-wrapper, b
           transform: translateY(15vh);
 }
 html .nav-bar-icon, body .nav-bar-icon {
-  position: absolute;
+  position: fixed;
   right: 20px;
-  top: calc( 30vh + 20px);
+  top: 20px;
   line-height: 18px;
+  z-index: 30;
 }
 html .nav-bar-icon .menu-icon, body .nav-bar-icon .menu-icon {
   color: white;
@@ -176,8 +177,5 @@ html .text .dud, body .text .dud {
 @media (max-width:480px)  {
   html .content-title, body .content-title {
     font-size: 6vh;
-  }
-  html .nav-bar-icon, body .nav-bar-icon {
-    top: calc( 30vh + 35px);
   }
 }
