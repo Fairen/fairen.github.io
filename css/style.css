@@ -173,3 +173,8 @@ html .text, body .text {
 html .text .dud, body .text .dud {
   color: #757575;
 }
+@media (max-width:480px)  {
+  html .content-title, body .content-title {
+    font-size: 6vh;
+  }
+}
