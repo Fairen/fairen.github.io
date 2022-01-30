@@ -177,4 +177,7 @@ html .text .dud, body .text .dud {
   html .content-title, body .content-title {
     font-size: 6vh;
   }
+  html .nav-bar-icon, body .nav-bar-icon {
+    top: calc( 30vh + 35px);
+  }
 }
