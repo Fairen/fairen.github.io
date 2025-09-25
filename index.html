@@ -1,161 +1,663 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Développeur Full Stack</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Section Header + About en pleine hauteur -->
+    <div class="fullscreen-section header-section" id="section-home">
+        <div class="container">
+            <header>
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="logo_custom.svg" alt="Logo" class="logo" />
+                </div>
+                
+                <h1 class="hero-title">Développeur Full Stack</h1>
+                <p class="hero-subtitle">Architecte de solutions digitales innovantes</p>
+                
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="social-link" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://codewars.com" target="_blank" class="social-link" aria-label="Codewars">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M1.072.142A1.072 1.072 0 0 0 0 1.214v21.572a1.072 1.072 0 0 0 1.072 1.072h21.856A1.072 1.072 0 0 0 24 22.786V1.214A1.072 1.072 0 0 0 22.928.142zm9.736 1.818a.904.904 0 0 1 .828.539.784.784 0 0 1 1.274.493.639.639 0 0 1 .29-.06c.33.008.59.262.625.582a.663.663 0 0 1 .911.78.668.668 0 0 1 .96.693.668.668 0 0 1 .572.693.664.664 0 0 1 .296 1.13.667.667 0 0 1 .008 1.116.667.667 0 0 1-.15 1.078.639.639 0 0 1-.02.879.784.784 0 0 1-.452 1.42.904.904 0 0 1-.357 1.002.98.98 0 0 1-.865.485 1.016 1.016 0 0 1-.657.218 1.016 1.016 0 0 1-.657-.218.98.98 0 0 1-.865-.485.904.904 0 0 1-.357-1.002.784.784 0 0 1-.452-1.42.639.639 0 0 1-.02-.88.667.667 0 0 1-.15-1.077.667.667 0 0 1 .008-1.116.664.664 0 0 1 .297-1.13.668.668 0 0 1 .571-.694.668.668 0 0 1 .96-.692.663.663 0 0 1 .912-.78.639.639 0 0 1 .625-.582c.1.002.2.026.29.06a.784.784 0 0 1 1.274-.493.904.904 0 0 1 .828-.54z"/>
+                        </svg>
+                    </a>
+                </div>
+            </header>
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Mathieu V. Portfolio">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    
-    <title>Portfolio - Mathieu V.</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-  </head>
-
-  <body>
-    <div class="nav-bar-icon">
-        <a 
-          class="fab fa-github menu-icon" 
-          href="http://github.com/Fairen" 
-          target="_blank">
-      </a>
-      <a 
-        class="fab fa-linkedin menu-icon"          
-        href="https://fr.linkedin.com/in/mathieu-vacher-8143b654"      
-        target="_blank">
-      </a>
-        <a 
-          class="fab fa-twitter-square menu-icon" 
-          href="http://twitter.com/mathvacher" 
-          target="_blank">
-      </a>
-  </div>  
-    <div class="container">
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">
-            <div class="container">
-              <div class="text"></div>
-            </div>
-          </p>
+            <section class="about-section">
+                <h2 class="section-title">À Propos</h2>
+                <p class="about-text">
+                    Passionné par le développement web et les nouvelles technologies, je combine expertise technique et vision créative pour concevoir des solutions digitales performantes et innovantes. Mon approche full-stack me permet d'avoir une vision globale des projets, de l'architecture backend à l'expérience utilisateur.
+                </p>
+            </section>
         </div>
-      </section>
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">Front-End</p>
-          <br/>
-          <br/>
-          <br/>
-          <p class="content-subtitle">
-            Angular Lead Dev 
-            <br/>
-            <br/>
-            <br/>
-            TypeScript - ES2022 - NgXs
-            <br />
-            <br />
-            <br />
-            Nx - React - Electron
-            <br/>
-            <br/>
-            <br/>
-            SASS - Stylus - Material Guidelines
-            <br/>
-            <br/>
-            <br/>
-            Have a look at some of my <a href="https://dev.to/fairen/create-an-angular-application-4opl"> articles.</a>
-          </p>
+        
+        <!-- Logo fixe pour la navigation -->
+        <div class="logo-fixed" id="fixedLogo">
+            <img src="logo_custom.svg" alt="Logo" class="logo" />
         </div>
-      </section>
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">Back-End</p>
-          <br/>
-          <br/>
-          <br/>
-          <p class="content-subtitle">
-            SpringBoot - NodeJs - Golang
-            <br/>
-            <br/>
-            <br/>
-            GraphQL - ELK
-            <br/>
-            <br/>
-            <br/>
-            Neo4J - MySQL - SQLite - MongoDB
-          </p>
+        
+        <!-- Flèche de navigation vers la section suivante -->
+        <div class="scroll-arrow scroll-arrow-home" onclick="scrollToNextSection('section-skills')">
+            <svg viewBox="0 0 24 24" class="arrow-icon">
+                <path d="M12 16l-6-6h12z"/>
+            </svg>
+            <span class="scroll-text">Voir mes compétences</span>
         </div>
-      </section>
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">Devops</p>
-          <br/>
-          <br/>
-          <br/>
-          <p class="content-subtitle">
-            Git - Ansible - SVN
-            <br/>
-            <br/>
-            <br/>
-            Jenkins - Gitlab-CI - Travis - XLR/XLD
-            <br/>
-            <br/>
-            <br/>
-            Docker - NPM 
-          </p>
-        </div>
-      </section>
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">Cloud</p>
-          <br/>
-          <br/>
-          <br/>
-          <p class="content-subtitle">
-            AWS - Certified Cloud Practioner 
-            <br/>
-            <br/>
-            <br/>
-            Kubernetes
-            <br/>
-            <br/>
-            <br/>
-          </p>
-        </div>
-      </section>
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">Web 3</p>
-          <br/>
-          <br/>
-          <br/>
-          <p class="content-subtitle">
-            Solidity
-            <br/>
-            <br/>
-            <br/>
-            Web3.js
-            <br/>
-            <br/>
-            <br/>
-          </p>
-        </div>
-      </section>
     </div>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js'></script>
-    <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112601100-1"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
-    <script  src="js/index.js"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-112601100-1');
-    </script>
-  </body>
 
+    <!-- Section Skills en pleine hauteur -->
+    <div class="fullscreen-section" id="section-skills">
+        <div class="container">
+            <section class="skills-section">
+                <h2 class="section-title">Compétences Techniques</h2>
+                <p class="instruction-text">Cliquez sur un segment du diagramme pour découvrir les technologies associées</p>
+                <div class="radar-container">
+                    <canvas id="radarCanvas"></canvas>
+                </div>
+                
+                <div id="techDetails" class="tech-details">
+                    <h3 id="techTitle" class="tech-title"></h3>
+                    <div id="techList" class="tech-list"></div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Flèche de navigation vers la section suivante -->
+        <div class="scroll-arrow scroll-arrow-skills" onclick="scrollToNextSection('section-timeline')">
+            <svg viewBox="0 0 24 24" class="arrow-icon">
+                <path d="M12 16l-6-6h12z"/>
+            </svg>
+            <span class="scroll-text">Découvrir mon parcours</span>
+        </div>
+    </div>
+
+    <!-- Section Timeline en pleine hauteur -->
+    <div class="fullscreen-section" id="section-timeline">
+        <div class="container">
+            <section class="timeline-section">
+                <h2 class="section-title">Mon Parcours</h2>
+                <p class="instruction-text">De l'école d'ingénieur à aujourd'hui</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="timeline-item" data-year="2013">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2013</div>
+                            <h3 class="timeline-title">EISTI</h3>
+                            <h3 class="timeline-role">Diplôme d'Ingénieur</h3>
+                            <p class="timeline-description">Obtention d'un diplôme d'ingénieur en Informatique et Mathématiques</p>
+                            <div class="timeline-tags">
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Option Cloud Computing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" data-year="2013-2015">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2013 - 2015</div>
+                            <h3 class="timeline-title">Viveris Technologies</h3>
+                            <p class="timeline-role">Développeur Full Stack</p>
+                            <p class="timeline-description">Développement d'applications Front-End et Back-End</p>
+                            <div class="timeline-tags">
+                                <div class="timeline-clients">
+                                    <span class="client-tag">Airbus Defense and Space</span>
+                                    <span class="client-tag">Cegedim</span>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">AngularJS</span>
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Spring Boot</span>
+                                    <span class="tech-tag">H2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" data-year="2015-2018">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2015 - 2018</div>
+                            <h3 class="timeline-title">Viveris Technologies</h3>
+                            <p class="timeline-role">Lead Developper Front</p>
+                            <p class="timeline-description">Encadrement d'équipe et de developpement d'applications full stack</p>
+                            <div class="timeline-tags">
+                                <div class="timeline-clients">
+                                    <span class="client-tag">Airbus Defense and Space</span>
+                                    <span class="client-tag">Thales</span>
+                                    <span class="client-tag">M3 Systems</span>
+                                    <span class="client-tag">ALSTOM</span>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Angular 2+</span>
+                                    <span class="tech-tag">D3.js</span>
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Spring Boot</span>
+                                    <span class="tech-tag">Golang</span>
+                                    <span class="tech-tag">Docker</span>
+                                    <span class="tech-tag">Jenkins</span>
+                                    <span class="tech-tag">SQLite</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" data-year="2018-now">
+                        <div class="timeline-dot active"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2018 - Aujourd'hui</div>
+                            <h3 class="timeline-title">Thales Services Numériques</h3>
+                            <p class="timeline-role">Technical Leader</p>
+                            <p class="timeline-description">Architecture et développement de solutions digitales innovantes pour le secteur bancaire</p>
+                            <div class="timeline-tags">
+                                <div class="timeline-clients">
+                                    <span class="client-tag">IT-CE</span>
+                                    <span class="client-tag">BPI France</span>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Angular</span>
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Nx</span>
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Spring Boot</span>
+                                    <span class="tech-tag">PostgreSQL</span>
+                                    <span class="tech-tag">Kubernetes</span>
+                                    <span class="tech-tag">Docker</span>
+                                    <span class="tech-tag">AWS</span>
+                                    <span class="tech-tag">Terraform</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DONNÉES DES COMPÉTENCES ====================
+        const skills = [
+            { name: 'Front', value: 9, color: '#ff6b35' },
+            { name: 'Back', value: 7, color: '#8e44ad' },
+            { name: 'BDD', value: 7, color: '#e91e63' },
+            { name: 'DevSecOps', value: 6, color: '#9c27b0' },
+            { name: 'IA', value: 4, color: '#ff6b35' },
+            { name: 'Cyber', value: 2, color: '#ff8c5a' },
+        ];
+
+        const techDetails = {
+            'Front': ['React', 'Angular (v1-20)', 'Module Federation', 'Angular Schematics', 'Nx', 'Tailwind', 'NGXS'],
+            'Back': ['Java', 'SpringBoot', 'Golang', 'Python', 'NodeJS'],
+            'BDD': ['Neo4j', 'PostgreSQL', 'MySQL', 'SQLite', 'MongoDB'],
+            'DevSecOps': ['Git', 'Ansible', 'Jenkins', 'GitLab CI', 'npm', 'Terraform', 'AWS', 'Docker', 'Kubernetes'],
+            'IA': ['PyTorch', 'MCP', 'Prompting', 'Fine Tuning'],
+            'Cyber': ['Nexus', 'OWASP']
+        };
+
+        let selectedSkill = null;
+
+        // ==================== NAVIGATION PAR FLÈCHE ====================
+        function scrollToNextSection(targetSectionId) {
+            const targetSection = document.getElementById(targetSectionId);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Gestion de l'affichage des flèches selon la section visible
+        function updateArrowVisibility() {
+            const homeArrow = document.querySelector('.scroll-arrow-home');
+            const skillsArrow = document.querySelector('.scroll-arrow-skills');
+            
+            if (!homeArrow || !skillsArrow) return;
+            
+            const scrollPosition = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            
+            // Calculer les positions des sections
+            const homeSection = document.getElementById('section-home');
+            const skillsSection = document.getElementById('section-skills');
+            const timelineSection = document.getElementById('section-timeline');
+            
+            const homeSectionTop = homeSection.offsetTop;
+            const skillsSectionTop = skillsSection.offsetTop;
+            const timelineSectionTop = timelineSection.offsetTop;
+            
+            // Masquer toutes les flèches par défaut
+            homeArrow.style.display = 'none';
+            skillsArrow.style.display = 'none';
+            
+            // Afficher la flèche appropriée selon la section visible
+            if (scrollPosition < skillsSectionTop - windowHeight/3) {
+                // Dans la section home
+                homeArrow.style.display = 'flex';
+            } else if (scrollPosition < timelineSectionTop - windowHeight/3) {
+                // Dans la section skills
+                skillsArrow.style.display = 'flex';
+            }
+            // Dans la timeline section, aucune flèche n'est affichée
+        }
+
+        // Gestion du logo fixe
+        function updateFixedLogo() {
+            const fixedLogo = document.getElementById('fixedLogo');
+            const homeSection = document.getElementById('section-home');
+            const scrollPosition = window.pageYOffset;
+            const homeSectionBottom = homeSection.offsetTop + homeSection.offsetHeight;
+            
+            if (scrollPosition > homeSectionBottom - 100) {
+                fixedLogo.classList.add('visible');
+            } else {
+                fixedLogo.classList.remove('visible');
+            }
+        }
+
+        // Gestionnaire de clic sur le logo fixe pour retourner en haut
+        function initFixedLogoClick() {
+            const fixedLogo = document.getElementById('fixedLogo');
+            const homeSection = document.getElementById('section-home');
+            
+            if (fixedLogo && homeSection) {
+                fixedLogo.addEventListener('click', function() {
+                    homeSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            }
+        }
+
+        // ==================== SCROLL SNAP AVEC INTERSECTION OBSERVER ====================
+        class SectionSnapScroller {
+            constructor() {
+                this.sections = document.querySelectorAll('.fullscreen-section');
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+                this.currentSection = 0;
+                this.isInTimelineSection = false;
+                this.timelineSection = document.getElementById('section-timeline');
+                this.init();
+            }
+
+            init() {
+                this.setupIntersectionObserver();
+                this.setupScrollListener();
+                this.setupKeyboardNavigation();
+                this.setupTouchNavigation();
+            }
+
+            setupIntersectionObserver() {
+                const options = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.5 // Section considérée comme active quand 50% visible
+                };
+
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const sectionIndex = Array.from(this.sections).indexOf(entry.target);
+                            this.currentSection = sectionIndex;
+                            
+                            // Vérifier si on est dans la section timeline
+                            this.isInTimelineSection = entry.target.id === 'section-timeline';
+                        }
+                    });
+                }, options);
+
+                this.sections.forEach(section => {
+                    this.observer.observe(section);
+                });
+            }
+
+            setupScrollListener() {
+                let scrollEndTimer;
+                
+                window.addEventListener('scroll', () => {
+                    // Mettre à jour la visibilité des flèches
+                    updateArrowVisibility();
+                    
+                    // Mettre à jour l'affichage du logo fixe
+                    updateFixedLogo();
+                    
+                    if (this.isScrolling) return;
+                    
+                    // Ne pas faire de snap si on est dans la timeline section
+                    if (this.isInTimelineSection) return;
+
+                    clearTimeout(scrollEndTimer);
+                    scrollEndTimer = setTimeout(() => {
+                        this.snapToNearestSection();
+                    }, 150); // Attendre 150ms après la fin du scroll
+                }, { passive: true });
+            }
+
+            setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    // Si on est dans la timeline, permettre le scroll libre avec les flèches
+                    if (this.isInTimelineSection) {
+                        switch(e.key) {
+                            case 'ArrowUp':
+                            case 'PageUp':
+                                // Seulement intercepter si on est tout en haut de la timeline
+                                const timelineTop = this.timelineSection.offsetTop;
+                                if (window.pageYOffset <= timelineTop + 50) {
+                                    e.preventDefault();
+                                    this.scrollToSection(this.currentSection - 1);
+                                }
+                                break;
+                            case 'Home':
+                                e.preventDefault();
+                                this.scrollToSection(0);
+                                break;
+                            // Laisser ArrowDown, PageDown, End et Space fonctionner normalement
+                        }
+                        return;
+                    }
+
+                    // Navigation normale pour les autres sections
+                    switch(e.key) {
+                        case 'ArrowDown':
+                        case 'PageDown':
+                        case ' ': // Barre d'espace
+                            e.preventDefault();
+                            this.scrollToSection(this.currentSection + 1);
+                            break;
+                        case 'ArrowUp':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.scrollToSection(this.currentSection - 1);
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            this.scrollToSection(0);
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            this.scrollToSection(this.sections.length - 1);
+                            break;
+                    }
+                });
+            }
+
+            setupTouchNavigation() {
+                let startY = 0;
+                let endY = 0;
+
+                document.addEventListener('touchstart', (e) => {
+                    startY = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    // Ne pas intercepter les swipes dans la timeline section
+                    if (this.isInTimelineSection) {
+                        // Seulement intercepter le swipe vers le haut si on est tout en haut de la timeline
+                        endY = e.changedTouches[0].clientY;
+                        const diff = startY - endY;
+                        
+                        if (diff < -50) { // Swipe down
+                            const timelineTop = this.timelineSection.offsetTop;
+                            if (window.pageYOffset <= timelineTop + 50) {
+                                this.scrollToSection(this.currentSection - 1);
+                            }
+                        }
+                        return;
+                    }
+
+                    endY = e.changedTouches[0].clientY;
+                    const diff = startY - endY;
+                    
+                    // Minimum 50px de swipe pour déclencher
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            // Swipe up = section suivante
+                            this.scrollToSection(this.currentSection + 1);
+                        } else {
+                            // Swipe down = section précédente
+                            this.scrollToSection(this.currentSection - 1);
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            snapToNearestSection() {
+                // Ne pas faire de snap si on est dans la timeline section
+                if (this.isInTimelineSection) return;
+
+                const scrollTop = window.pageYOffset;
+                let closestSection = 0;
+                let minDistance = Infinity;
+
+                this.sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop;
+                    const distance = Math.abs(scrollTop - sectionTop);
+                    
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestSection = index;
+                    }
+                });
+
+                // Seulement snap si on n'est pas déjà proche de la bonne position
+                if (minDistance > 50) {
+                    this.scrollToSection(closestSection);
+                }
+            }
+
+            scrollToSection(index) {
+                if (index < 0 || index >= this.sections.length) return;
+                
+                this.isScrolling = true;
+                this.currentSection = index;
+                
+                this.sections[index].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Réactiver le scroll après l'animation
+                setTimeout(() => {
+                    this.isScrolling = false;
+                }, 1000);
+            }
+        }
+
+        // ==================== RADAR CHART ====================
+        function drawRadar() {
+            const canvas = document.getElementById('radarCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            const size = Math.min(window.innerWidth - 40, 400);
+            canvas.width = size;
+            canvas.height = size;
+            
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const maxRadius = size / 2 - 40;
+            const levels = 5;
+            
+            ctx.clearRect(0, 0, size, size);
+            
+            // Cercles concentriques
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= levels; i++) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, (maxRadius / levels) * i, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // Lignes radiales et labels
+            const angleStep = (Math.PI * 2) / skills.length;
+            
+            skills.forEach((skill, index) => {
+                const angle = angleStep * index - Math.PI / 2;
+                const x = centerX + Math.cos(angle) * maxRadius;
+                const y = centerY + Math.sin(angle) * maxRadius;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.stroke();
+                
+                const labelX = centerX + Math.cos(angle) * (maxRadius + 25);
+                const labelY = centerY + Math.sin(angle) * (maxRadius + 25);
+                
+                ctx.font = '14px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto';
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(skill.name, labelX, labelY);
+            });
+            
+            // Polygone des compétences
+            ctx.beginPath();
+            skills.forEach((skill, index) => {
+                const angle = angleStep * index - Math.PI / 2;
+                const radius = (skill.value / 10) * maxRadius;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.closePath();
+            
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
+            gradient.addColorStop(0, 'rgba(255, 107, 53, 0.3)');
+            gradient.addColorStop(1, 'rgba(142, 68, 173, 0.1)');
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            ctx.strokeStyle = '#ff6b35';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Points interactifs
+            skills.forEach((skill, index) => {
+                const angle = angleStep * index - Math.PI / 2;
+                const radius = (skill.value / 10) * maxRadius;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = skill.color;
+                ctx.fill();
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+            
+            // Gestion des clics
+            canvas.onclick = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                skills.forEach((skill, index) => {
+                    const angle = angleStep * index - Math.PI / 2;
+                    const radius = (skill.value / 10) * maxRadius;
+                    const pointX = centerX + Math.cos(angle) * radius;
+                    const pointY = centerY + Math.sin(angle) * radius;
+                    
+                    const distance = Math.sqrt(Math.pow(x - pointX, 2) + Math.pow(y - pointY, 2));
+                    
+                    if (distance < 30) {
+                        showTechDetails(skill.name);
+                    }
+                });
+            };
+        }
+
+        function showTechDetails(skillName) {
+            const detailsDiv = document.getElementById('techDetails');
+            const titleDiv = document.getElementById('techTitle');
+            const listDiv = document.getElementById('techList');
+            
+            if (selectedSkill === skillName) {
+                detailsDiv.classList.remove('active');
+                selectedSkill = null;
+                return;
+            }
+            
+            selectedSkill = skillName;
+            titleDiv.textContent = skillName;
+            listDiv.innerHTML = '';
+            
+            techDetails[skillName].forEach(tech => {
+                const badge = document.createElement('div');
+                badge.className = 'tech-badge';
+                badge.textContent = tech;
+                listDiv.appendChild(badge);
+            });
+            
+            detailsDiv.classList.add('active');
+        }
+
+        // ==================== INITIALISATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialiser le scroll snap
+            new SectionSnapScroller();
+            
+            // Initialiser le radar
+            drawRadar();
+            window.addEventListener('resize', drawRadar);
+            
+            // Initialiser la visibilité des flèches
+            setTimeout(updateArrowVisibility, 100); // Petit délai pour s'assurer que les éléments sont rendus
+            
+            // Initialiser le logo fixe et son gestionnaire de clic
+            setTimeout(updateFixedLogo, 100);
+            initFixedLogoClick();
+            
+            // Écouter les événements de scroll pour mettre à jour les flèches et le logo
+            window.addEventListener('scroll', () => {
+                updateArrowVisibility();
+                updateFixedLogo();
+            });
+            
+            // Animation timeline au scroll
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            timelineItems.forEach(item => {
+                timelineObserver.observe(item);
+            });
+        });
+    </script>
+</body>
 </html>

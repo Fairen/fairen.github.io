@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 60 236 116" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Dégradés basés sur votre charte graphique -->
+        <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#e91e63;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#9c27b0;stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8e44ad;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff8c5a;stop-opacity:1" />
+        </linearGradient>
+        
+        <!-- Filtre pour l'effet de glow -->
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        
+        <!-- Ombre portée -->
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="2" dy="2" stdDeviation="4" flood-color="#1a1a1a" flood-opacity="0.4"/>
+        </filter>
+    </defs>
+    
+    <!-- Conversion des formes vectorielles avec vos couleurs -->
+    <g transform="translate(0,236) scale(0.1,-0.1)" filter="url(#shadow)">
+        <!-- Première forme - Gradient principal -->
+        <path d="M1441 1296 c-62 -63 -89 -96 -81 -101 8 -5 43 23 97 76 80 80 85 83
+99 64 8 -10 98 -104 201 -207 153 -155 189 -186 199 -176 11 11 -25 52 -198
+226 -117 116 -215 212 -218 212 -3 0 -47 -42 -99 -94z" 
+              fill="url(#primaryGradient)" 
+              stroke="none"/>
+        
+        <!-- Deuxième forme - Gradient secondaire -->
+        <path d="M500 1165 l215 -215 205 205 205 205 205 -205 c112 -112 206 -202
+209 -199 3 2 -89 99 -204 214 l-210 210 -208 -207 -207 -208 -207 208 c-113
+114 -209 207 -212 207 -3 0 91 -97 209 -215z" 
+              fill="url(#secondaryGradient)" 
+              stroke="none"/>
+        
+        <!-- Troisième forme - Couleur accent -->
+        <path d="M984 1149 c-105 -104 -147 -152 -139 -159 15 -13 314 285 300 299 -7
+7 -62 -42 -161 -140z" 
+              fill="url(#accentGradient)" 
+              stroke="none"/>
+    </g>
+</svg>
