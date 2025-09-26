@@ -2,16 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - A little bit about me</title>
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Meta tags pour optimiser l'affichage mobile -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Portfolio">
-    <meta name="format-detection" content="telephone=no">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -20,45 +13,6 @@
     <!-- Meta tags pour les favicons Apple et Android -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg">
     <meta name="theme-color" content="#1a1a1a">
-    
-    <!-- CSS pour gérer la barre d'URL mobile -->
-    <style>
-        /* Force le masquage de la barre d'URL sur mobile */
-        @media screen and (max-width: 768px) {
-            html {
-                /* Utilise la hauteur dynamique du viewport */
-                height: 100vh;
-                height: 100dvh; /* Dynamic Viewport Height - iOS Safari */
-            }
-            
-            body {
-                /* Assure que le body prend toute la hauteur disponible */
-                min-height: 100vh;
-                min-height: 100dvh;
-                position: relative;
-                
-                /* Force le scroll pour masquer la barre d'URL */
-                overflow-x: hidden;
-            }
-            
-            /* Ajuste les sections pleine hauteur pour mobile */
-            .fullscreen-section {
-                min-height: 100vh;
-                min-height: 100dvh; /* Pour iOS Safari */
-                height: 100vh;
-                height: 100dvh;
-            }
-        }
-        
-        /* Support pour les anciens navigateurs */
-        @supports not (height: 100dvh) {
-            @media screen and (max-width: 768px) {
-                .fullscreen-section {
-                    min-height: calc(100vh - env(keyboard-inset-height, 0px));
-                }
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Section Header + About en pleine hauteur -->
@@ -859,26 +813,6 @@
 
         // ==================== INITIALISATION ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // Force le masquage de la barre d'URL sur mobile
-            function hideAddressBar() {
-                if (window.innerWidth <= 768 && 'scrollTo' in window) {
-                    // Petit scroll pour forcer le masquage de la barre d'URL
-                    window.scrollTo(0, 1);
-                    // Retour en haut après un court délai
-                    setTimeout(() => {
-                        window.scrollTo(0, 0);
-                    }, 10);
-                }
-            }
-            
-            // Masquer la barre d'URL au chargement
-            hideAddressBar();
-            
-            // Masquer aussi lors des changements d'orientation
-            window.addEventListener('orientationchange', () => {
-                setTimeout(hideAddressBar, 100);
-            });
-            
             // Initialiser le scroll snap
             new SectionSnapScroller();
             
