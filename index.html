@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Développeur Full Stack</title>
+    <title>Portfolio - A little bit about me</title>
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='primaryGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ff6b35;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%23e91e63;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%239c27b0;stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='secondaryGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238e44ad;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ff6b35;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' ry='6' fill='%231a1a1a'/%3E%3Cpath d='M8 12 L16 8 L24 12 L20 16 L16 12 L12 16 Z' fill='url(%23primaryGradient)' opacity='0.9'/%3E%3Cpath d='M12 16 L16 20 L20 16 L24 20 L16 24 L8 20 Z' fill='url(%23secondaryGradient)' opacity='0.8'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ff6b35' opacity='1'/%3E%3C/svg%3E">
+    
+    <!-- Meta tags pour les favicons Apple et Android -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg">
+    <meta name="theme-color" content="#1a1a1a">
 </head>
 <body>
     <!-- Section Header + About en pleine hauteur -->
@@ -310,21 +318,30 @@
                 this.currentSection = 0;
                 this.isInTimelineSection = false;
                 this.timelineSection = document.getElementById('section-timeline');
+                this.isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
                 this.init();
             }
 
             init() {
                 this.setupIntersectionObserver();
                 this.setupScrollListener();
-                this.setupKeyboardNavigation();
+                // Désactiver complètement la navigation au clavier et tactile sur mobile
+                if (!this.isMobile) {
+                    this.setupKeyboardNavigation();
+                }
                 this.setupTouchNavigation();
+                
+                // Écouter les changements de taille d'écran
+                window.addEventListener('resize', () => {
+                    this.isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+                });
             }
 
             setupIntersectionObserver() {
                 const options = {
                     root: null,
                     rootMargin: '0px',
-                    threshold: 0.5 // Section considérée comme active quand 50% visible
+                    threshold: this.isMobile ? 0.3 : 0.5 // Seuil plus bas sur mobile pour une meilleure détection
                 };
 
                 this.observer = new IntersectionObserver((entries) => {
@@ -335,6 +352,11 @@
                             
                             // Vérifier si on est dans la section timeline
                             this.isInTimelineSection = entry.target.id === 'section-timeline';
+                            
+                            // Sur mobile, désactiver immédiatement tout snap si on entre dans la timeline
+                            if (this.isMobile && this.isInTimelineSection) {
+                                this.isScrolling = false; // S'assurer qu'aucun snap n'est en cours
+                            }
                         }
                     });
                 }, options);
@@ -355,6 +377,9 @@
                     updateFixedLogo();
                     
                     if (this.isScrolling) return;
+                    
+                    // Sur mobile, désactiver complètement le snap dans la timeline
+                    if (this.isMobile && this.isInTimelineSection) return;
                     
                     // Ne pas faire de snap si on est dans la timeline section
                     if (this.isInTimelineSection) return;
@@ -415,6 +440,9 @@
             }
 
             setupTouchNavigation() {
+                // Sur mobile, on désactive le touch navigation pour éviter les conflits
+                if (this.isMobile) return;
+                
                 let startY = 0;
                 let endY = 0;
 
