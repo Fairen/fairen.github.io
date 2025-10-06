@@ -34,6 +34,11 @@
             }
         };
 
+        // Variables pour gérer le focus et le debounce
+        var debounceTimer = null;
+        var lastFocusedElement = null;
+        var lastCursorPosition = 0;
+
         function setActiveSection(section) {
             state.activeSection = section;
             render();
@@ -46,8 +51,52 @@
         }
 
         function updateInputText(value) {
+            // Sauvegarder l'élément actif et la position du curseur
+            var activeElement = document.activeElement;
+            if (activeElement && activeElement.tagName === 'INPUT') {
+                lastFocusedElement = activeElement.id || 'tokenInput';
+                lastCursorPosition = activeElement.selectionStart || 0;
+            }
+
+            // Mettre à jour l'état immédiatement
             state.inputText = value;
-            render();
+
+            // Mettre à jour l'affichage des tokens immédiatement (léger, sans full render)
+            var tokenDisplay = document.getElementById('tokenDisplay');
+            if (tokenDisplay) {
+                var words = value.split(' ');
+                var html = '';
+                for (var i = 0; i < words.length; i++) {
+                    if (words[i]) {
+                        html += '<span class="bg-blue-600/30 border border-blue-500/50 px-3 py-1 rounded text-sm">' + words[i] + '</span>';
+                    }
+                }
+                tokenDisplay.innerHTML = html;
+            }
+
+            // Annuler le timer précédent
+            if (debounceTimer) {
+                clearTimeout(debounceTimer);
+            }
+
+            // Attendre 500ms avant de rafraîchir complètement (pour recalculer les probabilités, etc.)
+            debounceTimer = setTimeout(function() {
+                render();
+            }, 500);
+        }
+
+        function restoreFocus() {
+            // Restaurer le focus après un court délai
+            setTimeout(function() {
+                var input = document.getElementById('tokenInput');
+                if (input && lastFocusedElement === 'tokenInput') {
+                    input.focus();
+                    // Restaurer la position du curseur
+                    if (lastCursorPosition !== undefined) {
+                        input.setSelectionRange(lastCursorPosition, lastCursorPosition);
+                    }
+                }
+            }, 10);
         }
 
         function renderHeader() {
@@ -97,27 +146,142 @@
             var html = '<div class="space-y-6 animate-in"><div class="bg-slate-800/50 backdrop-blur rounded-xl p-4 md:p-6 border border-slate-700">';
             html += '<h2 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">';
             html += '<span class="text-yellow-400">⚡</span>';
-            html += lang === 'fr' ? '1. Tokenisation et Prédiction' : '1. Tokenization and Prediction';
+            html += lang === 'fr' ? '1. Tokenisation et Prédiction : Le Langage des LLM' : '1. Tokenization and Prediction: The Language of LLMs';
             html += '</h2>';
+
+            html += '<p class="text-slate-300 mb-6 text-sm md:text-base">';
+            html += lang === 'fr' ? 
+                "Les LLM ne comprennent pas le texte comme nous. Ils découpent d'abord tout en <strong>tokens</strong> - des morceaux de mots qui sont leur unité de base. C'est comme l'alphabet pour les humains, mais plus flexible." :
+                "LLMs don't understand text like we do. They first break everything into <strong>tokens</strong> - word pieces that are their basic unit. It's like the alphabet for humans, but more flexible.";
+            html += '</p>';
+
+            html += '<div class="bg-purple-900/30 border border-purple-500/30 rounded-lg p-4 mb-6">';
+            html += '<p class="text-sm font-bold mb-2">🔍 ';
+            html += lang === 'fr' ? "Qu'est-ce qu'un token exactement ?" : 'What exactly is a token?';
+            html += '</p>';
+            html += '<p class="text-xs md:text-sm text-slate-300 mb-3">';
+            html += lang === 'fr' ?
+                "Un token est une unité de texte qui peut être : un mot entier, une partie de mot, un caractère, ou même un espace. Le modèle apprend à découper intelligemment le texte selon la fréquence d'apparition des séquences de caractères." :
+                "A token is a unit of text that can be: a whole word, part of a word, a character, or even a space. The model learns to intelligently split text based on character sequence frequency.";
+            html += '</p>';
+            html += '<div class="bg-slate-800/50 rounded p-3 text-xs">';
+            html += '<strong>' + (lang === 'fr' ? 'Règle générale :' : 'General rule:') + '</strong><br>';
+            html += lang === 'fr' ?
+                '• Mots courants → 1 token ("chat", "the", "et")<br>• Mots rares → plusieurs tokens ("anticonstitutionnellement")<br>• 1 token ≈ 4 caractères en moyenne (anglais)<br>• 1 token ≈ 0.75 mots en moyenne' :
+                '• Common words → 1 token ("cat", "the", "and")<br>• Rare words → multiple tokens ("unconstitutionally")<br>• 1 token ≈ 4 characters on average (English)<br>• 1 token ≈ 0.75 words on average';
+            html += '</div></div>';
             
-            html += '<div class="mb-6"><label class="block text-sm font-medium mb-2">';
-            html += lang === 'fr' ? "Texte d'entrée :" : 'Input text:';
+            html += '<div class="mb-6">';
+            html += '<label class="block text-sm font-medium mb-2">';
+            html += lang === 'fr' ? "Texte d'entrée (essayez différents mots) :" : 'Input text (try different words):';
             html += '</label>';
-            html += '<input type="text" value="' + state.inputText + '" oninput="updateInputText(this.value)" class="w-full bg-slate-700 rounded-lg px-4 py-2 border border-slate-600 focus:border-blue-500 focus:outline-none"></div>';
+            html += '<input id="tokenInput" type="text" value="' + state.inputText + '" oninput="updateInputText(this.value)" class="w-full bg-slate-700 rounded-lg px-4 py-2 border border-slate-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all">';
+            html += '<div class="mt-2 flex flex-wrap gap-2">';
+            html += '<span class="text-xs text-slate-400">' + (lang === 'fr' ? 'Essayez :' : 'Try:') + '</span>';
+            var examples = lang === 'fr' ? 
+                ['Le soleil brille', 'Intelligence artificielle', 'Bonjour le monde', 'ChatGPT est incroyable'] :
+                ['The sun shines', 'Artificial intelligence', 'Hello world', 'ChatGPT is amazing'];
+            for (var i = 0; i < examples.length; i++) {
+                html += '<button onclick="updateInputText(\'' + examples[i].replace(/'/g, "\\'") + '\')" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded transition-colors">' + examples[i] + '</button>';
+            }
+            html += '</div></div>';
 
             html += '<div class="bg-slate-900/50 rounded-lg p-4 mb-4">';
             html += '<p class="text-sm text-slate-400 mb-2">';
             html += lang === 'fr' ? 'Tokens (morceaux de mots) :' : 'Tokens (word pieces):';
-            html += '</p><div class="flex flex-wrap gap-2">';
+            html += '</p><div id="tokenDisplay" class="flex flex-wrap gap-2 min-h-[2rem]">';
             var words = state.inputText.split(' ');
             for (var i = 0; i < words.length; i++) {
-                html += '<span class="bg-blue-600/30 border border-blue-500/50 px-3 py-1 rounded text-sm">' + words[i] + '</span>';
+                if (words[i]) {
+                    html += '<span class="bg-blue-600/30 border border-blue-500/50 px-3 py-1 rounded text-sm">' + words[i] + '</span>';
+                }
+            }
+            html += '</div>';
+            html += '<p class="text-xs text-slate-400 mt-3">';
+            html += lang === 'fr' ?
+                '<strong>Info:</strong> Cette démonstration simplifie la tokenisation (1 mot = 1 token). En réalité, certains mots sont découpés en sous-unités plus petites.' :
+                '<strong>Info:</strong> This demo simplifies tokenization (1 word = 1 token). In reality, some words are split into smaller sub-units.';
+            html += '</p></div>';
+
+            html += '<div class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4 mb-6">';
+            html += '<p class="text-sm font-bold mb-2">📝 ';
+            html += lang === 'fr' ? 'Exemples détaillés de tokenisation (GPT-4)' : 'Detailed tokenization examples (GPT-4)';
+            html += '</p>';
+            html += '<div class="space-y-3 mt-3">';
+            
+            var examples = lang === 'fr' ? [
+                {text: 'chat', tokens: ['chat'], count: 1, note: 'Mot simple et courant → 1 token'},
+                {text: 'incroyable', tokens: ['incroyable'], count: 1, note: 'Mot courant → 1 token'},
+                {text: 'incroyablement', tokens: ['incroyable', 'ment'], count: 2, note: 'Suffixe séparé car très fréquent'},
+                {text: 'anticonstitutionnellement', tokens: ['anti', 'constitu', 'tionnel', 'lement'], count: 4, note: 'Mot rare → découpé en parties'},
+                {text: 'ChatGPT', tokens: ['Chat', 'GPT'], count: 2, note: 'Mots composés séparés'},
+                {text: "l'intelligence", tokens: ['l', "'", 'intelligence'], count: 3, note: 'Article et apostrophe séparés'},
+                {text: '2024', tokens: ['202', '4'], count: 2, note: 'Chiffres souvent découpés'},
+                {text: '😀', tokens: ['😀'], count: 1, note: 'Emojis = tokens spéciaux'}
+            ] : [
+                {text: 'cat', tokens: ['cat'], count: 1, note: 'Simple common word → 1 token'},
+                {text: 'incredible', tokens: ['incredible'], count: 1, note: 'Common word → 1 token'},
+                {text: 'incredibly', tokens: ['incredibly'], count: 1, note: 'Common word with suffix → 1 token'},
+                {text: 'unconstitutionally', tokens: ['un', 'const', 'itution', 'ally'], count: 4, note: 'Rare word → split into parts'},
+                {text: 'ChatGPT', tokens: ['Chat', 'GPT'], count: 2, note: 'Compound words separated'},
+                {text: "it's", tokens: ['it', "'s"], count: 2, note: 'Contractions split'},
+                {text: '2024', tokens: ['202', '4'], count: 2, note: 'Numbers often split'},
+                {text: '😀', tokens: ['😀'], count: 1, note: 'Emojis = special tokens'}
+            ];
+
+            for (var i = 0; i < examples.length; i++) {
+                html += '<div class="bg-slate-800/50 rounded p-3">';
+                html += '<div class="flex items-center justify-between mb-2">';
+                html += '<span class="font-mono text-cyan-400">"' + examples[i].text + '"</span>';
+                html += '<span class="text-xs bg-blue-600 px-2 py-1 rounded">' + examples[i].count + ' token' + (examples[i].count > 1 ? 's' : '') + '</span>';
+                html += '</div>';
+                html += '<div class="flex flex-wrap gap-1 mb-2">';
+                for (var j = 0; j < examples[i].tokens.length; j++) {
+                    html += '<span class="text-xs bg-purple-600/30 border border-purple-500/50 px-2 py-1 rounded font-mono">' + examples[i].tokens[j] + '</span>';
+                }
+                html += '</div>';
+                html += '<p class="text-xs text-slate-400">' + examples[i].note + '</p>';
+                html += '</div>';
+            }
+            html += '</div></div>';
+
+            html += '<div class="bg-slate-900/50 rounded-lg p-4 mb-6">';
+            html += '<p class="text-sm font-bold mb-3">🎯 ';
+            html += lang === 'fr' ? 'Comment le vocabulaire de tokens est créé' : 'How the token vocabulary is created';
+            html += '</p>';
+            html += '<p class="text-xs text-slate-300 mb-3">';
+            html += lang === 'fr' ?
+                "Les LLM modernes utilisent l'algorithme <strong>BPE (Byte-Pair Encoding)</strong> ou des variantes comme <strong>WordPiece</strong>. Le processus :" :
+                "Modern LLMs use the <strong>BPE (Byte-Pair Encoding)</strong> algorithm or variants like <strong>WordPiece</strong>. The process:";
+            html += '</p>';
+            html += '<div class="space-y-2 text-xs">';
+            var steps = lang === 'fr' ? [
+                '<strong>Étape 1 :</strong> Commencer avec tous les caractères individuels (a, b, c, ...)',
+                '<strong>Étape 2 :</strong> Analyser des milliards de textes pour trouver les paires fréquentes',
+                '<strong>Étape 3 :</strong> Fusionner les paires les plus fréquentes (ex: "t" + "h" → "th")',
+                '<strong>Étape 4 :</strong> Répéter jusqu\'à avoir ~50,000-100,000 tokens',
+                '<strong>Résultat :</strong> Vocabulaire équilibré entre mots complets et sous-mots'
+            ] : [
+                '<strong>Step 1:</strong> Start with all individual characters (a, b, c, ...)',
+                '<strong>Step 2:</strong> Analyze billions of texts to find frequent pairs',
+                '<strong>Step 3:</strong> Merge most frequent pairs (e.g., "t" + "h" → "th")',
+                '<strong>Step 4:</strong> Repeat until ~50,000-100,000 tokens',
+                '<strong>Result:</strong> Balanced vocabulary between whole words and subwords'
+            ];
+            for (var i = 0; i < steps.length; i++) {
+                html += '<div class="bg-slate-800/50 rounded p-2">' + steps[i] + '</div>';
             }
             html += '</div></div>';
 
             html += '<div><p class="text-sm text-slate-400 mb-3">';
             html += lang === 'fr' ? 'Probabilités du prochain token :' : 'Next token probabilities:';
-            html += '</p><div class="space-y-2">';
+            html += '</p>';
+            html += '<p class="text-xs text-slate-300 mb-3">';
+            html += lang === 'fr' ?
+                "Après avoir tokenisé l'entrée, le LLM calcule quelle suite est la plus probable. C'est le cœur du fonctionnement : <strong>prédire le token suivant</strong> parmi les ~100,000 possibles." :
+                "After tokenizing the input, the LLM calculates which continuation is most likely. This is the core operation: <strong>predict the next token</strong> among ~100,000 possibilities.";
+            html += '</p>';
+            html += '<div class="space-y-2">';
             for (var i = 0; i < tokens.length; i++) {
                 html += '<div class="flex items-center gap-3">';
                 html += '<span class="w-20 text-right font-mono text-sm">' + tokens[i].t + '</span>';
@@ -126,18 +290,75 @@
                 html += '<span class="text-xs md:text-sm font-bold">' + tokens[i].p + '%</span>';
                 html += '</div></div></div>';
             }
+            html += '</div>';
+            html += '<p class="text-xs text-slate-400 mt-3">';
+            html += lang === 'fr' ?
+                "💡 Ces probabilités viennent de milliards d'exemples vus pendant l'entraînement. Si \"chat\" et \"toit\" apparaissent souvent ensemble dans les données, le modèle donnera une forte probabilité à \"toit\"." :
+                "💡 These probabilities come from billions of examples seen during training. If 'cat' and 'roof' often appear together in the data, the model will give a high probability to 'roof'.";
+            html += '</p></div>';
+
+            html += '<div class="mt-6 bg-slate-900/50 rounded-lg p-4">';
+            html += '<p class="text-sm font-bold mb-3">🔄 ';
+            html += lang === 'fr' ? 'Le processus complet de génération' : 'The complete generation process';
+            html += '</p>';
+            html += '<div class="space-y-3">';
+            var process = lang === 'fr' ? [
+                {step: '1. Tokenisation', desc: '"Le chat" → [Token_1234, Token_5678]', color: 'bg-blue-600'},
+                {step: '2. Embedding', desc: 'Chaque token → vecteur de 12,288 nombres', color: 'bg-cyan-600'},
+                {step: '3. Transformer (120 couches)', desc: 'Analyse du contexte avec attention', color: 'bg-purple-600'},
+                {step: '4. Prédiction', desc: 'Probabilités sur 100,000 tokens possibles', color: 'bg-green-600'},
+                {step: '5. Sampling', desc: 'Choix du token (avec température)', color: 'bg-yellow-600'},
+                {step: '6. Détokenisation', desc: 'Token → texte visible ("toit")', color: 'bg-orange-600'},
+                {step: '7. Répétition', desc: 'Le token généré devient l\'entrée suivante', color: 'bg-red-600'}
+            ] : [
+                {step: '1. Tokenization', desc: '"The cat" → [Token_1234, Token_5678]', color: 'bg-blue-600'},
+                {step: '2. Embedding', desc: 'Each token → 12,288-number vector', color: 'bg-cyan-600'},
+                {step: '3. Transformer (120 layers)', desc: 'Context analysis with attention', color: 'bg-purple-600'},
+                {step: '4. Prediction', desc: 'Probabilities over 100,000 possible tokens', color: 'bg-green-600'},
+                {step: '5. Sampling', desc: 'Token selection (with temperature)', color: 'bg-yellow-600'},
+                {step: '6. Detokenization', desc: 'Token → visible text ("roof")', color: 'bg-orange-600'},
+                {step: '7. Repetition', desc: 'Generated token becomes next input', color: 'bg-red-600'}
+            ];
+            for (var i = 0; i < process.length; i++) {
+                html += '<div class="flex items-start gap-3">';
+                html += '<div class="' + process[i].color + ' w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">' + (i + 1) + '</div>';
+                html += '<div class="flex-1">';
+                html += '<div class="font-bold text-sm">' + process[i].step + '</div>';
+                html += '<div class="text-xs text-slate-300">' + process[i].desc + '</div>';
+                html += '</div></div>';
+            }
             html += '</div></div>';
 
-            html += '<div class="mt-6 bg-blue-900/30 border border-blue-500/30 rounded-lg p-4">';
-            html += '<p class="text-sm"><strong>💡 ';
-            html += lang === 'fr' ? 'Exemples de tokenisation' : 'Tokenization examples';
+            html += '<div class="mt-6 bg-yellow-900/30 border border-yellow-500/30 rounded-lg p-4">';
+            html += '<p class="text-sm"><strong>⚠️ ';
+            html += lang === 'fr' ? 'Pourquoi la tokenisation est cruciale' : 'Why tokenization is crucial';
             html += ':</strong></p>';
-            html += '<ul class="text-sm mt-2 space-y-1">';
-            html += '<li>• "' + (lang === 'fr' ? 'incroyable' : 'incredible') + '" → 1 token</li>';
-            html += '<li>• "' + (lang === 'fr' ? 'incroyablement' : 'incredibly') + '" → 2 tokens [' + (lang === 'fr' ? 'incroyable, ment' : 'incredible, ly') + ']</li>';
-            html += '<li>• "ChatGPT" → 2 tokens [Chat, GPT]</li>';
-            html += '<li>• ' + (lang === 'fr' ? 'Vocabulaire: ~100,000 tokens' : 'Vocabulary: ~100,000 tokens') + '</li>';
+            html += '<ul class="text-xs mt-2 space-y-1 text-slate-300">';
+            var reasons = lang === 'fr' ? [
+                '<strong>Efficacité :</strong> Vocabulaire de 100k tokens vs millions de mots possibles',
+                '<strong>Multilingue :</strong> Peut encoder toutes les langues avec le même vocabulaire',
+                '<strong>Mots rares :</strong> Peut décomposer des mots jamais vus en parties connues',
+                '<strong>Limite de contexte :</strong> GPT-4 = 128k tokens ≈ 96k mots ≈ 300 pages'
+            ] : [
+                '<strong>Efficiency:</strong> 100k token vocabulary vs millions of possible words',
+                '<strong>Multilingual:</strong> Can encode all languages with the same vocabulary',
+                '<strong>Rare words:</strong> Can decompose never-seen words into known parts',
+                '<strong>Context limit:</strong> GPT-4 = 128k tokens ≈ 96k words ≈ 300 pages'
+            ];
+            for (var i = 0; i < reasons.length; i++) {
+                html += '<li>• ' + reasons[i] + '</li>';
+            }
             html += '</ul></div>';
+
+            html += '<div class="mt-6 bg-green-900/30 border border-green-500/30 rounded-lg p-4">';
+            html += '<p class="text-sm"><strong>💡 ';
+            html += lang === 'fr' ? 'En résumé' : 'In summary';
+            html += ':</strong></p>';
+            html += '<p class="text-xs mt-2 text-slate-300">';
+            html += lang === 'fr' ?
+                "La tokenisation est l'interface entre le texte humain et les mathématiques du LLM. Sans elle, impossible de traiter du texte efficacement. Chaque token devient un point d'entrée dans l'espace vectoriel de 12,288 dimensions où se passe toute la magie de la compréhension et de la génération." :
+                "Tokenization is the interface between human text and LLM mathematics. Without it, efficient text processing is impossible. Each token becomes an entry point into the 12,288-dimensional vector space where all the magic of understanding and generation happens.";
+            html += '</p></div>';
 
             html += '</div></div>';
             return html;
@@ -682,6 +903,9 @@
             html += '</div>';
 
             document.getElementById('app').innerHTML = html;
+            
+            // Restaurer le focus après le render
+            restoreFocus();
         }
 
         render();
