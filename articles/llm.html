@@ -11,14 +11,164 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-in { animation: slideIn 0.3s ease-out; }
+        
+        /* Palette de couleurs cohérente avec le portfolio */
+        .bg-portfolio-primary { background-color: #1a1a1a; }
+        .bg-portfolio-secondary { background-color: #2a2a2a; }
+        .bg-portfolio-card { background-color: #242424; }
+        .text-portfolio-primary { color: #ffffff; }
+        .text-portfolio-secondary { color: #a0a0a0; }
+        .text-portfolio-accent { color: #ff6b35; }
+        .text-portfolio-pink { color: #e91e63; }
+        .text-portfolio-purple { color: #8e44ad; }
+        .text-portfolio-violet { color: #9c27b0; }
+        .border-portfolio-accent { border-color: #ff6b35; }
+        .border-portfolio-pink { border-color: #e91e63; }
+        .border-portfolio-purple { border-color: #8e44ad; }
+        .border-portfolio-violet { border-color: #9c27b0; }
+        .bg-portfolio-accent { background-color: #ff6b35; }
+        .bg-portfolio-pink { background-color: #e91e63; }
+        .bg-portfolio-purple { background-color: #8e44ad; }
+        .bg-portfolio-violet { background-color: #9c27b0; }
+        
+        /* Classes Tailwind personnalisées pour la palette */
+        .bg-slate-800\/50 { background-color: rgba(36, 36, 36, 0.8); }
+        .bg-slate-700 { background-color: #2a2a2a; }
+        .text-cyan-400 { color: #ff6b35; }
+        .text-slate-400 { color: #a0a0a0; }
+        .text-slate-300 { color: #ffffff; }
+        .border-2 { border-width: 2px; }
+        
+        /* Arrière-plan avec effet gradient comme le portfolio */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Styles responsifs pour mobile */
+        @media (max-width: 768px) {
+            .mobile-stack {
+                flex-direction: column !important;
+            }
+            
+            .mobile-text-sm {
+                font-size: 0.875rem !important;
+            }
+            
+            .mobile-p-2 {
+                padding: 0.5rem !important;
+            }
+            
+            .mobile-p-4 {
+                padding: 1rem !important;
+            }
+            
+            .mobile-gap-2 {
+                gap: 0.5rem !important;
+            }
+            
+            .mobile-hidden {
+                display: none !important;
+            }
+            
+            .mobile-grid-cols-1 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+            }
+            
+            .mobile-grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+            
+            .mobile-grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            }
+            
+            .mobile-overflow-x-auto {
+                overflow-x: auto !important;
+            }
+            
+            .mobile-min-w-full {
+                min-width: 100% !important;
+            }
+            
+            /* Amélioration des zones de touch */
+            button {
+                min-height: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            /* Meilleure lisibilité des textes */
+            .mobile-text-base {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Espacement optimisé */
+            .mobile-mb-4 {
+                margin-bottom: 1rem !important;
+            }
+            
+            .mobile-mb-2 {
+                margin-bottom: 0.5rem !important;
+            }
+            
+            /* Optimisation des interactions tactiles */
+            * {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            
+            input, textarea {
+                -webkit-user-select: text;
+                user-select: text;
+            }
+            
+            /* Amélioration du scroll sur mobile */
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-sm-p-2 {
+                padding: 0.5rem !important;
+            }
+            
+            .mobile-sm-text-xs {
+                font-size: 0.75rem !important;
+            }
+            
+            .mobile-sm-gap-1 {
+                gap: 0.25rem !important;
+            }
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen">
-    <div id="app" class="p-4 md:p-8"></div>
+<body class="bg-portfolio-primary text-portfolio-primary min-h-screen">
+    <div id="app" class="content-container p-3 sm:p-4 md:p-8"></div>
 
     <script>
         var state = {
-            activeSection: 'tokens',
+            activeSection: 'intro',
             lang: 'fr',
             inputText: 'Le chat est monté sur le'
         };
@@ -34,7 +184,6 @@
             }
         };
 
-        // Variables pour gérer le focus et le debounce
         var debounceTimer = null;
         var lastFocusedElement = null;
         var lastCursorPosition = 0;
@@ -42,6 +191,12 @@
         function setActiveSection(section) {
             state.activeSection = section;
             render();
+            
+            // Scroll vers le haut de la page avec une animation fluide
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
         function toggleLanguage() {
@@ -51,47 +206,40 @@
         }
 
         function updateInputText(value) {
-            // Sauvegarder l'élément actif et la position du curseur
             var activeElement = document.activeElement;
             if (activeElement && activeElement.tagName === 'INPUT') {
                 lastFocusedElement = activeElement.id || 'tokenInput';
                 lastCursorPosition = activeElement.selectionStart || 0;
             }
 
-            // Mettre à jour l'état immédiatement
             state.inputText = value;
 
-            // Mettre à jour l'affichage des tokens immédiatement (léger, sans full render)
             var tokenDisplay = document.getElementById('tokenDisplay');
             if (tokenDisplay) {
                 var words = value.split(' ');
                 var html = '';
                 for (var i = 0; i < words.length; i++) {
                     if (words[i]) {
-                        html += '<span class="bg-blue-600/30 border border-blue-500/50 px-3 py-1 rounded text-sm">' + words[i] + '</span>';
+                        html += '<span class="px-3 py-1 rounded text-sm" style="background-color: rgba(255, 107, 53, 0.3); border: 1px solid rgba(255, 107, 53, 0.5);">' + words[i] + '</span>';
                     }
                 }
                 tokenDisplay.innerHTML = html;
             }
 
-            // Annuler le timer précédent
             if (debounceTimer) {
                 clearTimeout(debounceTimer);
             }
 
-            // Attendre 500ms avant de rafraîchir complètement (pour recalculer les probabilités, etc.)
             debounceTimer = setTimeout(function() {
                 render();
             }, 500);
         }
 
         function restoreFocus() {
-            // Restaurer le focus après un court délai
             setTimeout(function() {
                 var input = document.getElementById('tokenInput');
                 if (input && lastFocusedElement === 'tokenInput') {
                     input.focus();
-                    // Restaurer la position du curseur
                     if (lastCursorPosition !== undefined) {
                         input.setSelectionRange(lastCursorPosition, lastCursorPosition);
                     }
@@ -101,13 +249,13 @@
 
         function renderHeader() {
             var t = translations[state.lang];
-            var html = '<div class="flex justify-between items-start mb-4">';
+            var html = '<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 sm:gap-0">';
             html += '<div class="flex-1">';
-            html += '<h1 class="text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">' + t.title + '</h1>';
-            html += '<p class="text-slate-300 text-sm md:text-base">' + t.subtitle + '</p>';
+            html += '<h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent mobile-text-base" style="background: linear-gradient(135deg, #ff6b35, #e91e63, #9c27b0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">' + t.title + '</h1>';
+            html += '<p class="text-portfolio-secondary text-xs sm:text-sm md:text-base mobile-text-sm">' + t.subtitle + '</p>';
             html += '</div>';
-            html += '<button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-all border border-slate-600">';
-            html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>';
+            html += '<button onclick="toggleLanguage()" class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-portfolio-card hover:bg-portfolio-secondary rounded-lg transition-all border text-sm mobile-text-sm" style="border-color: rgba(255, 255, 255, 0.1); min-height: 44px;">';
+            html += '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>';
             html += '<span class="font-bold">' + state.lang.toUpperCase() + '</span>';
             html += '</button></div>';
             return html;
@@ -116,6 +264,7 @@
         function renderNav() {
             var lang = state.lang;
             var sections = [
+                {id: 'intro', label: lang === 'fr' ? 'Introduction' : 'Introduction', icon: '🌟'},
                 {id: 'tokens', label: lang === 'fr' ? 'Tokens & Prédiction' : 'Tokens & Prediction', icon: '⚡'},
                 {id: 'embeddings', label: lang === 'fr' ? 'Embeddings & Vecteurs' : 'Embeddings & Vectors', icon: '💻'},
                 {id: 'attention', label: lang === 'fr' ? "Mécanisme d'Attention" : 'Attention Mechanism', icon: '🧠'},
@@ -124,15 +273,191 @@
                 {id: 'limits', label: lang === 'fr' ? 'Limitations & Émergences' : 'Limitations & Emergent Abilities', icon: '⚠️'}
             ];
 
-            var html = '<div class="flex gap-2 mb-8 flex-wrap">';
+            var html = '<div class="flex gap-1 sm:gap-2 mb-6 sm:mb-8 flex-wrap mobile-gap-2">';
             for (var i = 0; i < sections.length; i++) {
                 var s = sections[i];
-                var active = state.activeSection === s.id ? 'bg-blue-600 shadow-lg shadow-blue-500/50' : 'bg-slate-800 hover:bg-slate-700';
-                html += '<button onclick="setActiveSection(\'' + s.id + '\')" class="flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all text-sm md:text-base ' + active + '">';
-                html += '<span>' + s.icon + '</span>';
-                html += '<span class="hidden md:inline">' + s.label + '</span>';
+                var active = state.activeSection === s.id ? 'bg-portfolio-accent shadow-lg' : 'bg-portfolio-card hover:bg-portfolio-secondary';
+                var shadowStyle = state.activeSection === s.id ? 'box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);' : '';
+                html += '<button onclick="setActiveSection(\'' + s.id + '\')" class="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 md:px-4 py-2 rounded-lg transition-all text-xs sm:text-sm md:text-base ' + active + ' mobile-text-sm" style="' + shadowStyle + ' min-height: 44px;">';
+                html += '<span class="text-sm sm:text-base">' + s.icon + '</span>';
+                html += '<span class="hidden sm:inline text-xs sm:text-sm md:text-base mobile-text-sm">' + s.label + '</span>';
                 html += '</button>';
             }
+            html += '</div>';
+            return html;
+        }
+
+        function renderIntroductionSection() {
+            var lang = state.lang;
+            
+            var html = '<div class="space-y-6 animate-in">';
+            
+            html += '<div class="bg-gradient-to-br from-blue-900/50 via-purple-900/50 to-slate-900/50 backdrop-blur rounded-xl p-6 md:p-10 border border-blue-500/30 shadow-2xl">';
+            html += '<div class="text-center mb-8">';
+            html += '<div class="text-6xl mb-4">🤖</div>';
+            html += '<h2 class="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300">';
+            html += lang === 'fr' ? 'Bienvenue dans le monde des LLM' : 'Welcome to the World of LLMs';
+            html += '</h2>';
+            html += '<p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">';
+            html += lang === 'fr' ? 
+                "Découvrez les mécanismes fascinants derrière les Large Language Models - ces intelligences artificielles révolutionnaires qui transforment notre façon d'interagir avec la technologie. Un voyage interactif et détaillé du simple token au raisonnement émergent complexe." :
+                "Discover the fascinating mechanisms behind Large Language Models - these revolutionary artificial intelligences that are transforming how we interact with technology. An interactive and detailed journey from simple tokens to complex emergent reasoning.";
+            html += '</p></div></div>';
+            
+            html += '<div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">';
+            html += '<h3 class="text-2xl font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-blue-400">💡</span>';
+            html += lang === 'fr' ? "Qu'est-ce qu'un LLM exactement ?" : 'What exactly is an LLM?';
+            html += '</h3>';
+            html += '<div class="space-y-4 text-slate-300">';
+            html += '<p class="text-base leading-relaxed">';
+            html += lang === 'fr' ? 
+                "Un <strong>Large Language Model</strong> (Modèle de Langage de Grande Taille) est un réseau de neurones artificiels massif, constitué de milliards de paramètres interconnectés. Ces modèles sont entraînés sur d'immenses corpus de textes provenant d'Internet, de livres, d'articles scientifiques et de conversations. Leur mission fondamentale ? <strong>Apprendre à prédire le mot ou token suivant</strong> dans n'importe quelle séquence de texte." :
+                "A <strong>Large Language Model</strong> is a massive artificial neural network, composed of billions of interconnected parameters. These models are trained on immense text corpora from the Internet, books, scientific articles, and conversations. Their fundamental mission? <strong>Learning to predict the next word or token</strong> in any text sequence.";
+            html += '</p>';
+            
+            html += '<div class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4">';
+            html += '<p class="text-sm font-bold mb-2">🎯 ';
+            html += lang === 'fr' ? 'Exemple détaillé' : 'Detailed example';
+            html += '</p>';
+            html += '<div class="font-mono text-sm bg-slate-900/50 p-3 rounded space-y-2">';
+            html += '<div class="text-cyan-400">' + (lang === 'fr' ? 'Vous écrivez' : 'You write') + ': <span class="text-white">"' + (lang === 'fr' ? 'Le soleil brille dans le' : 'The sun shines in the') + '"</span></div>';
+            html += '<div class="text-green-400">' + (lang === 'fr' ? 'Le LLM analyse et prédit' : 'The LLM analyzes and predicts') + ':</div>';
+            html += '<div class="text-white ml-2 sm:ml-4">• "' + (lang === 'fr' ? 'ciel' : 'sky') + '" (78.3%) - ' + (lang === 'fr' ? 'contexte astronomique' : 'astronomical context') + '</div>';
+            html += '<div class="text-white ml-2 sm:ml-4">• "' + (lang === 'fr' ? 'jardin' : 'garden') + '" (12.1%) - ' + (lang === 'fr' ? 'contexte horticole' : 'horticultural context') + '</div>';
+            html += '<div class="text-white ml-2 sm:ml-4">• "' + (lang === 'fr' ? 'paysage' : 'landscape') + '" (6.8%) - ' + (lang === 'fr' ? 'contexte artistique' : 'artistic context') + '</div>';
+            html += '<div class="text-white ml-2 sm:ml-4">• ' + (lang === 'fr' ? 'Autres possibilités' : 'Other possibilities') + ' (2.8%)</div>';
+            html += '</div></div>';
+            
+            html += '<p class="text-base leading-relaxed">';
+            html += lang === 'fr' ? 
+                "Cette tâche de prédiction, apparemment simple, révèle une complexité extraordinaire. Pour prédire avec précision, le modèle doit développer une compréhension profonde de : la <strong>syntaxe</strong> (règles grammaticales), la <strong>sémantique</strong> (sens des mots et concepts), le <strong>contexte</strong> (situation et intention), la <strong>pragmatique</strong> (usage en situation réelle), et même les <strong>connaissances factuelles</strong> sur le monde. Cette capacité de prédiction sophistiquée engendre naturellement toutes les autres compétences remarquables : rédaction créative, traduction multilingue, programmation, résolution de problèmes, raisonnement logique et bien plus encore." :
+                "This prediction task, seemingly simple, reveals extraordinary complexity. To predict accurately, the model must develop deep understanding of: <strong>syntax</strong> (grammatical rules), <strong>semantics</strong> (word meanings and concepts), <strong>context</strong> (situation and intention), <strong>pragmatics</strong> (real-world usage), and even <strong>factual knowledge</strong> about the world. This sophisticated prediction capability naturally gives rise to all other remarkable abilities: creative writing, multilingual translation, programming, problem-solving, logical reasoning, and much more.";
+            html += '</p></div></div>';
+            
+            html += '<div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">';
+            html += '<h3 class="text-2xl font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-purple-400">📊</span>';
+            html += lang === 'fr' ? "L'échelle qui change tout : Une révolution quantitative" : 'Scale changes everything: A quantitative revolution';
+            html += '</h3>';
+            html += '<p class="text-slate-300 mb-6 text-sm md:text-base">';
+            html += lang === 'fr' ? 
+                "Les LLM modernes représentent un saut quantitatif sans précédent dans l'histoire de l'informatique. Cette échelle massive n'est pas qu'une prouesse technique - elle est la clé de leurs capacités émergentes extraordinaires." :
+                "Modern LLMs represent an unprecedented quantitative leap in computing history. This massive scale isn't just a technical feat - it's the key to their extraordinary emergent capabilities.";
+            html += '</p>';
+            html += '<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">';
+            
+            var stats = lang === 'fr' ? [
+                {icon: '🧠', number: '1.8 Trillion', label: 'Paramètres (GPT-4)', desc: "Chaque paramètre = une 'synapse' ajustable", detail: 'vs 86 milliards de neurones dans le cerveau humain'},
+                {icon: '📚', number: '13 Trillion', label: 'Tokens d\'entraînement', desc: '~10 millions de livres de 300 pages', detail: 'Équivalent à 500 ans de lecture humaine (24h/24)'},
+                {icon: '💰', number: '~150M $', label: "Coût d'entraînement GPT-4", desc: 'Mois de calcul sur milliers de GPU H100', detail: 'Plus cher que certains programmes spatiaux'}
+            ] : [
+                {icon: '🧠', number: '1.8 Trillion', label: 'Parameters (GPT-4)', desc: "Each parameter = an adjustable 'synapse'", detail: 'vs 86 billion neurons in human brain'},
+                {icon: '📚', number: '13 Trillion', label: 'Training tokens', desc: '~10 million 300-page books', detail: 'Equivalent to 500 years of human reading (24/7)'},
+                {icon: '💰', number: '~$150M', label: 'GPT-4 training cost', desc: 'Months of compute on thousands of H100 GPUs', detail: 'More expensive than some space programs'}
+            ];
+            
+            for (var i = 0; i < stats.length; i++) {
+                html += '<div class="bg-gradient-to-br from-purple-900/30 to-blue-900/30 border border-purple-500/30 rounded-lg p-4 text-center hover:scale-105 transition-transform">';
+                html += '<div class="text-4xl mb-3">' + stats[i].icon + '</div>';
+                html += '<div class="text-2xl font-bold text-purple-300 mb-2">' + stats[i].number + '</div>';
+                html += '<div class="text-sm font-semibold text-slate-200 mb-2">' + stats[i].label + '</div>';
+                html += '<div class="text-xs text-slate-400 mb-2">' + stats[i].desc + '</div>';
+                html += '<div class="text-xs text-slate-500 italic">' + stats[i].detail + '</div>';
+                html += '</div>';
+            }
+            html += '</div>';
+            
+            html += '<div class="bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-purple-500/30 rounded-lg p-6">';
+            html += '<h4 class="text-lg font-bold mb-3 text-center text-purple-300">';
+            html += lang === 'fr' ? '✨ Les Lois d\'Échelle : Pourquoi "Plus Grand" = "Plus Intelligent"' : '✨ Scaling Laws: Why "Bigger" = "Smarter"';
+            html += '</h4>';
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">';
+            html += '<div>';
+            html += '<p class="font-bold text-cyan-400 mb-2">' + (lang === 'fr' ? '📈 Capacités Émergentes' : '📈 Emergent Capabilities') + '</p>';
+            html += '<ul class="space-y-1 text-xs">';
+            html += '<li>• ' + (lang === 'fr' ? 'Raisonnement logique complexe' : 'Complex logical reasoning') + '</li>';
+            html += '<li>• ' + (lang === 'fr' ? 'Programmation multi-langages' : 'Multi-language programming') + '</li>';
+            html += '<li>• ' + (lang === 'fr' ? 'Créativité et analogies' : 'Creativity and analogies') + '</li>';
+            html += '<li>• ' + (lang === 'fr' ? 'Compréhension nuancée du contexte' : 'Nuanced context understanding') + '</li>';
+            html += '</ul>';
+            html += '</div>';
+            html += '<div>';
+            html += '<p class="font-bold text-orange-400 mb-2">' + (lang === 'fr' ? '🎯 Prédictibilité' : '🎯 Predictability') + '</p>';
+            html += '<p class="text-xs">';
+            html += lang === 'fr' ? 
+                'Les performances suivent des lois mathématiques précises : doubler les paramètres améliore systématiquement les capacités selon des courbes prédictibles.' :
+                'Performance follows precise mathematical laws: doubling parameters systematically improves capabilities along predictable curves.';
+            html += '</p>';
+            html += '</div>';
+            html += '</div>';
+            html += '<div class="mt-4 text-center">';
+            html += '<p class="text-sm text-slate-300"><strong>✨ ';
+            html += lang === 'fr' ? 'Principe fondamental' : 'Fundamental principle';
+            html += ':</strong> ';
+            html += lang === 'fr' ? 
+                "L'intelligence n'est pas programmée directement, elle <strong>émerge</strong> de l'échelle massive des données et des paramètres." :
+                "Intelligence isn't directly programmed, it <strong>emerges</strong> from the massive scale of data and parameters.";
+            html += '</p>';
+            html += '</div></div></div>';
+            
+            html += '<div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">';
+            html += '<h3 class="text-2xl font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-cyan-400">🗺️</span>';
+            html += lang === 'fr' ? 'Votre parcours de découverte' : 'Your discovery journey';
+            html += '</h3>';
+            html += '<p class="text-slate-300 mb-6">';
+            html += lang === 'fr' ? 
+                "Cette exploration interactive vous guidera à travers les 6 concepts fondamentaux des LLM. Cliquez sur chaque section dans le menu ci-dessus pour approfondir :" :
+                "This interactive exploration will guide you through the 6 fundamental concepts of LLMs. Click on each section in the menu above to dive deeper:";
+            html += '</p>';
+            
+            var journey = lang === 'fr' ? [
+                {icon: '⚡', title: '1. Tokens & Prédiction', desc: "Comment le texte est découpé en morceaux et comment le modèle devine le mot suivant", time: '5 min', color: 'from-yellow-500 to-orange-500'},
+                {icon: '💻', title: '2. Embeddings & Vecteurs', desc: "Comment chaque mot devient un vecteur de 12,288 nombres capturant son 'sens'", time: '5 min', color: 'from-cyan-500 to-blue-500'},
+                {icon: '🧠', title: "3. Mécanisme d'Attention", desc: "Comment le modèle 'regarde' tous les mots pour comprendre le contexte", time: '4 min', color: 'from-purple-500 to-pink-500'},
+                {icon: '🏗️', title: '4. Architecture Transformer', desc: "L'empilement de 120 couches qui transforme le texte en prédictions", time: '4 min', color: 'from-green-500 to-emerald-500'},
+                {icon: '📈', title: '5. Entraînement (3 Phases)', desc: "Comment on enseigne au modèle : pre-training, fine-tuning, RLHF", time: '5 min', color: 'from-orange-500 to-red-500'},
+                {icon: '⚠️', title: '6. Limitations & Émergences', desc: "Ce que les LLM font bien, leurs faiblesses, et leurs capacités surprenantes", time: '4 min', color: 'from-red-500 to-pink-500'}
+            ] : [
+                {icon: '⚡', title: '1. Tokens & Prediction', desc: "How text is split into pieces and how the model guesses the next word", time: '5 min', color: 'from-yellow-500 to-orange-500'},
+                {icon: '💻', title: '2. Embeddings & Vectors', desc: "How each word becomes a 12,288-number vector capturing its 'meaning'", time: '5 min', color: 'from-cyan-500 to-blue-500'},
+                {icon: '🧠', title: '3. Attention Mechanism', desc: "How the model 'looks at' all words to understand context", time: '4 min', color: 'from-purple-500 to-pink-500'},
+                {icon: '🏗️', title: '4. Transformer Architecture', desc: "The stack of 120 layers that transforms text into predictions", time: '4 min', color: 'from-green-500 to-emerald-500'},
+                {icon: '📈', title: '5. Training (3 Phases)', desc: "How we teach the model: pre-training, fine-tuning, RLHF", time: '5 min', color: 'from-orange-500 to-red-500'},
+                {icon: '⚠️', title: '6. Limitations & Emergent Abilities', desc: "What LLMs do well, their weaknesses, and their surprising capabilities", time: '4 min', color: 'from-red-500 to-pink-500'}
+            ];
+            
+            html += '<div class="space-y-3">';
+            for (var i = 0; i < journey.length; i++) {
+                var sectionId = ['tokens', 'embeddings', 'attention', 'architecture', 'training', 'limits'][i];
+                html += '<button onclick="setActiveSection(\'' + sectionId + '\')" class="w-full text-left bg-slate-900/50 hover:bg-slate-900 border border-slate-600 hover:border-slate-500 rounded-lg p-4 transition-all group">';
+                html += '<div class="flex items-start gap-4">';
+                html += '<div class="text-3xl group-hover:scale-110 transition-transform">' + journey[i].icon + '</div>';
+                html += '<div class="flex-1">';
+                html += '<div class="flex items-center justify-between mb-1">';
+                html += '<h4 class="font-bold text-white group-hover:text-cyan-300 transition-colors">' + journey[i].title + '</h4>';
+                html += '<span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">' + journey[i].time + '</span>';
+                html += '</div>';
+                html += '<p class="text-sm text-slate-400">' + journey[i].desc + '</p>';
+                html += '<div class="mt-2 h-1 bg-slate-700 rounded-full overflow-hidden">';
+                html += '<div class="h-full bg-gradient-to-r ' + journey[i].color + ' rounded-full" style="width: 0%; transition: width 0.3s;"></div>';
+                html += '</div>';
+                html += '</div></div></button>';
+            }
+            html += '</div></div>';
+            
+            html += '<div class="bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur rounded-xl p-6 border border-blue-500/30 text-center">';
+            html += '<p class="text-lg mb-4 text-slate-200">';
+            html += lang === 'fr' ? 
+                "🚀 Prêt à comprendre comment ChatGPT, Claude et les autres fonctionnent réellement ?" :
+                "🚀 Ready to understand how ChatGPT, Claude and others really work?";
+            html += '</p>';
+            html += '<button onclick="setActiveSection(\'tokens\')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-8 py-3 rounded-lg font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:scale-105">';
+            html += lang === 'fr' ? '🎯 Commencer l\'exploration' : '🎯 Start the exploration';
+            html += ' →</button>';
+            html += '</div>';
+            
             html += '</div>';
             return html;
         }
@@ -284,7 +609,7 @@
             html += '<div class="space-y-2">';
             for (var i = 0; i < tokens.length; i++) {
                 html += '<div class="flex items-center gap-3">';
-                html += '<span class="w-20 text-right font-mono text-sm">' + tokens[i].t + '</span>';
+                html += '<span class="w-16 sm:w-20 text-right font-mono text-xs sm:text-sm mobile-text-sm">' + tokens[i].t + '</span>';
                 html += '<div class="flex-1 bg-slate-700 rounded-full h-8 overflow-hidden">';
                 html += '<div class="' + tokens[i].c + ' h-full flex items-center justify-end pr-3 transition-all duration-500" style="width: ' + tokens[i].p + '%">';
                 html += '<span class="text-xs md:text-sm font-bold">' + tokens[i].p + '%</span>';
@@ -417,41 +742,62 @@
             html += lang === 'fr' ? 'Vecteurs (5 dimensions simplifiées sur 12,288):' : 'Vectors (5 simplified dimensions out of 12,288):';
             html += '</p>';
 
-            html += '<div class="flex gap-1 mb-2 ml-24">';
+            html += '<div class="flex gap-1 mb-2 ml-0 sm:ml-24">';
             var dimNames = ['Genre', lang === 'fr' ? 'Royauté' : 'Royalty', lang === 'fr' ? 'Animé' : 'Animate', lang === 'fr' ? 'Pouvoir' : 'Power', 'Âge'];
-            var dimColors = ['text-purple-400', 'text-blue-400', 'text-green-400', 'text-yellow-400', 'text-red-400'];
+            var dimColors = ['text-portfolio-accent', 'text-portfolio-pink', 'text-portfolio-purple', 'text-portfolio-violet', 'text-portfolio-secondary'];
             for (var i = 0; i < dimNames.length; i++) {
-                html += '<div class="flex-1 text-center text-xs ' + dimColors[i] + ' font-bold">' + dimNames[i] + '</div>';
+                html += '<div class="flex-1 text-center text-xs sm:text-sm ' + dimColors[i] + ' font-bold mobile-text-sm">' + dimNames[i] + '</div>';
             }
             html += '</div>';
 
-            html += '<div class="space-y-3">';
-            var borderColors = ['border-purple-500', 'border-blue-500', 'border-green-500', 'border-yellow-500', 'border-red-500'];
-            var bgColors = ['bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'];
+            html += '<div class="space-y-4">';
+            var borderColors = ['border-portfolio-accent', 'border-portfolio-pink', 'border-portfolio-purple', 'border-portfolio-violet', 'border-gray-500'];
+            var bgColors = ['bg-portfolio-accent', 'bg-portfolio-pink', 'bg-portfolio-purple', 'bg-portfolio-violet', 'bg-gray-500'];
             
             for (var i = 0; i < words.length; i++) {
-                html += '<div>';
-                html += '<div class="flex items-center justify-between mb-1">';
-                html += '<span class="font-bold text-cyan-400 w-20">' + words[i].w + '</span>';
-                html += '<span class="text-xs text-slate-400">';
+                html += '<div class="rounded-lg p-3 sm:p-4 mobile-p-2" style="background-color: rgba(36, 36, 36, 0.8);">';
+                html += '<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-2">';
+                html += '<span class="font-bold text-base sm:text-lg mobile-text-base" style="color: #ff6b35;">' + words[i].w + '</span>';
+                html += '<span class="text-xs px-2 py-1 rounded mobile-text-sm" style="color: #a0a0a0; background-color: #2a2a2a;">';
                 html += (lang === 'fr' ? 'Similarité avec' : 'Similarity to') + ' "' + words[0].w + '": ' + words[i].s + '%';
                 html += '</span></div>';
-                html += '<div class="flex gap-1">';
+                
+                html += '<div class="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3 mb-3 mobile-grid-cols-3">';
                 for (var j = 0; j < words[i].v.length; j++) {
                     var val = words[i].v[j];
-                    var h = Math.abs(val) * 50;
-                    var top = val >= 0 ? (50 - h) : 50;
-                    html += '<div class="flex-1 bg-slate-700 rounded p-2 border-b-2 ' + borderColors[j] + '">';
+                    var absVal = Math.abs(val);
+                    var height = absVal * 50; // Hauteur réduite pour mobile
+                    var isPositive = val >= 0;
+                    
+                    // Couleurs selon la palette du portfolio
+                    var colors = ['#ff6b35', '#e91e63', '#8e44ad', '#9c27b0', '#6b7280'];
+                    var borderColor = colors[j];
+                    var bgColor = colors[j];
+                    
                     html += '<div class="text-center">';
-                    html += '<div class="text-xs font-mono font-bold">' + val.toFixed(1) + '</div>';
-                    html += '<div class="mt-1 h-12 bg-slate-800 rounded overflow-hidden relative">';
-                    html += '<div class="absolute top-1/2 w-full h-0.5 bg-slate-600"></div>';
-                    html += '<div class="' + bgColors[j] + ' absolute bottom-0 w-full transition-all" style="height: ' + h + '%; top: ' + top + '%"></div>';
-                    html += '</div></div></div>';
+                    html += '<div class="text-xs font-bold mb-2 ' + dimColors[j] + ' mobile-text-sm">' + dimNames[j] + '</div>';
+                    html += '<div class="relative rounded h-16 sm:h-20 overflow-hidden border-2" style="background-color: #2a2a2a; border-color: ' + borderColor + ';">';
+                    
+                    // Ligne centrale (zéro)
+                    html += '<div class="absolute w-full h-0.5 top-1/2 transform -translate-y-1/2" style="background-color: #6b7280;"></div>';
+                    
+                    // Barre de valeur
+                    if (isPositive) {
+                        // Valeur positive : barre du centre vers le haut
+                        html += '<div class="absolute w-full bottom-1/2 transition-all duration-500" style="background-color: ' + bgColor + '; height: ' + height + 'px;"></div>';
+                    } else {
+                        // Valeur négative : barre du centre vers le bas
+                        html += '<div class="absolute w-full top-1/2 transition-all duration-500" style="background-color: ' + bgColor + '; height: ' + height + 'px;"></div>';
+                    }
+                    
+                    html += '</div>';
+                    html += '<div class="text-xs font-mono font-bold mt-1" style="color: ' + (isPositive ? '#ff6b35' : '#e91e63') + ';">' + val.toFixed(1) + '</div>';
+                    html += '</div>';
                 }
                 html += '</div>';
-                html += '<div class="text-xs text-slate-400 mt-1 ml-1">';
-                html += words[i].interp;
+                
+                html += '<div class="text-xs text-slate-400 bg-slate-700/50 rounded p-2">';
+                html += '<strong>' + (lang === 'fr' ? 'Interprétation' : 'Interpretation') + ':</strong> ' + words[i].interp;
                 html += '</div>';
                 html += '</div>';
             }
@@ -461,74 +807,153 @@
             html += '<p class="text-sm font-bold mb-2">📐 ';
             html += lang === 'fr' ? 'Calcul de similarité cosinus' : 'Cosine similarity calculation';
             html += '</p>';
-            html += '<p class="text-xs text-slate-300 mb-3">';
+            html += '<p class="text-xs mb-3" style="color: #ffffff;">';
             html += lang === 'fr' ? "La similarité entre deux vecteurs se calcule avec le produit scalaire normalisé (cosinus de l'angle) :" : "Similarity between two vectors is calculated with normalized dot product (cosine of angle):";
             html += '</p>';
-            html += '<div class="bg-slate-800/50 rounded p-3 font-mono text-xs space-y-2">';
-            html += '<div class="text-cyan-400">similarity(' + words[0].w + ', ' + words[1].w + ') = (A · B) / (||A|| × ||B||)</div>';
-            html += '<div class="text-slate-300">= (0.2×0.3 + 0.8×0.7 + 0.1×0.1 + (-0.3)×(-0.2) + 0.5×0.4) / (√... × √...)</div>';
-            html += '<div class="text-slate-300">= (0.06 + 0.56 + 0.01 + 0.06 + 0.20) / (1.02 × 0.95)</div>';
-            html += '<div class="text-green-400">= 0.89 / 0.97 ≈ 0.92 ' + (lang === 'fr' ? '→ 92% de similarité' : '→ 92% similarity') + '</div>';
+            html += '<div class="rounded p-3 font-mono text-xs space-y-2" style="background-color: rgba(36, 36, 36, 0.8);">';
+            html += '<div style="color: #ff6b35;">similarity(' + words[0].w + ', ' + words[1].w + ') = (A · B) / (||A|| × ||B||)</div>';
+            html += '<div style="color: #ffffff;">= (0.2×0.3 + 0.8×0.7 + 0.1×0.1 + (-0.3)×(-0.2) + 0.5×0.4) / (√... × √...)</div>';
+            html += '<div style="color: #ffffff;">= (0.06 + 0.56 + 0.01 + 0.06 + 0.20) / (1.02 × 0.95)</div>';
+            html += '<div style="color: #e91e63;">= 0.89 / 0.97 ≈ 0.92 ' + (lang === 'fr' ? '→ 92% de similarité' : '→ 92% similarity') + '</div>';
             html += '</div>';
-            html += '<p class="text-xs text-slate-400 mt-2">';
+            html += '<p class="text-xs mt-2" style="color: #a0a0a0;">';
             html += lang === 'fr' ? "Plus l'angle entre deux vecteurs est petit, plus les mots sont sémantiquement proches." : "The smaller the angle between two vectors, the more semantically close the words are.";
             html += '</p></div>';
 
-            html += '<div class="bg-slate-900/50 rounded-lg p-4 mb-4">';
-            html += '<p class="text-sm font-bold mb-3">🗺️ ';
+            html += '<div class="rounded-lg p-3 sm:p-4 mb-4 mobile-p-2" style="background-color: rgba(26, 26, 26, 0.5);">';
+            html += '<p class="text-xs sm:text-sm font-bold mb-3 mobile-text-sm">🗺️ ';
             html += lang === 'fr' ? 'Visualisation 2D (projection des 12,288 dimensions)' : '2D Visualization (projection of 12,288 dimensions)';
             html += '</p>';
-            html += '<div class="bg-slate-800 rounded h-64 relative overflow-hidden">';
-            html += '<div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-600"></div>';
-            html += '<div class="absolute left-1/2 top-0 w-0.5 h-full bg-slate-600"></div>';
-            html += '<div class="absolute bottom-2 right-2 text-xs text-slate-400">' + (lang === 'fr' ? 'Genre →' : 'Gender →') + '</div>';
-            html += '<div class="absolute top-2 left-2 text-xs text-slate-400 transform -rotate-90 origin-left">' + (lang === 'fr' ? '← Royauté' : '← Royalty') + '</div>';
+            html += '<div class="rounded h-48 sm:h-64 relative overflow-hidden" style="background-color: #242424;">';
+            html += '<div class="absolute top-1/2 left-0 w-full h-0.5" style="background-color: #6b7280;"></div>';
+            html += '<div class="absolute left-1/2 top-0 w-0.5 h-full" style="background-color: #6b7280;"></div>';
+            html += '<div class="absolute bottom-1 sm:bottom-2 right-1 sm:right-2 text-xs mobile-text-sm" style="color: #a0a0a0;">' + (lang === 'fr' ? 'Genre →' : 'Gender →') + '</div>';
+            html += '<div class="absolute top-1 sm:top-2 left-1 sm:left-2 text-xs mobile-text-sm transform -rotate-90 origin-left" style="color: #a0a0a0;">' + (lang === 'fr' ? '← Royauté' : '← Royalty') + '</div>';
             
+            var portfolioColors = ['#ff6b35', '#e91e63', '#8e44ad', '#9c27b0', '#ff6b35'];
             var points = [
-                {word: words[0].w, x: 52, y: 20, color: 'bg-blue-500'},
-                {word: words[1].w, x: 58, y: 25, color: 'bg-pink-500'},
-                {word: words[2].w, x: 48, y: 55, color: 'bg-cyan-500'},
-                {word: words[3].w, x: 54, y: 58, color: 'bg-purple-500'},
-                {word: words[4].w, x: 55, y: 22, color: 'bg-indigo-500'}
+                {word: words[0].w, x: 52, y: 20, color: portfolioColors[0]},
+                {word: words[1].w, x: 58, y: 25, color: portfolioColors[1]},
+                {word: words[2].w, x: 48, y: 55, color: portfolioColors[2]},
+                {word: words[3].w, x: 54, y: 58, color: portfolioColors[3]},
+                {word: words[4].w, x: 55, y: 22, color: portfolioColors[4]}
             ];
             for (var i = 0; i < points.length; i++) {
                 html += '<div class="absolute transform -translate-x-1/2 -translate-y-1/2" style="left: ' + points[i].x + '%; top: ' + points[i].y + '%">';
-                html += '<div class="' + points[i].color + ' w-3 h-3 rounded-full shadow-lg"></div>';
-                html += '<div class="text-xs text-white font-bold mt-1 whitespace-nowrap">' + points[i].word + '</div>';
+                html += '<div class="w-2 sm:w-3 h-2 sm:h-3 rounded-full shadow-lg" style="background-color: ' + points[i].color + ';"></div>';
+                html += '<div class="text-xs font-bold mt-1 whitespace-nowrap mobile-text-sm" style="color: #ffffff;">' + points[i].word + '</div>';
                 html += '</div>';
             }
             html += '<svg class="absolute inset-0 w-full h-full pointer-events-none">';
-            html += '<line x1="52%" y1="20%" x2="58%" y2="25%" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/>';
-            html += '<line x1="48%" y1="55%" x2="54%" y2="58%" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/>';
+            html += '<line x1="52%" y1="20%" x2="58%" y2="25%" stroke="#a0a0a0" stroke-width="1" stroke-dasharray="2,2"/>';
+            html += '<line x1="48%" y1="55%" x2="54%" y2="58%" stroke="#a0a0a0" stroke-width="1" stroke-dasharray="2,2"/>';
             html += '</svg>';
             html += '</div>';
-            html += '<p class="text-xs text-slate-400 mt-2">';
+            html += '<p class="text-xs mt-2" style="color: #a0a0a0;">';
             html += lang === 'fr' ? "Les mots sémantiquement proches sont regroupés dans l'espace vectoriel. '" + words[0].w + "' et '" + words[1].w + "' sont très proches, tout comme '" + words[2].w + "' et '" + words[3].w + "'." : "Semantically close words are grouped in vector space. '" + words[0].w + "' and '" + words[1].w + "' are very close, as are '" + words[2].w + "' and '" + words[3].w + "'.";
             html += '</p></div>';
 
-            html += '<div class="bg-cyan-900/30 border border-cyan-500/30 rounded-lg p-4">';
+            html += '<div class="rounded-lg p-4" style="background-color: rgba(255, 107, 53, 0.3); border: 1px solid rgba(255, 107, 53, 0.3);">';
             html += '<p class="text-sm"><strong>🧮 ';
             html += lang === 'fr' ? 'Algèbre vectorielle magique' : 'Vector algebra magic';
             html += ':</strong></p>';
             html += '<div class="space-y-3 mt-3">';
             html += '<div>';
-            html += '<div class="text-sm font-mono bg-slate-900/50 p-3 rounded">';
+            html += '<div class="text-sm font-mono p-3 rounded" style="background-color: rgba(26, 26, 26, 0.5);">';
             html += words[0].w + ' - ' + words[2].w + ' + ' + words[3].w + ' ≈ ' + words[1].w;
             html += '</div>';
-            html += '<div class="text-xs text-slate-300 mt-2 ml-2">';
+            html += '<div class="text-xs mt-2 ml-1 sm:ml-2" style="color: #ffffff;">';
             html += '[0.2, 0.8, 0.1, -0.3, 0.5] - [0.1, 0.9, -0.2, 0.5, 0.3] + [0.2, 0.8, -0.2, 0.6, 0.2]<br>';
             html += '= [0.3, 0.7, 0.1, -0.2, 0.4] ≈ ' + (lang === 'fr' ? 'vecteur de' : 'vector of') + ' "' + words[1].w + '"';
             html += '</div></div>';
-            html += '<div class="text-xs text-slate-300 bg-slate-900/50 p-3 rounded">';
+            html += '<div class="text-xs p-3 rounded" style="color: #ffffff; background-color: rgba(26, 26, 26, 0.5);">';
             html += '<strong>' + (lang === 'fr' ? 'Interprétation :' : 'Interpretation:') + '</strong><br>';
             html += lang === 'fr' ? "On retire l'aspect 'masculin' du roi (+0.1 genre), on ajoute l'aspect 'féminin' de femme (+0.1 genre), et on garde l'aspect 'royauté' (0.7-0.8). Le résultat pointe vers 'reine' !" : "We remove the 'masculine' aspect from king (+0.1 gender), add the 'feminine' aspect of woman (+0.1 gender), and keep the 'royalty' aspect (0.7-0.8). The result points to 'queen'!";
             html += '</div></div></div>';
 
-            html += '<div class="bg-yellow-900/30 border border-yellow-500/30 rounded-lg p-4 mt-4">';
+            html += '<div class="rounded-lg p-4 mt-4" style="background-color: rgba(255, 193, 7, 0.3); border: 1px solid rgba(255, 193, 7, 0.3);">';
             html += '<p class="text-sm"><strong>⚠️ ' + (lang === 'fr' ? 'Important :' : 'Important:') + '</strong></p>';
-            html += '<p class="text-xs text-slate-300 mt-2">';
+            html += '<p class="text-xs mt-2" style="color: #ffffff;">';
             html += lang === 'fr' ? "Ces 5 dimensions sont une simplification pédagogique. En réalité, les 12,288 dimensions de GPT-4 n'ont pas d'interprétation humaine claire - elles émergent de l'entraînement et capturent des patterns linguistiques complexes et abstraits que nous ne pouvons pas toujours expliquer." : "These 5 dimensions are a pedagogical simplification. In reality, GPT-4's 12,288 dimensions don't have clear human interpretation - they emerge from training and capture complex, abstract linguistic patterns we can't always explain.";
             html += '</p></div>';
+
+            // Nouveau schéma de transformation
+            html += '<div class="rounded-lg p-4 sm:p-6 mt-6 mobile-p-4" style="background-color: rgba(36, 36, 36, 0.8);">';
+            html += '<h3 class="text-base sm:text-lg font-bold mb-4 mobile-text-base" style="color: #9c27b0;">' + 
+                    (lang === 'fr' ? '🔄 Processus de Transformation Complète' : '🔄 Complete Transformation Process') + '</h3>';
+            
+            html += '<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mobile-gap-2">';
+            
+            // Étape 1: Tokenisation
+            html += '<div class="space-y-2 sm:space-y-3">';
+            html += '<h4 class="font-bold text-center text-sm sm:text-base mobile-text-base" style="color: #ff6b35;">1. ' + (lang === 'fr' ? 'Tokenisation' : 'Tokenization') + '</h4>';
+            html += '<div class="rounded-lg p-2 sm:p-3 mobile-p-2" style="background-color: rgba(255, 107, 53, 0.3); border: 1px solid #ff6b35;">';
+            html += '<div class="text-center text-xs sm:text-sm font-mono mb-2 mobile-text-sm">"' + words[0].w + ' ' + words[1].w + '"</div>';
+            html += '<div class="text-center text-xs mb-2 mobile-text-sm" style="color: #a0a0a0;">↓</div>';
+            html += '<div class="grid grid-cols-2 gap-1 sm:gap-2">';
+            html += '<div class="rounded p-1 sm:p-2 text-center text-xs mobile-text-sm" style="background-color: rgba(255, 107, 53, 0.5);">[' + words[0].w + ']</div>';
+            html += '<div class="rounded p-1 sm:p-2 text-center text-xs mobile-text-sm" style="background-color: rgba(255, 107, 53, 0.5);">[' + words[1].w + ']</div>';
+            html += '</div>';
+            html += '</div></div>';
+            
+            // Étape 2: Embedding
+            html += '<div class="space-y-2 sm:space-y-3">';
+            html += '<h4 class="font-bold text-center text-sm sm:text-base mobile-text-base" style="color: #ff6b35;">2. ' + (lang === 'fr' ? 'Vectorisation' : 'Vectorization') + '</h4>';
+            html += '<div class="rounded-lg p-2 sm:p-3 mobile-p-2" style="background-color: rgba(156, 39, 176, 0.3); border: 1px solid #9c27b0;">';
+            for (var w = 0; w < 2; w++) {
+                html += '<div class="mb-2 sm:mb-3">';
+                html += '<div class="text-xs font-bold mb-1 sm:mb-2 text-center mobile-text-sm">' + words[w].w + '</div>';
+                html += '<div class="grid grid-cols-3 sm:grid-cols-5 gap-1 mobile-grid-cols-3">';
+                for (var d = 0; d < 5; d++) {
+                    var val = words[w].v[d];
+                    var colorIntensity = Math.abs(val) * 50 + 30;
+                    var bgColor = val >= 0 ? '#ff6b35' : '#e91e63';
+                    html += '<div class="border rounded text-xs text-center py-1" style="background-color: ' + bgColor + '; opacity: ' + (colorIntensity/100) + ';">';
+                    html += val.toFixed(1);
+                    html += '</div>';
+                }
+                html += '</div></div>';
+            }
+            html += '</div></div>';
+            
+            // Étape 3: Calcul de similarité
+            html += '<div class="space-y-2 sm:space-y-3">';
+            html += '<h4 class="font-bold text-center text-sm sm:text-base mobile-text-base" style="color: #ff6b35;">3. ' + (lang === 'fr' ? 'Calcul Similarité' : 'Similarity Calculation') + '</h4>';
+            html += '<div class="rounded-lg p-2 sm:p-3 mobile-p-2" style="background-color: rgba(233, 30, 99, 0.3); border: 1px solid #e91e63;">';
+            html += '<div class="text-center mb-2 sm:mb-3">';
+            html += '<div class="text-xs sm:text-sm font-mono mobile-text-sm">' + words[0].w + ' · ' + words[1].w + '</div>';
+            html += '<div class="text-xs my-1 sm:my-2 mobile-text-sm" style="color: #a0a0a0;">cosine similarity</div>';
+            html += '<div class="text-base sm:text-lg font-bold mobile-text-base" style="color: #e91e63;">' + words[1].s + '%</div>';
+            html += '</div>';
+            
+            // Visualisation de l'angle
+            html += '<div class="relative rounded h-16 sm:h-20 mx-auto" style="width: 60px; background-color: #2a2a2a;">';
+            html += '<svg class="absolute inset-0 w-full h-full" viewBox="0 0 80 80">';
+            html += '<line x1="40" y1="60" x2="70" y2="30" stroke="#e91e63" stroke-width="2"/>';
+            html += '<line x1="40" y1="60" x2="70" y2="50" stroke="#8e44ad" stroke-width="2"/>';
+            html += '<path d="M 50 60 A 10 10 0 0 0 55 55" stroke="#a0a0a0" stroke-width="1" fill="none"/>';
+            html += '<text x="42" y="75" font-size="8" fill="#a0a0a0">θ</text>';
+            html += '</svg>';
+            html += '</div>';
+            html += '<div class="text-xs text-center mt-1 mobile-text-sm" style="color: #a0a0a0;">';
+            html += lang === 'fr' ? 'Angle = ' + (90 - words[1].s).toFixed(0) + '°' : 'Angle = ' + (90 - words[1].s).toFixed(0) + '°';
+            html += '</div>';
+            html += '</div></div>';
+            
+            html += '</div>';
+            
+            // Résumé du processus
+            html += '<div class="mt-4 sm:mt-6 rounded-lg p-3 sm:p-4 mobile-p-2" style="background: linear-gradient(to right, rgba(255, 107, 53, 0.2), rgba(156, 39, 176, 0.2)); border: 1px solid rgba(255, 107, 53, 0.3);">';
+            html += '<h4 class="font-bold mb-2 text-sm sm:text-base mobile-text-base" style="color: #ff6b35;">🎯 ' + (lang === 'fr' ? 'Résumé du Processus' : 'Process Summary') + '</h4>';
+            html += '<ol class="text-xs sm:text-sm space-y-1 sm:space-y-2 mobile-text-sm" style="color: #ffffff;">';
+            html += '<li><strong>1.</strong> ' + (lang === 'fr' ? 'Le texte est découpé en tokens (mots/sous-mots)' : 'Text is split into tokens (words/sub-words)') + '</li>';
+            html += '<li><strong>2.</strong> ' + (lang === 'fr' ? 'Chaque token devient un vecteur de 12,288 dimensions' : 'Each token becomes a 12,288-dimensional vector') + '</li>';
+            html += '<li><strong>3.</strong> ' + (lang === 'fr' ? 'Les vecteurs capturent le sens sémantique et syntaxique' : 'Vectors capture semantic and syntactic meaning') + '</li>';
+            html += '<li><strong>4.</strong> ' + (lang === 'fr' ? 'La similarité entre concepts se mesure par l\'angle vectoriel' : 'Similarity between concepts is measured by vector angle') + '</li>';
+            html += '<li><strong>5.</strong> ' + (lang === 'fr' ? 'Ces relations permettent l\'algèbre sémantique (roi - homme + femme = reine)' : 'These relationships enable semantic algebra (king - man + woman = queen)') + '</li>';
+            html += '</ol></div>';
+            
+            html += '</div>';
 
             html += '</div></div>';
             return html;
@@ -537,49 +962,164 @@
         function renderAttentionSection() {
             var lang = state.lang;
             var example = lang === 'fr' ? [
-                {word: 'Le', attention: [0.1, 0.05, 0.05, 0.05, 0.05, 0.05, 0.65]},
-                {word: 'chat', attention: [0.05, 0.7, 0.05, 0.05, 0.05, 0.05, 0.05]},
-                {word: 'noir', attention: [0.05, 0.6, 0.25, 0.05, 0.05, 0.0, 0.0]},
-                {word: 'a', attention: [0.05, 0.1, 0.05, 0.1, 0.6, 0.1, 0.0]},
-                {word: 'mangé', attention: [0.05, 0.1, 0.05, 0.1, 0.6, 0.1, 0.0]},
-                {word: 'la', attention: [0.05, 0.05, 0.05, 0.05, 0.1, 0.05, 0.65]},
-                {word: 'souris', attention: [0.05, 0.2, 0.05, 0.05, 0.4, 0.05, 0.2]}
+                {word: 'Le', attention: [0.20, 0.55, 0.10, 0.05, 0.05, 0.03, 0.02]},
+                {word: 'chat', attention: [0.08, 0.65, 0.12, 0.05, 0.05, 0.03, 0.02]},
+                {word: 'noir', attention: [0.05, 0.55, 0.30, 0.05, 0.03, 0.01, 0.01]},
+                {word: 'a', attention: [0.08, 0.12, 0.08, 0.20, 0.45, 0.05, 0.02]},
+                {word: 'mangé', attention: [0.05, 0.30, 0.08, 0.15, 0.25, 0.08, 0.09]},
+                {word: 'la', attention: [0.08, 0.05, 0.03, 0.05, 0.10, 0.15, 0.54]},
+                {word: 'souris', attention: [0.08, 0.25, 0.05, 0.10, 0.40, 0.10, 0.02]}
             ] : [
-                {word: 'The', attention: [0.7, 0.05, 0.05, 0.05, 0.05, 0.05]},
-                {word: 'black', attention: [0.05, 0.25, 0.6, 0.05, 0.05, 0.0]},
-                {word: 'cat', attention: [0.05, 0.05, 0.7, 0.05, 0.05, 0.05]},
-                {word: 'ate', attention: [0.05, 0.05, 0.1, 0.1, 0.6, 0.1]},
-                {word: 'the', attention: [0.05, 0.05, 0.05, 0.05, 0.1, 0.65]},
-                {word: 'mouse', attention: [0.05, 0.05, 0.2, 0.05, 0.4, 0.2]}
+                {word: 'The', attention: [0.25, 0.08, 0.55, 0.05, 0.05, 0.02]},
+                {word: 'black', attention: [0.05, 0.30, 0.55, 0.05, 0.03, 0.02]},
+                {word: 'cat', attention: [0.08, 0.12, 0.65, 0.10, 0.03, 0.02]},
+                {word: 'ate', attention: [0.08, 0.10, 0.35, 0.25, 0.12, 0.10]},
+                {word: 'the', attention: [0.05, 0.05, 0.08, 0.10, 0.20, 0.52]},
+                {word: 'mouse', attention: [0.05, 0.08, 0.20, 0.45, 0.15, 0.07]}
             ];
 
-            var html = '<div class="space-y-6 animate-in"><div class="bg-slate-800/50 backdrop-blur rounded-xl p-4 md:p-6 border border-slate-700">';
+            var html = '<div class="space-y-6 animate-in"><div class="backdrop-blur rounded-xl p-4 md:p-6 border" style="background-color: rgba(36, 36, 36, 0.8); border-color: rgba(255, 255, 255, 0.1);">';
             html += '<h2 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">';
-            html += '<span class="text-purple-400">🧠</span>';
-            html += lang === 'fr' ? "3. Mécanisme d'Attention (Self-Attention)" : "3. Attention Mechanism (Self-Attention)";
+            html += '<span style="color: #9c27b0;">🧠</span>';
+            html += lang === 'fr' ? "3. Mécanisme d'Attention (Self-Attention) : Le Cœur de l'Intelligence" : "3. Attention Mechanism (Self-Attention): The Heart of Intelligence";
             html += '</h2>';
 
-            html += '<p class="text-slate-300 mb-6 text-sm md:text-base">';
-            html += lang === 'fr' ? "L'attention permet au modèle de 'regarder' tous les mots précédents pour comprendre le contexte. Chaque mot prête attention aux autres mots de la phrase." : "Attention allows the model to 'look at' all previous words to understand context. Each word attends to the other words in the sentence.";
+            html += '<p class="mb-6 text-sm md:text-base" style="color: #ffffff;">';
+            html += lang === 'fr' ? 
+                "Le mécanisme d'attention est l'innovation révolutionnaire qui permet aux LLM de comprendre le contexte et les relations complexes entre les mots. C'est littéralement la capacité du modèle à <strong>'faire attention'</strong> aux parties pertinentes du texte pour comprendre le sens global. Imaginez votre propre attention quand vous lisez - vous ne traitez pas chaque mot de manière isolée, mais vous reliez les concepts entre eux." : 
+                "The attention mechanism is the revolutionary innovation that allows LLMs to understand context and complex relationships between words. It's literally the model's ability to <strong>'pay attention'</strong> to relevant parts of the text to understand the global meaning. Imagine your own attention when reading - you don't process each word in isolation, but connect concepts together.";
             html += '</p>';
 
-            html += '<div class="bg-slate-900/50 rounded-lg p-6">';
-            html += '<p class="text-sm text-slate-400 mb-4">';
-            html += lang === 'fr' ? 'Phrase : "Le chat noir a mangé la souris"' : 'Sentence: "The black cat ate the mouse"';
+            // Nouvelle section : Explication conceptuelle détaillée
+            html += '<div class="rounded-lg p-6 mb-6" style="background-color: rgba(156, 39, 176, 0.3); border: 1px solid rgba(156, 39, 176, 0.3);">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span style="color: #ff6b35;">🔍</span>';
+            html += lang === 'fr' ? 'Comment fonctionne concrètement l\'attention ?' : 'How does attention actually work?';
+            html += '</h3>';
+            html += '<div class="space-y-4 text-sm md:text-base">';
+            
+            html += '<div class="rounded-lg p-4" style="background-color: rgba(36, 36, 36, 0.8);">';
+            html += '<p class="font-bold mb-2" style="color: #ffc107;">🎯 ';
+            html += lang === 'fr' ? 'Étape 1 : Transformation en Query, Key et Value' : 'Step 1: Transform into Query, Key and Value';
+            html += '</p>';
+            html += '<p style="color: #ffffff;">';
+            html += lang === 'fr' ? 
+                "Chaque mot (embedding) est transformé en 3 vecteurs différents via des matrices apprises :<br>• <strong>Query (Q)</strong> : \"Que cherche ce mot ?\"<br>• <strong>Key (K)</strong> : \"De quoi parle ce mot ?\"<br>• <strong>Value (V)</strong> : \"Quelle information ce mot apporte-t-il ?\"" :
+                "Each word (embedding) is transformed into 3 different vectors via learned matrices:<br>• <strong>Query (Q)</strong>: \"What is this word looking for?\"<br>• <strong>Key (K)</strong>: \"What is this word about?\"<br>• <strong>Value (V)</strong>: \"What information does this word provide?\"";
+            html += '</p>';
+            html += '</div>';
+
+            html += '<div class="bg-slate-800/50 rounded-lg p-4">';
+            html += '<p class="font-bold text-blue-400 mb-2">⚡ ';
+            html += lang === 'fr' ? 'Étape 2 : Calcul des scores d\'attention' : 'Step 2: Calculate attention scores';
+            html += '</p>';
+            html += '<p class="text-slate-300">';
+            html += lang === 'fr' ? 
+                "Pour chaque mot, on calcule sa compatibilité avec tous les autres mots :<br>• Score = Query du mot actuel ⚬ Key de chaque autre mot<br>• Plus le score est élevé, plus l'attention est forte<br>• Ces scores sont normalisés avec <strong>softmax</strong> pour obtenir des probabilités" :
+                "For each word, we calculate its compatibility with all other words:<br>• Score = Current word's Query ⚬ Key of each other word<br>• Higher score = stronger attention<br>• These scores are normalized with <strong>softmax</strong> to get probabilities";
+            html += '</p>';
+            html += '</div>';
+
+            html += '<div class="bg-slate-800/50 rounded-lg p-4">';
+            html += '<p class="font-bold text-green-400 mb-2">🔄 ';
+            html += lang === 'fr' ? 'Étape 3 : Agrégation pondérée' : 'Step 3: Weighted aggregation';
+            html += '</p>';
+            html += '<p class="text-slate-300">';
+            html += lang === 'fr' ? 
+                "Le nouveau représentation du mot = combinaison pondérée des Values :<br>• Nouveau vecteur = Σ (score_attention × Value de chaque mot)<br>• Le mot \"intègre\" l'information de tous les autres mots selon leur pertinence<br>• Résultat : une représentation enrichie par le contexte complet" :
+                "The new word representation = weighted combination of Values:<br>• New vector = Σ (attention_score × Value of each word)<br>• The word \"integrates\" information from all other words based on relevance<br>• Result: a representation enriched by complete context";
+            html += '</p>';
+            html += '</div>';
+            html += '</div></div>';
+
+            // Section multi-têtes d'attention
+            html += '<div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700 mb-6">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-orange-400">🎭</span>';
+            html += lang === 'fr' ? 'Multi-Head Attention : Plusieurs perspectives simultanées' : 'Multi-Head Attention: Multiple simultaneous perspectives';
+            html += '</h3>';
+            html += '<p class="text-slate-300 mb-4 text-sm md:text-base">';
+            html += lang === 'fr' ? 
+                "Les LLM modernes utilisent 96 \"têtes d'attention\" en parallèle (GPT-4). Chaque tête se spécialise dans un type de relation différent :" :
+                "Modern LLMs use 96 \"attention heads\" in parallel (GPT-4). Each head specializes in a different type of relationship:";
+            html += '</p>';
+            
+            var heads = lang === 'fr' ? [
+                {name: 'Tête Syntaxique', desc: 'Relations grammaticales (sujet-verbe, nom-adjectif)', color: 'bg-red-500'},
+                {name: 'Tête Sémantique', desc: 'Relations de sens (synonymes, antonymes)', color: 'bg-blue-500'},
+                {name: 'Tête Coréférence', desc: 'Résolution des pronoms et références', color: 'bg-green-500'},
+                {name: 'Tête Temporelle', desc: 'Relations de chronologie et causalité', color: 'bg-yellow-500'},
+                {name: 'Tête Thématique', desc: 'Cohérence du sujet principal', color: 'bg-purple-500'},
+                {name: '... 91 autres', desc: 'Chaque tête découvre ses propres patterns', color: 'bg-gray-500'}
+            ] : [
+                {name: 'Syntactic Head', desc: 'Grammatical relations (subject-verb, noun-adjective)', color: 'bg-red-500'},
+                {name: 'Semantic Head', desc: 'Meaning relations (synonyms, antonyms)', color: 'bg-blue-500'},
+                {name: 'Coreference Head', desc: 'Pronoun and reference resolution', color: 'bg-green-500'},
+                {name: 'Temporal Head', desc: 'Chronology and causality relations', color: 'bg-yellow-500'},
+                {name: 'Thematic Head', desc: 'Main topic coherence', color: 'bg-purple-500'},
+                {name: '... 91 others', desc: 'Each head discovers its own patterns', color: 'bg-gray-500'}
+            ];
+
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+            for (var i = 0; i < heads.length; i++) {
+                html += '<div class="flex items-center gap-3 bg-slate-900/50 rounded-lg p-3">';
+                html += '<div class="w-4 h-4 rounded-full ' + heads[i].color + '"></div>';
+                html += '<div>';
+                html += '<div class="font-bold text-white text-sm">' + heads[i].name + '</div>';
+                html += '<div class="text-xs text-slate-400">' + heads[i].desc + '</div>';
+                html += '</div></div>';
+            }
+            html += '</div></div>';
+
+            // Exemple interactif amélioré
+            html += '<div class="bg-slate-900/50 rounded-lg p-4 sm:p-6">';
+            html += '<h3 class="text-base sm:text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-pink-400">📊</span>';
+            html += lang === 'fr' ? 'Visualisation interactive : Qui fait attention à qui ?' : 'Interactive visualization: Who attends to whom?';
+            html += '</h3>';
+            html += '<p class="text-xs sm:text-sm text-slate-400 mb-4">';
+            html += lang === 'fr' ? 'Phrase exemple : "Le chat noir a mangé la souris"' : 'Example sentence: "The black cat ate the mouse"';
             html += '</p>';
 
-            html += '<div class="space-y-4">';
+            // Version mobile (vertical)
+            html += '<div class="block sm:hidden space-y-6">';
+            for (var i = 0; i < example.length; i++) {
+                html += '<div class="bg-slate-800/50 rounded-lg p-4 border border-orange-500/20">';
+                html += '<div class="text-center mb-4">';
+                html += '<span class="inline-block px-3 py-1 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full text-white font-bold text-sm">' + example[i].word + '</span>';
+                html += '<div class="text-xs text-slate-400 mt-1">' + (lang === 'fr' ? 'prête attention à :' : 'attends to:') + '</div>';
+                html += '</div>';
+                html += '<div class="grid grid-cols-3 gap-2">';
+                for (var j = 0; j < example[i].attention.length; j++) {
+                    var intensity = example[i].attention[j];
+                    var bgColor = intensity > 0.5 ? 'bg-gradient-to-t from-purple-600 to-pink-500' : 
+                                  intensity > 0.3 ? 'bg-gradient-to-t from-purple-700 to-pink-600' : 
+                                  'bg-gradient-to-t from-purple-800 to-pink-700';
+                    html += '<div class="text-center">';
+                    html += '<div class="text-xs font-medium mb-1 text-orange-300">' + example[j].word + '</div>';
+                    html += '<div class="bg-slate-700 rounded h-12 overflow-hidden mx-auto w-8">';
+                    html += '<div class="' + bgColor + ' w-full transition-all duration-300" style="height: ' + (intensity * 100) + '%"></div>';
+                    html += '</div>';
+                    html += '<div class="text-xs mt-1 text-slate-400 font-bold">' + Math.round(intensity * 100) + '%</div>';
+                    html += '</div>';
+                }
+                html += '</div></div>';
+            }
+            html += '</div>';
+
+            // Version desktop (horizontale)
+            html += '<div class="hidden sm:block space-y-4">';
             for (var i = 0; i < example.length; i++) {
                 html += '<div>';
                 html += '<div class="flex items-center gap-4 mb-2">';
-                html += '<span class="w-24 text-right font-bold text-blue-400">' + example[i].word + '</span>';
-                html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+                html += '<span class="w-24 text-right font-bold text-orange-400">' + example[i].word + '</span>';
+                html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-pink-400"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
                 html += '<span class="text-sm text-slate-400">' + (lang === 'fr' ? 'prête attention à :' : 'attends to:') + '</span>';
                 html += '</div>';
                 html += '<div class="flex gap-1 ml-32">';
                 for (var j = 0; j < example[i].attention.length; j++) {
                     html += '<div class="flex-1">';
-                    html += '<div class="text-xs text-center mb-1">' + example[j].word + '</div>';
+                    html += '<div class="text-xs text-center mb-1 text-orange-300">' + example[j].word + '</div>';
                     html += '<div class="bg-slate-700 rounded h-16 overflow-hidden">';
                     html += '<div class="bg-gradient-to-t from-purple-600 to-pink-500 w-full transition-all duration-300" style="height: ' + (example[i].attention[j] * 100) + '%"></div>';
                     html += '</div>';
@@ -590,120 +1130,287 @@
             }
             html += '</div></div>';
 
-            html += '<div class="mt-6 bg-purple-900/30 border border-purple-500/30 rounded-lg p-4">';
-            html += '<p class="text-sm"><strong>💡 ';
-            html += lang === 'fr' ? 'Exemple :' : 'Example:';
-            html += '</strong> ';
-            html += lang === 'fr' ? "Quand le modèle traite 'souris', il prête beaucoup d'attention à 'chat' (0.20) et 'mangé' (0.40) pour comprendre qu'il s'agit d'une action de prédation, pas d'un appareil informatique." : "When the model processes 'mouse', it pays a lot of attention to 'cat' (0.20) and 'ate' (0.40) to understand it's a predation action, not a computer device.";
-            html += '</p></div>';
-
+            // Explication détaillée des patterns observés
+            html += '<div class="mt-6 space-y-4">';
+            html += '<div class="bg-purple-900/30 border border-purple-500/30 rounded-lg p-4">';
+            html += '<p class="text-sm font-bold mb-2">💡 ';
+            html += lang === 'fr' ? 'Analyse des patterns d\'attention observés :' : 'Analysis of observed attention patterns:';
+            html += '</p>';
+            html += '<div class="space-y-2 text-xs md:text-sm text-slate-300">';
+            html += '<p><strong>• "Le" → "chat" (55%)</strong> : ';
+            html += lang === 'fr' ? 'L\'article déterminant se connecte prioritairement au nom qu\'il introduit' : 'The determiner article connects primarily to the noun it introduces';
+            html += '</p>';
+            html += '<p><strong>• "chat" → "chat" (65%)</strong> : ';
+            html += lang === 'fr' ? 'Auto-attention forte pour consolider l\'identité du sujet principal' : 'Strong self-attention to consolidate the main subject identity';
+            html += '</p>';
+            html += '<p><strong>• "a" → "mangé" (45%)</strong> : ';
+            html += lang === 'fr' ? 'L\'auxiliaire "avoir" se lie fortement au participe passé' : 'The auxiliary "avoir" binds strongly to the past participle';
+            html += '</p>';
+            html += '<p><strong>• "mangé" → "chat" (30%)</strong> : ';
+            html += lang === 'fr' ? 'Le verbe regarde vers son sujet pour l\'accord et la cohérence' : 'The verb looks to its subject for agreement and coherence';
+            html += '</p>';
+            html += '<p><strong>• "la" → "souris" (54%)</strong> : ';
+            html += lang === 'fr' ? 'L\'article féminin se connecte au nom qu\'il détermine' : 'The feminine article connects to the noun it determines';
+            html += '</p>';
+            html += '<p><strong>• "souris" → "mangé" (40%)</strong> : ';
+            html += lang === 'fr' ? 'Compréhension que la souris est l\'objet direct de l\'action' : 'Understanding that the mouse is the direct object of the action';
+            html += '</p>';
             html += '</div></div>';
+
+            // Section sur les limites et défis
+            html += '<div class="bg-orange-900/30 border border-orange-500/30 rounded-lg p-4">';
+            html += '<p class="text-sm font-bold mb-2">⚠️ ';
+            html += lang === 'fr' ? 'Défis et limites de l\'attention :' : 'Challenges and limitations of attention:';
+            html += '</p>';
+            html += '<div class="space-y-2 text-xs md:text-sm text-slate-300">';
+            html += '<p><strong>• Complexité quadratique</strong> : ';
+            html += lang === 'fr' ? 'Coût computationnel croît comme n² avec la longueur du texte' : 'Computational cost grows as n² with text length';
+            html += '</p>';
+            html += '<p><strong>• Attention dispersée</strong> : ';
+            html += lang === 'fr' ? 'Dans de longs textes, l\'attention peut se diluer' : 'In long texts, attention can become diluted';
+            html += '</p>';
+            html += '<p><strong>• Biais positionnels</strong> : ';
+            html += lang === 'fr' ? 'Tendance à favoriser les mots récents ou en début de phrase' : 'Tendency to favor recent words or sentence beginnings';
+            html += '</p>';
+            html += '</div></div>';
+            html += '</div>';
+
+            html += '</div>';
             return html;
         }
 
         function renderArchitectureSection() {
             var lang = state.lang;
             var layers = lang === 'fr' ? [
-                {name: 'Embedding', desc: 'Conversion mots → vecteurs (12,288 dims)'},
-                {name: 'Position Encoding', desc: 'Ajout info position des mots'},
-                {name: 'Attention 1', desc: '96 têtes analysent les relations'},
-                {name: 'Feed Forward 1', desc: 'Traitement des patterns (4x expansion)'},
-                {name: 'Attention 2', desc: '96 têtes - couche suivante'},
-                {name: 'Feed Forward 2', desc: 'Traitement des patterns'},
-                {name: '... x118', desc: 'Répété 120 fois au total (GPT-4)'},
-                {name: 'Layer Norm', desc: 'Normalisation finale'},
-                {name: 'Output', desc: 'Probabilités sur 100k tokens'}
+                {name: 'Couche d\'Embedding', desc: 'Conversion mots → vecteurs de 12,288 dimensions', detail: 'Chaque token devient un point dans un espace vectoriel gigantesque'},
+                {name: 'Encodage Positionnel', desc: 'Ajout d\'informations sur la position des mots', detail: 'Permet au modèle de distinguer "chat mange souris" de "souris mange chat"'},
+                {name: 'Couche Attention 1', desc: '96 têtes analysent simultanément les relations', detail: 'Chaque tête se spécialise dans un type de relation différent'},
+                {name: 'Réseau Feed-Forward 1', desc: 'Traitement des patterns (expansion 4x vers 49,152 dims)', detail: 'Activation de "neurones" spécialisés dans certains concepts'},
+                {name: 'Couche Attention 2', desc: '96 têtes - analyse plus abstraite', detail: 'Combine les insights de la couche précédente'},
+                {name: 'Réseau Feed-Forward 2', desc: 'Traitement de patterns plus complexes', detail: 'Reconnaissance de structures linguistiques de haut niveau'},
+                {name: '... Répété x118', desc: 'Jusqu\'à 120 couches au total (GPT-4)', detail: 'Chaque couche ajoute une abstraction supplémentaire'},
+                {name: 'Normalisation Finale', desc: 'Préparation pour la sortie', detail: 'Stabilise les activations avant la prédiction'},
+                {name: 'Tête de Sortie', desc: 'Probabilités sur ~100k tokens possibles', detail: 'Transformation en distribution de probabilité sur le vocabulaire'}
             ] : [
-                {name: 'Embedding', desc: 'Words → vectors (12,288 dims)'},
-                {name: 'Position Encoding', desc: 'Add position information'},
-                {name: 'Attention 1', desc: '96 heads analyze relationships'},
-                {name: 'Feed Forward 1', desc: 'Pattern processing (4x expansion)'},
-                {name: 'Attention 2', desc: '96 heads - next layer'},
-                {name: 'Feed Forward 2', desc: 'Pattern processing'},
-                {name: '... x118', desc: 'Repeated 120 times total (GPT-4)'},
-                {name: 'Layer Norm', desc: 'Final normalization'},
-                {name: 'Output', desc: 'Probabilities over 100k tokens'}
+                {name: 'Embedding Layer', desc: 'Words → 12,288-dimensional vectors', detail: 'Each token becomes a point in a gigantic vector space'},
+                {name: 'Positional Encoding', desc: 'Add word position information', detail: 'Allows model to distinguish "cat eats mouse" from "mouse eats cat"'},
+                {name: 'Attention Layer 1', desc: '96 heads simultaneously analyze relationships', detail: 'Each head specializes in a different type of relationship'},
+                {name: 'Feed-Forward Network 1', desc: 'Pattern processing (4x expansion to 49,152 dims)', detail: 'Activation of "neurons" specialized in certain concepts'},
+                {name: 'Attention Layer 2', desc: '96 heads - more abstract analysis', detail: 'Combines insights from previous layer'},
+                {name: 'Feed-Forward Network 2', desc: 'More complex pattern processing', detail: 'Recognition of high-level linguistic structures'},
+                {name: '... Repeated x118', desc: 'Up to 120 layers total (GPT-4)', detail: 'Each layer adds an additional abstraction'},
+                {name: 'Final Normalization', desc: 'Preparation for output', detail: 'Stabilizes activations before prediction'},
+                {name: 'Output Head', desc: 'Probabilities over ~100k possible tokens', detail: 'Transformation into probability distribution over vocabulary'}
             ];
 
             var models = lang === 'fr' ? [
-                {model: 'GPT-4', params: '~1.8T', context: '128k', strength: 'Raisonnement, analyse'},
-                {model: 'Claude 3.5', params: 'Non divulgué', context: '200k', strength: 'Conversations longues'},
-                {model: 'LLaMA 3.1', params: '405B', context: '128k', strength: 'Open source, efficace'},
-                {model: 'Gemini 1.5', params: 'Non divulgué', context: '1M', strength: 'Contexte massif'}
+                {model: 'GPT-4', params: '~1.8T', layers: '120+', context: '128k', training: '13T tokens', strength: 'Raisonnement, analyse complexe'},
+                {model: 'Claude 3.5 Sonnet', params: 'Non divulgué', layers: '~100', context: '200k', training: 'Non divulgué', strength: 'Conversations longues, sécurité'},
+                {model: 'LLaMA 3.1 405B', params: '405B', layers: '126', context: '128k', training: '15T tokens', strength: 'Open source, efficacité'},
+                {model: 'Gemini 1.5 Pro', params: 'Non divulgué', layers: '~120', context: '1M', training: 'Non divulgué', strength: 'Contexte massif, multimodal'}
             ] : [
-                {model: 'GPT-4', params: '~1.8T', context: '128k', strength: 'Reasoning, analysis'},
-                {model: 'Claude 3.5', params: 'Undisclosed', context: '200k', strength: 'Long conversations'},
-                {model: 'LLaMA 3.1', params: '405B', context: '128k', strength: 'Open source, efficient'},
-                {model: 'Gemini 1.5', params: 'Undisclosed', context: '1M', strength: 'Massive context'}
+                {model: 'GPT-4', params: '~1.8T', layers: '120+', context: '128k', training: '13T tokens', strength: 'Reasoning, complex analysis'},
+                {model: 'Claude 3.5 Sonnet', params: 'Undisclosed', layers: '~100', context: '200k', training: 'Undisclosed', strength: 'Long conversations, safety'},
+                {model: 'LLaMA 3.1 405B', params: '405B', layers: '126', context: '128k', training: '15T tokens', strength: 'Open source, efficiency'},
+                {model: 'Gemini 1.5 Pro', params: 'Undisclosed', layers: '~120', context: '1M', training: 'Undisclosed', strength: 'Massive context, multimodal'}
             ];
 
             var html = '<div class="space-y-6 animate-in"><div class="bg-slate-800/50 backdrop-blur rounded-xl p-4 md:p-6 border border-slate-700">';
             html += '<h2 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">';
             html += '<span class="text-green-400">🏗️</span>';
-            html += lang === 'fr' ? '4. Architecture Transformer' : '4. Transformer Architecture';
+            html += lang === 'fr' ? '4. Architecture Transformer : L\'Empilement Magique' : '4. Transformer Architecture: The Magic Stack';
             html += '</h2>';
 
             html += '<p class="text-slate-300 mb-6 text-sm md:text-base">';
-            html += lang === 'fr' ? "Les LLM modernes (GPT, Claude, LLaMA) utilisent l'architecture Transformer : empilement de couches qui traitent le texte de manière séquentielle." : "Modern LLMs (GPT, Claude, LLaMA) use the Transformer architecture: stacking layers that process text sequentially.";
+            html += lang === 'fr' ? 
+                "L'architecture Transformer est le cœur révolutionnaire des LLM modernes. Imaginez un gratte-ciel de 120 étages où chaque étage spécialisé transforme progressivement le texte brut en compréhension profonde. Chaque couche ajoute une abstraction supplémentaire, passant de la syntaxe de base aux concepts complexes." : 
+                "The Transformer architecture is the revolutionary heart of modern LLMs. Imagine a 120-story skyscraper where each specialized floor progressively transforms raw text into deep understanding. Each layer adds an additional abstraction, moving from basic syntax to complex concepts.";
             html += '</p>';
 
+            // Nouvelle section explicative conceptuelle
+            html += '<div class="bg-green-900/30 border border-green-500/30 rounded-lg p-6 mb-6">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-cyan-400">🧱</span>';
+            html += lang === 'fr' ? 'Le principe de l\'empilement progressif' : 'The principle of progressive stacking';
+            html += '</h3>';
+            html += '<p class="text-slate-300 mb-4 text-sm md:text-base">';
+            html += lang === 'fr' ? 
+                "Chaque couche Transformer fonctionne comme un filtre intelligent qui enrichit la représentation du texte. C'est un processus hiérarchique de compréhension :" :
+                "Each Transformer layer works like an intelligent filter that enriches the text representation. It's a hierarchical understanding process:";
+            html += '</p>';
+            
+            var hierarchy = lang === 'fr' ? [
+                {level: 'Couches 1-20', focus: 'Syntaxe et grammaire', desc: 'Reconnaissance des structures grammaticales de base', examples: ['Sujet-verbe-objet', 'Accords grammaticaux', 'Types de mots']},
+                {level: 'Couches 21-60', focus: 'Sémantique locale', desc: 'Compréhension du sens des groupes de mots', examples: ['Expressions idiomatiques', 'Métaphores simples', 'Relations causales']},
+                {level: 'Couches 61-100', focus: 'Cohérence globale', desc: 'Vision d\'ensemble du texte et contexte', examples: ['Thème principal', 'Transitions logiques', 'Références croisées']},
+                {level: 'Couches 101-120', focus: 'Raisonnement abstrait', desc: 'Inférences complexes et généralisation', examples: ['Analogies sophistiquées', 'Implications logiques', 'Créativité conceptuelle']}
+            ] : [
+                {level: 'Layers 1-20', focus: 'Syntax and grammar', desc: 'Recognition of basic grammatical structures', examples: ['Subject-verb-object', 'Grammatical agreements', 'Word types']},
+                {level: 'Layers 21-60', focus: 'Local semantics', desc: 'Understanding meaning of word groups', examples: ['Idiomatic expressions', 'Simple metaphors', 'Causal relations']},
+                {level: 'Layers 61-100', focus: 'Global coherence', desc: 'Overall text vision and context', examples: ['Main theme', 'Logical transitions', 'Cross-references']},
+                {level: 'Layers 101-120', focus: 'Abstract reasoning', desc: 'Complex inferences and generalization', examples: ['Sophisticated analogies', 'Logical implications', 'Conceptual creativity']}
+            ];
+
+            html += '<div class="space-y-3">';
+            for (var i = 0; i < hierarchy.length; i++) {
+                var colors = ['from-red-500 to-orange-500', 'from-blue-500 to-purple-500', 'from-green-500 to-teal-500', 'from-purple-500 to-pink-500'];
+                html += '<div class="bg-slate-800/50 rounded-lg p-4 border-l-4 border-gradient-to-b ' + colors[i] + '">';
+                html += '<div class="flex items-start gap-4">';
+                html += '<div class="bg-gradient-to-r ' + colors[i] + ' text-white px-3 py-1 rounded-full text-xs font-bold">' + hierarchy[i].level + '</div>';
+                html += '<div class="flex-1">';
+                html += '<h4 class="font-bold text-white mb-1">' + hierarchy[i].focus + '</h4>';
+                html += '<p class="text-xs text-slate-300 mb-2">' + hierarchy[i].desc + '</p>';
+                html += '<div class="flex flex-wrap gap-1">';
+                for (var j = 0; j < hierarchy[i].examples.length; j++) {
+                    html += '<span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-400">' + hierarchy[i].examples[j] + '</span>';
+                }
+                html += '</div></div></div></div>';
+            }
+            html += '</div></div>';
+
+            // Visualisation de l'architecture
             html += '<div class="bg-slate-900/50 rounded-lg p-6">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-yellow-400">🏗️</span>';
+            html += lang === 'fr' ? 'Anatomie d\'une couche Transformer' : 'Anatomy of a Transformer layer';
+            html += '</h3>';
             html += '<div class="flex flex-col gap-3">';
             for (var i = 0; i < layers.length; i++) {
-                html += '<div class="flex items-center gap-4">';
+                var gradients = [
+                    'from-purple-600 to-blue-600',
+                    'from-blue-600 to-cyan-600', 
+                    'from-cyan-600 to-green-600',
+                    'from-green-600 to-yellow-600',
+                    'from-yellow-600 to-orange-600',
+                    'from-orange-600 to-red-600',
+                    'from-red-600 to-pink-600',
+                    'from-pink-600 to-purple-600',
+                    'from-purple-600 to-indigo-600'
+                ];
+                var gradient = gradients[i % gradients.length];
+                
+                html += '<div class="group hover:scale-105 transition-all duration-300">';
+                html += '<div class="bg-gradient-to-r ' + gradient + ' rounded-lg p-4 shadow-lg">';
+                html += '<div class="flex items-center justify-between">';
                 html += '<div class="flex-1">';
-                html += '<div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-lg p-4 shadow-lg">';
-                html += '<div class="font-bold text-lg">' + layers[i].name + '</div>';
-                html += '<div class="text-sm text-slate-200">' + layers[i].desc + '</div>';
+                html += '<div class="font-bold text-lg text-white">' + layers[i].name + '</div>';
+                html += '<div class="text-sm text-slate-100 mb-2">' + layers[i].desc + '</div>';
+                html += '<div class="text-xs text-slate-200 opacity-80">' + layers[i].detail + '</div>';
+                html += '</div>';
+                html += '<div class="text-3xl opacity-50">⚙️</div>';
                 html += '</div></div>';
                 if (i < layers.length - 1) {
-                    html += '<div class="text-slate-500">↓</div>';
+                    html += '<div class="flex justify-center py-1">';
+                    html += '<div class="text-slate-500 text-xl">↓</div>';
+                    html += '</div>';
                 }
                 html += '</div>';
             }
             html += '</div></div>';
 
-            html += '<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">';
+            // Métriques détaillées
+            html += '<div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">';
             html += '<div class="bg-green-900/30 border border-green-500/30 rounded-lg p-4">';
-            html += '<p class="text-sm font-bold mb-2">📊 ';
-            html += lang === 'fr' ? 'Chiffres clés (GPT-4)' : 'Key figures (GPT-4)';
-            html += ':</p>';
-            html += '<ul class="text-sm space-y-1">';
-            html += '<li>• ~1.8 ' + (lang === 'fr' ? 'trillion de paramètres' : 'trillion parameters') + '</li>';
-            html += '<li>• 120+ ' + (lang === 'fr' ? 'couches empilées' : 'stacked layers') + '</li>';
-            html += '<li>• 96 ' + (lang === 'fr' ? "têtes d'attention/couche" : 'attention heads/layer') + '</li>';
-            html += '<li>• ' + (lang === 'fr' ? 'Contexte' : 'Context') + ': 128k tokens (~300 ' + (lang === 'fr' ? 'pages' : 'pages') + ')</li>';
-            html += '<li>• ' + (lang === 'fr' ? 'Entraîné sur' : 'Trained on') + ' ~13 trillion tokens</li>';
-            html += '</ul></div>';
-            html += '<div class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4">';
-            html += '<p class="text-sm font-bold mb-2">⚡ ';
-            html += lang === 'fr' ? 'Performance' : 'Performance';
-            html += ':</p>';
-            html += '<ul class="text-sm space-y-1">';
-            html += '<li>• ~20-50 tokens/seconde</li>';
-            html += '<li>• ~1 ' + (lang === 'fr' ? 'pétaflop par token' : 'petaflop per token') + '</li>';
-            html += '<li>• ' + (lang === 'fr' ? 'Coût formation' : 'Training cost') + ': ~$100M</li>';
-            html += '<li>• ' + (lang === 'fr' ? 'Coût inférence' : 'Inference cost') + ': $0.01-0.03/1k tokens</li>';
-            html += '</ul></div></div>';
+            html += '<h4 class="text-sm font-bold mb-3 flex items-center gap-2">';
+            html += '<span class="text-green-400">📊</span>';
+            html += lang === 'fr' ? 'Métriques clés (GPT-4)' : 'Key metrics (GPT-4)';
+            html += '</h4>';
+            html += '<div class="space-y-2 text-xs">';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Paramètres totaux' : 'Total parameters') + ':</span>';
+            html += '<span class="font-bold text-green-400">~1.8T</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Couches empilées' : 'Stacked layers') + ':</span>';
+            html += '<span class="font-bold text-blue-400">120+</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Têtes d\'attention/couche' : 'Attention heads/layer') + ':</span>';
+            html += '<span class="font-bold text-purple-400">96</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Dimensions embeddings' : 'Embedding dimensions') + ':</span>';
+            html += '<span class="font-bold text-cyan-400">12,288</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Taille vocabulaire' : 'Vocabulary size') + ':</span>';
+            html += '<span class="font-bold text-orange-400">~100k</span>';
+            html += '</div>';
+            html += '</div></div>';
 
-            html += '<div class="mt-4 bg-slate-900/50 rounded-lg p-4">';
-            html += '<p class="text-sm font-bold mb-2">🔄 ';
-            html += lang === 'fr' ? 'Comparaison des modèles' : 'Model comparison';
-            html += ':</p>';
+            html += '<div class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4">';
+            html += '<h4 class="text-sm font-bold mb-3 flex items-center gap-2">';
+            html += '<span class="text-blue-400">⚡</span>';
+            html += lang === 'fr' ? 'Performance & coûts' : 'Performance & costs';
+            html += '</h4>';
+            html += '<div class="space-y-2 text-xs">';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Vitesse génération' : 'Generation speed') + ':</span>';
+            html += '<span class="font-bold text-green-400">20-50 tok/s</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Calcul par token' : 'Compute per token') + ':</span>';
+            html += '<span class="font-bold text-yellow-400">~1 petaflop</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Coût formation' : 'Training cost') + ':</span>';
+            html += '<span class="font-bold text-red-400">~$150M</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Coût/1k tokens' : 'Cost/1k tokens') + ':</span>';
+            html += '<span class="font-bold text-orange-400">$0.01-0.03</span>';
+            html += '</div>';
+            html += '</div></div>';
+
+            html += '<div class="bg-purple-900/30 border border-purple-500/30 rounded-lg p-4">';
+            html += '<h4 class="text-sm font-bold mb-3 flex items-center gap-2">';
+            html += '<span class="text-purple-400">🚀</span>';
+            html += lang === 'fr' ? 'Capacités contextuelles' : 'Contextual capabilities';
+            html += '</h4>';
+            html += '<div class="space-y-2 text-xs">';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Fenêtre de contexte' : 'Context window') + ':</span>';
+            html += '<span class="font-bold text-cyan-400">128k tokens</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Équivalent pages' : 'Equivalent pages') + ':</span>';
+            html += '<span class="font-bold text-green-400">~300 pages</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Langues supportées' : 'Supported languages') + ':</span>';
+            html += '<span class="font-bold text-yellow-400">100+</span>';
+            html += '</div>';
+            html += '<div class="flex justify-between">';
+            html += '<span class="text-slate-400">' + (lang === 'fr' ? 'Domaines d\'expertise' : 'Expertise domains') + ':</span>';
+            html += '<span class="font-bold text-pink-400">' + (lang === 'fr' ? 'Illimités' : 'Unlimited') + '</span>';
+            html += '</div>';
+            html += '</div></div>';
+            html += '</div>';
+
+            // Comparaison des modèles améliorée
+            html += '<div class="mt-6 bg-slate-900/50 rounded-lg p-6">';
+            html += '<h4 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-orange-400">🔄</span>';
+            html += lang === 'fr' ? 'Panorama des géants actuels' : 'Current giants landscape';
+            html += '</h4>';
             html += '<div class="overflow-x-auto">';
             html += '<table class="w-full text-sm">';
-            html += '<thead><tr class="border-b border-slate-700">';
-            html += '<th class="text-left py-2">' + (lang === 'fr' ? 'Modèle' : 'Model') + '</th>';
-            html += '<th class="text-left py-2">' + (lang === 'fr' ? 'Paramètres' : 'Parameters') + '</th>';
-            html += '<th class="text-left py-2">' + (lang === 'fr' ? 'Contexte' : 'Context') + '</th>';
-            html += '<th class="text-left py-2">' + (lang === 'fr' ? 'Points forts' : 'Strengths') + '</th>';
+            html += '<thead><tr class="border-b border-slate-700 text-left">';
+            html += '<th class="py-3 px-2 font-bold text-slate-300">' + (lang === 'fr' ? 'Modèle' : 'Model') + '</th>';
+            html += '<th class="py-3 px-2 font-bold text-slate-300">' + (lang === 'fr' ? 'Paramètres' : 'Parameters') + '</th>';
+            html += '<th class="py-3 px-2 font-bold text-slate-300">' + (lang === 'fr' ? 'Couches' : 'Layers') + '</th>';
+            html += '<th class="py-3 px-2 font-bold text-slate-300">' + (lang === 'fr' ? 'Contexte' : 'Context') + '</th>';
+            html += '<th class="py-3 px-2 font-bold text-slate-300">' + (lang === 'fr' ? 'Entraînement' : 'Training') + '</th>';
+            html += '<th class="py-3 px-2 font-bold text-slate-300">' + (lang === 'fr' ? 'Points forts' : 'Strengths') + '</th>';
             html += '</tr></thead><tbody>';
             for (var i = 0; i < models.length; i++) {
-                html += '<tr class="border-b border-slate-800">';
-                html += '<td class="py-2 font-bold">' + models[i].model + '</td>';
-                html += '<td class="py-2">' + models[i].params + '</td>';
-                html += '<td class="py-2">' + models[i].context + '</td>';
-                html += '<td class="py-2 text-slate-300">' + models[i].strength + '</td>';
+                html += '<tr class="border-b border-slate-800 hover:bg-slate-800/30 transition-colors">';
+                html += '<td class="py-3 px-2 font-bold text-cyan-400">' + models[i].model + '</td>';
+                html += '<td class="py-3 px-2 text-green-400">' + models[i].params + '</td>';
+                html += '<td class="py-3 px-2 text-blue-400">' + models[i].layers + '</td>';
+                html += '<td class="py-3 px-2 text-purple-400">' + models[i].context + '</td>';
+                html += '<td class="py-3 px-2 text-yellow-400">' + models[i].training + '</td>';
+                html += '<td class="py-3 px-2 text-slate-300 text-xs">' + models[i].strength + '</td>';
                 html += '</tr>';
             }
             html += '</tbody></table></div></div>';
@@ -716,94 +1423,279 @@
             var lang = state.lang;
             var phases = lang === 'fr' ? [
                 {
-                    phase: 'Phase 1: Pre-training',
-                    duration: '3-6 mois',
+                    phase: 'Phase 1: Pre-training (Apprentissage Fondamental)',
+                    duration: '3-6 mois intensifs',
                     data: '10-15 trillions de tokens',
-                    task: 'Prédire le mot suivant',
-                    cost: '50-100M $',
-                    example: 'Texte: "Paris est la capitale de..." → Apprend: "France"'
+                    task: 'Prédire le mot suivant sur Internet entier',
+                    cost: '$50-100M (GPU + électricité)',
+                    example: 'Texte brut: "Paris est la capitale de..." → Le modèle apprend: "France" (et 13 trillion d\'autres prédictions)',
+                    detail: 'Le modèle "lit" l\'équivalent de 10 millions de livres, développant une compréhension statistique du langage',
+                    gpu: '10,000-25,000 GPU A100/H100',
+                    power: '~50 MW (ville de 50,000 habitants)'
                 },
                 {
-                    phase: 'Phase 2: Supervised Fine-Tuning',
-                    duration: '2-4 semaines',
-                    data: '~100k exemples qualité',
-                    task: 'Suivre instructions humaines',
-                    cost: '1-5M $',
-                    example: 'Q: "Explique la photosynthèse" → Réponse optimisée par humains'
+                    phase: 'Phase 2: Supervised Fine-Tuning (SFT - Politesse)',
+                    duration: '2-4 semaines ciblées',
+                    data: '~100,000 exemples de haute qualité',
+                    task: 'Apprendre à suivre les instructions humaines',
+                    cost: '$1-5M (raffinement precision)',
+                    example: 'Q: "Explique la photosynthèse simplement" → Réponse rédigée et validée par des experts humains',
+                    detail: 'Transformation d\'un "prédicteur de texte" en "assistant conversationnel"',
+                    gpu: '100-1,000 GPU A100',
+                    power: '~1-5 MW'
                 },
                 {
-                    phase: 'Phase 3: RLHF',
-                    duration: '2-8 semaines',
-                    data: '~10k comparaisons',
-                    task: 'Optimiser préférences humaines',
-                    cost: '2-10M $',
-                    example: 'Plusieurs réponses → Humains classent → Modèle optimise'
+                    phase: 'Phase 3: RLHF (Reinforcement Learning from Human Feedback)',
+                    duration: '2-8 semaines d\'optimisation',
+                    data: '~10,000-50,000 comparaisons humaines',
+                    task: 'Optimiser selon les préférences humaines',
+                    cost: '$2-10M (+ coût annotateurs)',
+                    example: 'Modèle génère 4 réponses → Humains classent la meilleure → Modèle ajuste ses probabilités',
+                    detail: 'Alignement sur les valeurs humaines : véracité, utilité, sécurité',
+                    gpu: '500-2,000 GPU A100',
+                    power: '~2-8 MW'
                 }
             ] : [
                 {
-                    phase: 'Phase 1: Pre-training',
-                    duration: '3-6 months',
+                    phase: 'Phase 1: Pre-training (Fundamental Learning)',
+                    duration: '3-6 intensive months',
                     data: '10-15 trillion tokens',
-                    task: 'Predict next word',
-                    cost: '$50-100M',
-                    example: 'Text: "Paris is the capital of..." → Learns: "France"'
+                    task: 'Predict next word on entire Internet',
+                    cost: '$50-100M (GPU + electricity)',
+                    example: 'Raw text: "Paris is the capital of..." → Model learns: "France" (and 13 trillion other predictions)',
+                    detail: 'Model "reads" equivalent of 10 million books, developing statistical language understanding',
+                    gpu: '10,000-25,000 A100/H100 GPUs',
+                    power: '~50 MW (city of 50,000 inhabitants)'
                 },
                 {
-                    phase: 'Phase 2: Supervised Fine-Tuning',
-                    duration: '2-4 weeks',
-                    data: '~100k quality examples',
-                    task: 'Follow human instructions',
-                    cost: '$1-5M',
-                    example: 'Q: "Explain photosynthesis" → Human-optimized response'
+                    phase: 'Phase 2: Supervised Fine-Tuning (SFT - Politeness)',
+                    duration: '2-4 targeted weeks',
+                    data: '~100,000 high-quality examples',
+                    task: 'Learn to follow human instructions',
+                    cost: '$1-5M (precision refinement)',
+                    example: 'Q: "Explain photosynthesis simply" → Response written and validated by human experts',
+                    detail: 'Transformation from "text predictor" to "conversational assistant"',
+                    gpu: '100-1,000 A100 GPUs',
+                    power: '~1-5 MW'
                 },
                 {
-                    phase: 'Phase 3: RLHF',
-                    duration: '2-8 weeks',
-                    data: '~10k comparisons',
-                    task: 'Optimize human preferences',
-                    cost: '$2-10M',
-                    example: 'Multiple answers → Humans rank → Model optimizes'
+                    phase: 'Phase 3: RLHF (Reinforcement Learning from Human Feedback)',
+                    duration: '2-8 optimization weeks',
+                    data: '~10,000-50,000 human comparisons',
+                    task: 'Optimize according to human preferences',
+                    cost: '$2-10M (+ annotator costs)',
+                    example: 'Model generates 4 responses → Humans rank the best → Model adjusts its probabilities',
+                    detail: 'Alignment with human values: truthfulness, helpfulness, safety',
+                    gpu: '500-2,000 A100 GPUs',
+                    power: '~2-8 MW'
                 }
             ];
 
             var html = '<div class="space-y-6 animate-in"><div class="bg-slate-800/50 backdrop-blur rounded-xl p-4 md:p-6 border border-slate-700">';
             html += '<h2 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">';
             html += '<span class="text-orange-400">📈</span>';
-            html += lang === 'fr' ? "5. Entraînement : Les 3 Phases" : "5. Training: The 3 Phases";
+            html += lang === 'fr' ? "5. Entraînement : La Métamorphose en 3 Actes" : "5. Training: The 3-Act Metamorphosis";
             html += '</h2>';
 
-            html += '<div class="space-y-4">';
-            for (var i = 0; i < phases.length; i++) {
-                html += '<div class="bg-slate-900/50 rounded-lg p-6 border border-slate-700">';
-                html += '<div class="flex items-center gap-3 mb-3">';
-                html += '<div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center font-bold">' + (i + 1) + '</div>';
-                html += '<h3 class="text-xl font-bold">' + phases[i].phase + '</h3>';
-                html += '</div>';
-                html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">';
-                html += '<div><p class="text-xs text-slate-400">' + (lang === 'fr' ? 'Durée' : 'Duration') + '</p>';
-                html += '<p class="text-base font-bold">' + phases[i].duration + '</p></div>';
-                html += '<div><p class="text-xs text-slate-400">' + (lang === 'fr' ? 'Données' : 'Data') + '</p>';
-                html += '<p class="text-base font-bold">' + phases[i].data + '</p></div>';
-                html += '<div><p class="text-xs text-slate-400">' + (lang === 'fr' ? 'Tâche' : 'Task') + '</p>';
-                html += '<p class="text-base font-bold">' + phases[i].task + '</p></div>';
-                html += '<div><p class="text-xs text-slate-400">' + (lang === 'fr' ? 'Coût' : 'Cost') + '</p>';
-                html += '<p class="text-base font-bold">' + phases[i].cost + '</p></div>';
-                html += '</div>';
-                html += '<div class="bg-slate-800/50 rounded p-3 border-l-4 border-orange-500">';
-                html += '<p class="text-sm text-slate-300"><strong>' + (lang === 'fr' ? 'Exemple' : 'Example') + ':</strong> ' + phases[i].example + '</p>';
+            html += '<p class="text-slate-300 mb-6 text-sm md:text-base">';
+            html += lang === 'fr' ? 
+                "Former un LLM, c'est comme élever un enfant prodige en accéléré. Le processus suit 3 phases distinctes qui transforment progressivement un réseau de neurones vierge en assistant intelligent. Chaque phase a son rôle, ses coûts astronomiques et ses défis techniques uniques." :
+                "Training an LLM is like raising a child prodigy in fast-forward. The process follows 3 distinct phases that progressively transform a blank neural network into an intelligent assistant. Each phase has its role, astronomical costs, and unique technical challenges.";
+            html += '</p>';
+
+            // Timeline visuelle
+            html += '<div class="rounded-lg p-4 sm:p-6 mb-6 mobile-p-4" style="background: linear-gradient(to right, rgba(255, 107, 53, 0.3), rgba(233, 30, 99, 0.3)); border: 1px solid rgba(255, 107, 53, 0.3);">';
+            html += '<h3 class="text-base sm:text-lg font-bold mb-4 flex items-center gap-2 mobile-text-base">';
+            html += '<span style="color: #ffc107;">⏱️</span>';
+            html += lang === 'fr' ? 'Timeline complète : 6-12 mois pour créer une IA' : 'Complete timeline: 6-12 months to create an AI';
+            html += '</h3>';
+            
+            // Version mobile (verticale) et desktop (horizontale)
+            html += '<div class="block sm:hidden">'; // Version mobile verticale
+            var mobileSteps = [
+                {name: lang === 'fr' ? 'Début' : 'Start', desc: lang === 'fr' ? 'Réseau vierge' : 'Blank network', color: '#ff6b35'},
+                {name: 'Pre-training', desc: '3-6 ' + (lang === 'fr' ? 'mois' : 'months'), color: '#e91e63'},
+                {name: 'SFT', desc: '2-4 ' + (lang === 'fr' ? 'semaines' : 'weeks'), color: '#8e44ad'},
+                {name: 'RLHF', desc: '2-8 ' + (lang === 'fr' ? 'semaines' : 'weeks'), color: '#9c27b0'},
+                {name: lang === 'fr' ? 'Production' : 'Production', desc: 'ChatGPT!', color: '#ff6b35'}
+            ];
+            
+            for (var i = 0; i < mobileSteps.length; i++) {
+                html += '<div class="flex items-center mb-3">';
+                html += '<div class="w-4 h-4 rounded-full mr-3 flex-shrink-0" style="background-color: ' + mobileSteps[i].color + ';"></div>';
+                html += '<div class="flex-1">';
+                html += '<div class="font-bold text-sm" style="color: ' + mobileSteps[i].color + ';">' + mobileSteps[i].name + '</div>';
+                html += '<div class="text-xs" style="color: #a0a0a0;">' + mobileSteps[i].desc + '</div>';
                 html += '</div></div>';
+                if (i < mobileSteps.length - 1) {
+                    html += '<div class="w-0.5 h-4 ml-2 mb-2" style="background-color: ' + mobileSteps[i].color + '; opacity: 0.5;"></div>';
+                }
+            }
+            html += '</div>';
+            
+            // Version desktop (horizontale)
+            html += '<div class="hidden sm:flex items-center justify-between text-sm">';
+            html += '<div class="text-center">';
+            html += '<div class="w-4 h-4 rounded-full mx-auto mb-2" style="background: linear-gradient(to right, #ff6b35, #e91e63);"></div>';
+            html += '<div class="font-bold" style="color: #ff6b35;">' + (lang === 'fr' ? 'Début' : 'Start') + '</div>';
+            html += '<div class="text-xs" style="color: #a0a0a0;">' + (lang === 'fr' ? 'Réseau vierge' : 'Blank network') + '</div>';
+            html += '</div>';
+            html += '<div class="flex-1 h-1 mx-4" style="background: linear-gradient(to right, #ff6b35, #e91e63);"></div>';
+            html += '<div class="text-center">';
+            html += '<div class="w-4 h-4 rounded-full mx-auto mb-2" style="background: linear-gradient(to right, #e91e63, #8e44ad);"></div>';
+            html += '<div class="font-bold" style="color: #e91e63;">' + (lang === 'fr' ? 'Pre-training' : 'Pre-training') + '</div>';
+            html += '<div class="text-xs" style="color: #a0a0a0;">3-6 ' + (lang === 'fr' ? 'mois' : 'months') + '</div>';
+            html += '</div>';
+            html += '<div class="flex-1 h-1 mx-4" style="background: linear-gradient(to right, #8e44ad, #9c27b0);"></div>';
+            html += '<div class="text-center">';
+            html += '<div class="w-4 h-4 rounded-full mx-auto mb-2" style="background: linear-gradient(to right, #9c27b0, #ff6b35);"></div>';
+            html += '<div class="font-bold" style="color: #8e44ad;">SFT</div>';
+            html += '<div class="text-xs" style="color: #a0a0a0;">2-4 ' + (lang === 'fr' ? 'semaines' : 'weeks') + '</div>';
+            html += '</div>';
+            html += '<div class="flex-1 h-1 mx-4" style="background: linear-gradient(to right, #ff6b35, #e91e63);"></div>';
+            html += '<div class="text-center">';
+            html += '<div class="w-4 h-4 rounded-full mx-auto mb-2" style="background: linear-gradient(to right, #e91e63, #9c27b0);"></div>';
+            html += '<div class="font-bold" style="color: #9c27b0;">RLHF</div>';
+            html += '<div class="text-xs" style="color: #a0a0a0;">2-8 ' + (lang === 'fr' ? 'semaines' : 'weeks') + '</div>';
+            html += '</div>';
+            html += '<div class="flex-1 h-1 mx-4" style="background: linear-gradient(to right, #9c27b0, #ff6b35);"></div>';
+            html += '<div class="text-center">';
+            html += '<div class="w-4 h-4 rounded-full mx-auto mb-2" style="background: linear-gradient(to right, #ff6b35, #e91e63);"></div>';
+            html += '<div class="font-bold" style="color: #ff6b35;">' + (lang === 'fr' ? 'Production' : 'Production') + '</div>';
+            html += '<div class="text-xs" style="color: #a0a0a0;">ChatGPT!</div>';
+            html += '</div>';
+            html += '</div></div>';
+
+            // Phases détaillées
+            html += '<div class="space-y-6">';
+            for (var i = 0; i < phases.length; i++) {
+                var colors = [
+                    {bg: 'from-blue-900/30 to-purple-900/30', border: 'border-blue-500/30', accent: 'text-blue-400'},
+                    {bg: 'from-green-900/30 to-teal-900/30', border: 'border-green-500/30', accent: 'text-green-400'},
+                    {bg: 'from-orange-900/30 to-red-900/30', border: 'border-orange-500/30', accent: 'text-orange-400'}
+                ];
+                var color = colors[i];
+
+                html += '<div class="bg-gradient-to-br ' + color.bg + ' ' + color.border + ' border rounded-xl p-6">';
+                html += '<div class="flex items-start gap-4 mb-4">';
+                html += '<div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center font-bold text-white text-lg">' + (i + 1) + '</div>';
+                html += '<div class="flex-1">';
+                html += '<h3 class="text-xl font-bold ' + color.accent + ' mb-2">' + phases[i].phase + '</h3>';
+                html += '<p class="text-slate-300 text-sm mb-4">' + phases[i].detail + '</p>';
+                html += '</div></div>';
+
+                // Métriques en grille
+                html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">';
+                var metrics = [
+                    {label: lang === 'fr' ? 'Durée' : 'Duration', value: phases[i].duration, icon: '⏱️'},
+                    {label: lang === 'fr' ? 'Données' : 'Data', value: phases[i].data, icon: '📊'},
+                    {label: lang === 'fr' ? 'GPU' : 'GPUs', value: phases[i].gpu, icon: '🖥️'},
+                    {label: lang === 'fr' ? 'Coût' : 'Cost', value: phases[i].cost, icon: '💰'}
+                ];
+
+                for (var j = 0; j < metrics.length; j++) {
+                    html += '<div class="bg-slate-800/50 rounded-lg p-3 text-center">';
+                    html += '<div class="text-lg mb-1">' + metrics[j].icon + '</div>';
+                    html += '<div class="text-xs text-slate-400 mb-1">' + metrics[j].label + '</div>';
+                    html += '<div class="text-sm font-bold text-white">' + metrics[j].value + '</div>';
+                    html += '</div>';
+                }
+                html += '</div>';
+
+                // Tâche et exemple
+                html += '<div class="space-y-3">';
+                html += '<div class="bg-slate-800/50 rounded-lg p-4 border-l-4 ' + color.border.replace('border-', 'border-l-') + '">';
+                html += '<div class="font-bold text-sm ' + color.accent + ' mb-2">';
+                html += '🎯 ' + (lang === 'fr' ? 'Tâche principale' : 'Main task') + ' : ' + phases[i].task;
+                html += '</div>';
+                html += '<div class="text-xs text-slate-300">' + phases[i].example + '</div>';
+                html += '</div>';
+
+                // Détails techniques
+                html += '<div class="bg-slate-900/50 rounded-lg p-4">';
+                html += '<div class="flex items-center gap-2 mb-2">';
+                html += '<span class="text-yellow-400">⚡</span>';
+                html += '<span class="font-bold text-sm">' + (lang === 'fr' ? 'Consommation électrique' : 'Power consumption') + ' : ' + phases[i].power + '</span>';
+                html += '</div>';
+                html += '<div class="text-xs text-slate-400">';
+                if (i === 0) {
+                    html += lang === 'fr' ? 
+                        'Équivaut à la consommation d\'une ville moyenne pendant toute la durée d\'entraînement' :
+                        'Equivalent to a medium city\'s consumption throughout training duration';
+                } else if (i === 1) {
+                    html += lang === 'fr' ? 
+                        'Phase plus courte mais nécessitant des données de très haute qualité' :
+                        'Shorter phase but requiring very high quality data';
+                } else {
+                    html += lang === 'fr' ? 
+                        'Optimisation fine nécessitant des milliers d\'annotateurs humains qualifiés' :
+                        'Fine optimization requiring thousands of qualified human annotators';
+                }
+                html += '</div></div>';
+                html += '</div>';
+                html += '</div>';
             }
             html += '</div>';
 
-            html += '<div class="mt-6 bg-orange-900/30 border border-orange-500/30 rounded-lg p-4">';
-            html += '<p class="text-sm"><strong>💰 ';
-            html += lang === 'fr' ? 'Coût total' : 'Total cost';
-            html += ':</strong> ';
-            html += lang === 'fr' ? '~150 millions de dollars pour un modèle de type GPT-4' : '~$150 million for a GPT-4 scale model';
+            // Synthèse finale avec comparaisons
+            html += '<div class="mt-8 space-y-4">';
+            html += '<div class="bg-gradient-to-r from-orange-900/40 to-red-900/40 border border-orange-500/30 rounded-lg p-6">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-orange-400">💎</span>';
+            html += lang === 'fr' ? 'Le coût astronomique de l\'intelligence artificielle' : 'The astronomical cost of artificial intelligence';
+            html += '</h3>';
+            html += '<div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">';
+            
+            var comparisons = lang === 'fr' ? [
+                {title: 'Coût total GPT-4', amount: '~$150M', comparison: 'Plus cher qu\'un film blockbuster'},
+                {title: 'Consommation électrique', amount: '~50 GWh', comparison: 'Équivaut à 15,000 foyers/an'},
+                {title: 'Données d\'entraînement', amount: '13 Trillion tokens', comparison: '500 ans de lecture humaine'}
+            ] : [
+                {title: 'GPT-4 total cost', amount: '~$150M', comparison: 'More expensive than a blockbuster movie'},
+                {title: 'Power consumption', amount: '~50 GWh', comparison: 'Equivalent to 15,000 homes/year'},
+                {title: 'Training data', amount: '13 Trillion tokens', comparison: '500 years of human reading'}
+            ];
+
+            for (var i = 0; i < comparisons.length; i++) {
+                html += '<div class="text-center">';
+                html += '<div class="text-2xl font-bold text-orange-300 mb-1">' + comparisons[i].amount + '</div>';
+                html += '<div class="font-bold text-white mb-1">' + comparisons[i].title + '</div>';
+                html += '<div class="text-xs text-slate-400">' + comparisons[i].comparison + '</div>';
+                html += '</div>';
+            }
+            html += '</div>';
+
+            html += '<div class="mt-4 text-center">';
+            html += '<p class="text-sm text-slate-300 italic">';
+            html += lang === 'fr' ? 
+                "💡 Et pourtant, une fois entraîné, GPT-4 peut répondre à vos questions pour quelques centimes..." :
+                "💡 And yet, once trained, GPT-4 can answer your questions for a few cents...";
+            html += '</p></div></div>';
+            
+            // Analogie finale
+            html += '<div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/30 rounded-lg p-6">';
+            html += '<h4 class="text-lg font-bold mb-3 flex items-center gap-2">';
+            html += '<span class="text-purple-400">🎭</span>';
+            html += lang === 'fr' ? 'Analogie : Former un LLM comme élever un génie' : 'Analogy: Training an LLM like raising a genius';
+            html += '</h4>';
+            html += '<div class="space-y-3 text-sm text-slate-300">';
+            html += '<p><strong>' + (lang === 'fr' ? 'Pre-training' : 'Pre-training') + '</strong> = ';
+            html += lang === 'fr' ? 
+                'L\'enfant lit tous les livres de toutes les bibliothèques du monde (apprentissage général)' :
+                'Child reads every book from every library in the world (general learning)';
             html += '</p>';
-            html += '<p class="text-xs mt-2 text-slate-300">';
-            html += lang === 'fr' ? 'Nécessite des milliers de GPU NVIDIA A100/H100 pendant des mois.' : 'Requires thousands of NVIDIA A100/H100 GPUs for months.';
-            html += '</p></div>';
+            html += '<p><strong>SFT</strong> = ';
+            html += lang === 'fr' ? 
+                'Cours particuliers avec les meilleurs professeurs (apprentissage des bonnes manières)' :
+                'Private lessons with the best teachers (learning good manners)';
+            html += '</p>';
+            html += '<p><strong>RLHF</strong> = ';
+            html += lang === 'fr' ? 
+                'Feedback constant des parents pour ajuster le comportement (alignement moral)' :
+                'Constant feedback from parents to adjust behavior (moral alignment)';
+            html += '</p>';
+            html += '</div></div>';
+            html += '</div>';
 
             html += '</div></div>';
             return html;
@@ -815,59 +1707,310 @@
             var html = '<div class="space-y-6 animate-in"><div class="bg-slate-800/50 backdrop-blur rounded-xl p-4 md:p-6 border border-slate-700">';
             html += '<h2 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">';
             html += '<span class="text-red-400">⚠️</span>';
-            html += lang === 'fr' ? '6. Limitations & Capacités Émergentes' : '6. Limitations & Emergent Abilities';
+            html += lang === 'fr' ? '6. Limitations & Capacités Émergentes : L\'Équilibre du Possible' : '6. Limitations & Emergent Abilities: The Balance of Possibility';
             html += '</h2>';
 
-            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">';
-            html += '<div class="bg-red-900/30 border border-red-500/30 rounded-lg p-4">';
-            html += '<h3 class="font-bold mb-3 flex items-center gap-2">⚠️ ' + (lang === 'fr' ? 'Limitations' : 'Limitations') + '</h3>';
-            html += '<ul class="text-sm space-y-2">';
-            html += '<li><strong>' + (lang === 'fr' ? 'Hallucinations' : 'Hallucinations') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">' + (lang === 'fr' ? 'Peut inventer des faits plausibles mais faux' : 'Can invent plausible but false facts') + '</p>';
-            html += '<p class="text-xs text-slate-400 mt-1 font-mono bg-slate-900/50 p-2 rounded">';
-            html += lang === 'fr' ? 'Ex: "En 1987, Napoléon a inventé le téléphone"' : 'Ex: "In 1987, Napoleon invented the telephone"';
-            html += '</p></li>';
-            html += '<li><strong>' + (lang === 'fr' ? 'Pas de vraie compréhension' : 'No true understanding') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">';
-            html += lang === 'fr' ? 'Reconnaissance de patterns statistiques, pas de conscience' : 'Statistical pattern recognition, no consciousness';
-            html += '</p></li>';
-            html += '<li><strong>' + (lang === 'fr' ? 'Connaissances figées' : 'Fixed knowledge') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">';
-            html += lang === 'fr' ? 'Date de coupure des connaissances (ex: janvier 2025)' : 'Knowledge cutoff date (e.g., January 2025)';
-            html += '</p></li>';
-            html += '<li><strong>' + (lang === 'fr' ? 'Biais des données' : 'Data bias') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">';
-            html += lang === 'fr' ? "Reflète les biais présents dans les données d'entraînement" : 'Reflects biases present in training data';
-            html += '</p></li>';
-            html += '</ul></div>';
-
-            html += '<div class="bg-green-900/30 border border-green-500/30 rounded-lg p-4">';
-            html += '<h3 class="font-bold mb-3 flex items-center gap-2">✨ ' + (lang === 'fr' ? 'Capacités Émergentes' : 'Emergent Abilities') + '</h3>';
-            html += '<ul class="text-sm space-y-2">';
-            html += '<li><strong>' + (lang === 'fr' ? 'Raisonnement' : 'Reasoning') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">Chain-of-thought (' + (lang === 'fr' ? 'réflexion étape par étape' : 'step-by-step thinking') + ')</p></li>';
-            html += '<li><strong>' + (lang === 'fr' ? 'Programmation' : 'Programming') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">' + (lang === 'fr' ? 'Génération et débogage dans 50+ langages' : 'Generation and debugging in 50+ languages') + '</p></li>';
-            html += '<li><strong>' + (lang === 'fr' ? 'Traduction' : 'Translation') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">' + (lang === 'fr' ? 'Même pour des paires de langues rares' : 'Even for rare language pairs') + '</p></li>';
-            html += '<li><strong>' + (lang === 'fr' ? 'Analogies complexes' : 'Complex analogies') + ':</strong>';
-            html += '<p class="text-xs text-slate-300 mt-1">' + (lang === 'fr' ? 'Transfert de concepts entre domaines' : 'Transfer concepts across domains') + '</p></li>';
-            html += '</ul></div></div>';
-
-            html += '<div class="bg-slate-900/50 rounded-lg p-4">';
-            html += '<p class="text-sm font-bold mb-2">🧠 ';
-            html += lang === 'fr' ? 'Exemple de raisonnement émergent' : 'Example of emergent reasoning';
-            html += ':</p>';
-            html += '<div class="bg-slate-800/50 rounded p-3 text-sm font-mono space-y-2">';
-            html += '<p class="text-blue-400">Q: ';
-            html += lang === 'fr' ? "J'ai 3 pommes. J'en mange 1. Mon frère m'en donne 2. Combien j'en ai ?" : "I have 3 apples. I eat 1. My brother gives me 2. How many do I have?";
+            html += '<p class="text-slate-300 mb-6 text-sm md:text-base">';
+            html += lang === 'fr' ? 
+                "Les LLM sont des merveilles technologiques aux capacités stupéfiantes, mais ils restent des outils imparfaits avec des limitations fondamentales importantes. Comprendre ces limites est crucial pour les utiliser efficacement et de manière responsable." :
+                "LLMs are technological marvels with stunning capabilities, but they remain imperfect tools with significant fundamental limitations. Understanding these limits is crucial for using them effectively and responsibly.";
             html += '</p>';
-            html += '<p class="text-green-400">' + (lang === 'fr' ? 'LLM: "Réfléchissons étape par étape :' : 'LLM: "Let\'s think step by step:') + '</p>';
-            html += '<p class="text-slate-300 ml-4">- ' + (lang === 'fr' ? 'Départ' : 'Start') + ': 3 ' + (lang === 'fr' ? 'pommes' : 'apples') + '</p>';
-            html += '<p class="text-slate-300 ml-4">- ' + (lang === 'fr' ? 'Après en avoir mangé 1' : 'After eating 1') + ': 3 - 1 = 2 ' + (lang === 'fr' ? 'pommes' : 'apples') + '</p>';
-            html += '<p class="text-slate-300 ml-4">- ' + (lang === 'fr' ? 'Mon frère m\'en donne 2' : 'My brother gives me 2') + ': 2 + 2 = 4 ' + (lang === 'fr' ? 'pommes' : 'apples') + '</p>';
-            html += '<p class="text-green-400">- ' + (lang === 'fr' ? 'Réponse' : 'Answer') + ': 4 ' + (lang === 'fr' ? 'pommes"' : 'apples"') + '</p>';
-            html += '</div></div>';
+
+            // Section limitations détaillées
+            html += '<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">';
+            
+            // Limitations
+            html += '<div class="bg-gradient-to-br from-red-900/30 to-orange-900/30 border border-red-500/30 rounded-xl p-6">';
+            html += '<h3 class="text-xl font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-red-400">⚠️</span>';
+            html += lang === 'fr' ? 'Limitations Fondamentales' : 'Fundamental Limitations';
+            html += '</h3>';
+
+            var limitations = lang === 'fr' ? [
+                {
+                    title: '🎭 Hallucinations & Confabulation',
+                    desc: 'Invention de faits plausibles mais faux',
+                    example: '"En 1987, Napoléon a inventé le téléphone portable"',
+                    why: 'Le modèle optimise pour la plausibilité, pas la véracité',
+                    severity: 'Critique'
+                },
+                {
+                    title: '🤖 Absence de vraie compréhension',
+                    desc: 'Manipulation de patterns statistiques, pas de conscience',
+                    example: 'Peut expliquer la conscience sans jamais la ressentir',
+                    why: 'Architecture basée sur la prédiction de tokens',
+                    severity: 'Philosophique'
+                },
+                {
+                    title: '📅 Connaissances figées dans le temps',
+                    desc: 'Date de coupure des données d\'entraînement',
+                    example: 'GPT-4 ne connaît pas les événements après avril 2023',
+                    why: 'Pas de mise à jour continue des connaissances',
+                    severity: 'Pratique'
+                },
+                {
+                    title: '⚖️ Biais sociétaux amplifiés',
+                    desc: 'Reproduction des biais présents dans les données',
+                    example: 'Associations stéréotypées professions/genres',
+                    why: 'Apprentissage sur du contenu humain imparfait',
+                    severity: 'Éthique'
+                },
+                {
+                    title: '🔢 Faiblesse en calcul numérique',
+                    desc: 'Erreurs sur des opérations mathématiques complexes',
+                    example: 'Peut se tromper sur 847 × 293 = ?',
+                    why: 'Architecture non optimisée pour les calculs précis',
+                    severity: 'Technique'
+                }
+            ] : [
+                {
+                    title: '🎭 Hallucinations & Confabulation',
+                    desc: 'Invention of plausible but false facts',
+                    example: '"In 1987, Napoleon invented the mobile phone"',
+                    why: 'Model optimizes for plausibility, not truthfulness',
+                    severity: 'Critical'
+                },
+                {
+                    title: '🤖 No true understanding',
+                    desc: 'Statistical pattern manipulation, no consciousness',
+                    example: 'Can explain consciousness without ever feeling it',
+                    why: 'Architecture based on token prediction',
+                    severity: 'Philosophical'
+                },
+                {
+                    title: '📅 Knowledge frozen in time',
+                    desc: 'Training data cutoff date',
+                    example: 'GPT-4 doesn\'t know events after April 2023',
+                    why: 'No continuous knowledge updates',
+                    severity: 'Practical'
+                },
+                {
+                    title: '⚖️ Amplified societal biases',
+                    desc: 'Reproduction of biases present in data',
+                    example: 'Stereotypical profession/gender associations',
+                    why: 'Learning on imperfect human content',
+                    severity: 'Ethical'
+                },
+                {
+                    title: '🔢 Weakness in numerical computation',
+                    desc: 'Errors on complex mathematical operations',
+                    example: 'May be wrong on 847 × 293 = ?',
+                    why: 'Architecture not optimized for precise calculations',
+                    severity: 'Technical'
+                }
+            ];
+
+            for (var i = 0; i < limitations.length; i++) {
+                var severityColors = {
+                    'Critique': 'bg-red-500',
+                    'Critical': 'bg-red-500',
+                    'Philosophique': 'bg-purple-500',
+                    'Philosophical': 'bg-purple-500',
+                    'Pratique': 'bg-blue-500',
+                    'Practical': 'bg-blue-500',
+                    'Éthique': 'bg-orange-500',
+                    'Ethical': 'bg-orange-500',
+                    'Technique': 'bg-yellow-500',
+                    'Technical': 'bg-yellow-500'
+                };
+                
+                html += '<div class="bg-slate-800/50 rounded-lg p-4 mb-4 border-l-4 border-red-500">';
+                html += '<div class="flex items-start justify-between mb-2">';
+                html += '<h4 class="font-bold text-red-300 text-sm">' + limitations[i].title + '</h4>';
+                html += '<span class="text-xs px-2 py-1 rounded ' + severityColors[limitations[i].severity] + ' text-white">' + limitations[i].severity + '</span>';
+                html += '</div>';
+                html += '<p class="text-xs text-slate-300 mb-2">' + limitations[i].desc + '</p>';
+                html += '<div class="text-xs font-mono bg-slate-900/50 p-2 rounded mb-2 text-slate-400">';
+                html += limitations[i].example;
+                html += '</div>';
+                html += '<p class="text-xs text-slate-500"><strong>' + (lang === 'fr' ? 'Pourquoi' : 'Why') + ':</strong> ' + limitations[i].why + '</p>';
+                html += '</div>';
+            }
+            html += '</div>';
+
+            // Capacités émergentes
+            html += '<div class="bg-gradient-to-br from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-xl p-6">';
+            html += '<h3 class="text-xl font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-green-400">✨</span>';
+            html += lang === 'fr' ? 'Capacités Émergentes Extraordinaires' : 'Extraordinary Emergent Abilities';
+            html += '</h3>';
+
+            var abilities = lang === 'fr' ? [
+                {
+                    title: '🧠 Raisonnement complexe (Chain-of-Thought)',
+                    desc: 'Décomposition de problèmes en étapes logiques',
+                    example: 'Résolution d\'énigmes, problèmes mathématiques multi-étapes',
+                    emergence: 'Apparu vers ~100B paramètres',
+                    impact: 'Révolutionnaire'
+                },
+                {
+                    title: '💻 Programmation multi-langages',
+                    desc: 'Génération, débogage, explication de code',
+                    example: 'Traduit Python → JavaScript, trouve et corrige bugs',
+                    emergence: 'Apparu vers ~10B paramètres',
+                    impact: 'Transformateur'
+                },
+                {
+                    title: '🌐 Traduction & adaptation culturelle',
+                    desc: 'Traduction nuancée même pour langues rares',
+                    example: 'Adapte l\'humour et références culturelles',
+                    emergence: 'Apparu vers ~1B paramètres',
+                    impact: 'Significatif'
+                },
+                {
+                    title: '🎨 Créativité et analogies sophistiquées',
+                    desc: 'Création d\'analogies complexes inter-domaines',
+                    example: 'Compare la mitochondrie à une centrale électrique',
+                    emergence: 'Apparu vers ~300B paramètres',
+                    impact: 'Surprenant'
+                },
+                {
+                    title: '📚 Apprentissage contextuel (In-Context Learning)',
+                    desc: 'Apprend de nouveaux patterns dans la conversation',
+                    example: 'Comprend un nouveau format après 2-3 exemples',
+                    emergence: 'Apparu vers ~10B paramètres',
+                    impact: 'Inattendu'
+                }
+            ] : [
+                {
+                    title: '🧠 Complex reasoning (Chain-of-Thought)',
+                    desc: 'Breaking down problems into logical steps',
+                    example: 'Solving riddles, multi-step math problems',
+                    emergence: 'Emerged around ~100B parameters',
+                    impact: 'Revolutionary'
+                },
+                {
+                    title: '💻 Multi-language programming',
+                    desc: 'Code generation, debugging, explanation',
+                    example: 'Translates Python → JavaScript, finds and fixes bugs',
+                    emergence: 'Emerged around ~10B parameters',
+                    impact: 'Transformative'
+                },
+                {
+                    title: '🌐 Translation & cultural adaptation',
+                    desc: 'Nuanced translation even for rare languages',
+                    example: 'Adapts humor and cultural references',
+                    emergence: 'Emerged around ~1B parameters',
+                    impact: 'Significant'
+                },
+                {
+                    title: '🎨 Creativity and sophisticated analogies',
+                    desc: 'Creating complex cross-domain analogies',
+                    example: 'Compares mitochondria to a power plant',
+                    emergence: 'Emerged around ~300B parameters',
+                    impact: 'Surprising'
+                },
+                {
+                    title: '📚 In-Context Learning',
+                    desc: 'Learning new patterns in conversation',
+                    example: 'Understands new format after 2-3 examples',
+                    emergence: 'Emerged around ~10B parameters',
+                    impact: 'Unexpected'
+                }
+            ];
+
+            for (var i = 0; i < abilities.length; i++) {
+                var impactColors = {
+                    'Révolutionnaire': 'bg-purple-500',
+                    'Revolutionary': 'bg-purple-500',
+                    'Transformateur': 'bg-blue-500',
+                    'Transformative': 'bg-blue-500',
+                    'Significatif': 'bg-green-500',
+                    'Significant': 'bg-green-500',
+                    'Surprenant': 'bg-orange-500',
+                    'Surprising': 'bg-orange-500',
+                    'Inattendu': 'bg-yellow-500',
+                    'Unexpected': 'bg-yellow-500'
+                };
+                
+                html += '<div class="bg-slate-800/50 rounded-lg p-4 mb-4 border-l-4 border-green-500">';
+                html += '<div class="flex items-start justify-between mb-2">';
+                html += '<h4 class="font-bold text-green-300 text-sm">' + abilities[i].title + '</h4>';
+                html += '<span class="text-xs px-2 py-1 rounded ' + impactColors[abilities[i].impact] + ' text-white">' + abilities[i].impact + '</span>';
+                html += '</div>';
+                html += '<p class="text-xs text-slate-300 mb-2">' + abilities[i].desc + '</p>';
+                html += '<div class="text-xs font-mono bg-slate-900/50 p-2 rounded mb-2 text-green-400">';
+                html += abilities[i].example;
+                html += '</div>';
+                html += '<p class="text-xs text-slate-500"><strong>' + (lang === 'fr' ? 'Émergence' : 'Emergence') + ':</strong> ' + abilities[i].emergence + '</p>';
+                html += '</div>';
+            }
+            html += '</div>';
+            html += '</div>';
+
+            // Exemple interactif de raisonnement
+            html += '<div class="bg-slate-900/50 rounded-xl p-6 mb-6">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-cyan-400">🧩</span>';
+            html += lang === 'fr' ? 'Démonstration : Raisonnement émergent en action' : 'Demonstration: Emergent reasoning in action';
+            html += '</h3>';
+            html += '<div class="bg-slate-800/50 rounded-lg p-4 text-sm font-mono space-y-3">';
+            
+            if (lang === 'fr') {
+                html += '<p class="text-blue-400"><strong>Humain:</strong> "J\'ai 3 pommes. J\'en mange 1. Mon frère m\'en donne 2. Combien j\'en ai maintenant ?"</p>';
+                html += '<div class="border-l-4 border-green-500 pl-4 space-y-2">';
+                html += '<p class="text-green-400"><strong>GPT-4:</strong> "Je vais résoudre ce problème étape par étape :</p>';
+                html += '<p class="text-slate-300 ml-4">📍 <strong>Situation initiale:</strong> 3 pommes</p>';
+                html += '<p class="text-slate-300 ml-4">➖ <strong>Action 1:</strong> Je mange 1 pomme → 3 - 1 = 2 pommes restantes</p>';
+                html += '<p class="text-slate-300 ml-4">➕ <strong>Action 2:</strong> Mon frère me donne 2 pommes → 2 + 2 = 4 pommes</p>';
+                html += '<p class="text-green-400 ml-4">✅ <strong>Résultat final:</strong> J\'ai maintenant 4 pommes."</p>';
+                html += '</div>';
+            } else {
+                html += '<p class="text-blue-400"><strong>Human:</strong> "I have 3 apples. I eat 1. My brother gives me 2. How many do I have now?"</p>';
+                html += '<div class="border-l-4 border-green-500 pl-4 space-y-2">';
+                html += '<p class="text-green-400"><strong>GPT-4:</strong> "I\'ll solve this problem step by step:</p>';
+                html += '<p class="text-slate-300 ml-4">📍 <strong>Initial situation:</strong> 3 apples</p>';
+                html += '<p class="text-slate-300 ml-4">➖ <strong>Action 1:</strong> I eat 1 apple → 3 - 1 = 2 apples remaining</p>';
+                html += '<p class="text-slate-300 ml-4">➕ <strong>Action 2:</strong> My brother gives me 2 apples → 2 + 2 = 4 apples</p>';
+                html += '<p class="text-green-400 ml-4">✅ <strong>Final result:</strong> I now have 4 apples."</p>';
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            html += '<div class="mt-4 bg-cyan-900/30 border border-cyan-500/30 rounded-lg p-3">';
+            html += '<p class="text-xs text-slate-300">';
+            html += '<strong>💡 ' + (lang === 'fr' ? 'Remarquable' : 'Remarkable') + ':</strong> ';
+            html += lang === 'fr' ? 
+                'Cette capacité de décomposition logique n\'a jamais été explicitement programmée. Elle a émergé naturellement de l\'entraînement sur des milliards de textes.' :
+                'This logical decomposition ability was never explicitly programmed. It emerged naturally from training on billions of texts.';
+            html += '</p></div></div>';
+
+            // Philosophie et implications futures
+            html += '<div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/30 rounded-xl p-6">';
+            html += '<h3 class="text-lg font-bold mb-4 flex items-center gap-2">';
+            html += '<span class="text-purple-400">🔮</span>';
+            html += lang === 'fr' ? 'Questions Philosophiques & Perspectives d\'Avenir' : 'Philosophical Questions & Future Perspectives';
+            html += '</h3>';
+            html += '<div class="space-y-4 text-sm text-slate-300">';
+
+            var questions = lang === 'fr' ? [
+                {icon: '🤔', q: 'Les LLM "comprennent"-ils vraiment ou sont-ils de brillants perroquets stochastiques ?'},
+                {icon: '🧠', q: 'À quelle échelle l\'intelligence artificielle devient-elle indiscernable de l\'intelligence humaine ?'},
+                {icon: '⚖️', q: 'Comment s\'assurer que les LLM respectent nos valeurs dans toute leur diversité ?'},
+                {icon: '🌍', q: 'Quel sera l\'impact sociétal quand les LLM surpasseront les humains dans la plupart des tâches cognitives ?'},
+                {icon: '🔬', q: 'Les capacités émergentes futures sont-elles prédictibles ou fondamentalement imprévisibles ?'}
+            ] : [
+                {icon: '🤔', q: 'Do LLMs truly "understand" or are they brilliant stochastic parrots?'},
+                {icon: '🧠', q: 'At what scale does artificial intelligence become indistinguishable from human intelligence?'},
+                {icon: '⚖️', q: 'How do we ensure LLMs respect our values in all their diversity?'},
+                {icon: '🌍', q: 'What will be the societal impact when LLMs surpass humans in most cognitive tasks?'},
+                {icon: '🔬', q: 'Are future emergent capabilities predictable or fundamentally unpredictable?'}
+            ];
+
+            for (var i = 0; i < questions.length; i++) {
+                html += '<div class="flex items-start gap-3">';
+                html += '<span class="text-lg">' + questions[i].icon + '</span>';
+                html += '<p class="flex-1 italic">' + questions[i].q + '</p>';
+                html += '</div>';
+            }
+
+            html += '</div>';
+            html += '<div class="mt-6 text-center">';
+            html += '<p class="text-sm text-purple-300 italic">';
+            html += lang === 'fr' ? 
+                '"Les LLM ne sont que le début. Nous assistons aux premiers pas d\'une nouvelle forme d\'intelligence qui transformera profondément notre civilisation."' :
+                '"LLMs are just the beginning. We are witnessing the first steps of a new form of intelligence that will profoundly transform our civilization."';
+            html += '</p></div></div>';
 
             html += '</div></div>';
             return html;
@@ -887,6 +2030,7 @@
 
         function render() {
             var sections = {
+                intro: renderIntroductionSection,
                 tokens: renderTokensSection,
                 embeddings: renderEmbeddingsSection,
                 attention: renderAttentionSection,
@@ -904,7 +2048,6 @@
 
             document.getElementById('app').innerHTML = html;
             
-            // Restaurer le focus après le render
             restoreFocus();
         }
 
