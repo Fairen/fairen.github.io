@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles Tech - Portfolio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='primaryGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ff6b35;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%23e91e63;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%239c27b0;stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='secondaryGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238e44ad;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ff6b35;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' ry='6' fill='%231a1a1a'/%3E%3Cpath d='M8 12 L16 8 L24 12 L20 16 L16 12 L12 16 Z' fill='url(%23primaryGradient)' opacity='0.9'/%3E%3Cpath d='M12 16 L16 20 L20 16 L24 20 L16 24 L8 20 Z' fill='url(%23secondaryGradient)' opacity='0.8'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ff6b35' opacity='1'/%3E%3C/svg%3E">
+    
+    <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-card: #242424;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #ff6b35;
+            --gradient-1: #ff6b35;
+            --gradient-2: #e91e63;
+            --gradient-3: #9c27b0;
+            --dragon-purple: #8e44ad;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(255, 107, 53, 0.7);
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--gradient-1) 50%, var(--gradient-2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .article-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+            overflow: hidden;
+            will-change: transform;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .article-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .article-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+            border-radius: 24px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: transparent;
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.4);
+        }
+
+        .article-card:hover::before {
+            opacity: 1;
+        }
+
+        .article-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .article-card:hover::after {
+            width: 600px;
+            height: 600px;
+        }
+
+        .article-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-category {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .article-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .article-description {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .article-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            will-change: transform, gap;
+        }
+
+        .article-link:hover {
+            gap: 15px;
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6);
+            transform: translateX(5px);
+        }
+
+        .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-link:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            padding: 6px 12px;
+            background: rgba(142, 68, 173, 0.1);
+            color: var(--dragon-purple);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(142, 68, 173, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .article-card:hover .tech-tag {
+            background: rgba(142, 68, 173, 0.2);
+            border-color: var(--dragon-purple);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 15px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: -1px;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            header {
+                margin-bottom: 50px;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .article-card {
+                padding: 25px;
+            }
+
+            .article-title {
+                font-size: 1.3rem;
+            }
+
+            .article-link {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .header-badge {
+                font-size: 0.8rem;
+                padding: 6px 18px;
+            }
+
+            .article-card {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 1.2rem;
+            }
+
+            .article-description {
+                font-size: 0.9rem;
+            }
+
+            .tech-tag {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+        }
+
+        /* Touch-friendly interactions */
+        @media (hover: none) and (pointer: coarse) {
+            .article-link {
+                min-height: 44px;
+                padding: 16px 28px;
+            }
+            
+            .article-card {
+                touch-action: manipulation;
+            }
+            
+            .article-card:active {
+                transform: scale(0.98);
+            }
+            
+            .article-link:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-logo">
+                <img src="../logo_custom.svg" alt="Logo" style="height: 80px; width: auto; margin-bottom: 20px;">
+            </div>
+            <h1>Mes Articles</h1>
+            <p class="subtitle">Explorez mes derniers écrits sur les technologies modernes, l'IA et le développement</p>
+        </header>
+
+        <div class="articles-grid">
+            <div class="article-card" onclick="location.href='./mcp'">
+                <div class="article-content">
+                    <div class="article-category">🔧 TUTORIAL</div>
+                    <h2 class="article-title">MCP - Guide complet du Model Context Protocol</h2>
+                    <p class="article-description">Découvrez comment implémenter de A à Z un serveur MCP fonctionnel pour gérer vos tâches. Guide pratique avec exemples de code et démo interactive.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">MCP</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">API</span>
+                        <span class="tech-tag">Protocol</span>
+                    </div>
+                </div>
+                <a href="./mcp" class="article-link" onclick="event.stopPropagation()">
+                    Lire l'article
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
+            <div class="article-card" onclick="location.href='./llm'">
+                <div class="article-content">
+                    <div class="article-category">🧠 THÉORIE</div>
+                    <h2 class="article-title">Comment fonctionnent les LLM ?</h2>
+                    <p class="article-description">Plongez dans le fonctionnement des Large Language Models. Comprendre l'architecture, les transformers et les mécanismes d'attention.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">IA</span>
+                        <span class="tech-tag">LLM</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Transformers</span>
+                    </div>
+                </div>
+                <a href="./llm" class="article-link" onclick="event.stopPropagation()">
+                    Bientôt disponible
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>✨ Plus d'articles à venir prochainement...</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialiser au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Touch-friendly interactions for mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                document.querySelectorAll('.article-card').forEach(card => {
+                    card.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.98)';
+                    });
+                    card.addEventListener('touchend', function() {
+                        this.style.transform = '';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

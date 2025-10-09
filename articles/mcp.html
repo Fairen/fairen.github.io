@@ -90,43 +90,276 @@
         .subtitle {
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-size: 1.2em;
         }
 
-        .tabs {
-            display: flex;
-            gap: 5px;
+        /* Navigation avec chapitres */
+        .chapter-nav {
+            margin-bottom: 40px;
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
+        }
+
+        .chapter-card {
             background: var(--bg-secondary);
-            padding: 5px;
-            border-radius: 12px;
-            flex-wrap: wrap;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .tab {
-            padding: 12px 20px;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
+            border-radius: 15px;
+            padding: 20px;
             cursor: pointer;
-            font-size: 0.95em;
             transition: all 0.3s ease;
-            font-weight: 600;
-            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .tab:hover {
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+            border-color: var(--accent);
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+        }
+
+        .chapter-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .chapter-content {
+            flex: 1;
+        }
+
+        .chapter-content h3 {
+            color: var(--text-primary);
+            margin: 0 0 5px 0;
+            font-size: 1.3em;
+        }
+
+        .chapter-content p {
+            color: var(--text-secondary);
+            margin: 0 0 8px 0;
+            font-size: 0.9em;
+        }
+
+        .chapter-time {
+            display: inline-block;
             background: rgba(255, 107, 53, 0.1);
             color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+            border: 1px solid rgba(255, 107, 53, 0.3);
         }
 
-        .tab.active {
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            color: white;
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        /* Navigation flottante */
+        .floating-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
         }
+
+        .floating-nav button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6);
+        }
+        /* Navigation avec chapitres */
+        .chapter-nav {
+            margin-bottom: 40px;
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-card {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+            border-color: var(--accent);
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+        }
+
+        .chapter-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .chapter-content {
+            flex: 1;
+        }
+
+        .chapter-content h3 {
+            color: var(--text-primary);
+            margin: 0 0 5px 0;
+            font-size: 1.3em;
+        }
+
+        .chapter-content p {
+            color: var(--text-secondary);
+            margin: 0 0 8px 0;
+            font-size: 0.9em;
+        }
+
+        .chapter-time {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        /* Navigation flottante */
+        .floating-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .floating-nav button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6);
+        }
+
+        /* Boutons Call to Action - Responsive */
+        .cta-button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 140px;
+            text-align: center;
+            touch-action: manipulation;
+        }
+
+        .cta-button.primary {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .cta-button:hover, .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button.primary {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: linear-gradient(135deg, var(--gradient-2), var(--gradient-3));
+            color: white;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .cta-button.secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        /* Anciens styles de tabs supprimés et remplacés */
 
         .content-section {
             display: none;
@@ -371,7 +604,6 @@
             box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
             border-color: var(--accent);
         }
-        }
 
         .parameter-table {
             width: 100%;
@@ -471,11 +703,201 @@
             border: 1px solid rgba(255, 107, 53, 0.3);
         }
 
+        /* Navigation des chapitres - Styles de base */
+        .chapter-links {
+            margin: 20px 0;
+        }
+
+        .chapter-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: var(--bg-primary);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            touch-action: manipulation;
+        }
+
+        .chapter-link:hover, .chapter-link:active {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+        .chapter-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .chapter-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .chapter-details h4 {
+            margin: 0 0 5px 0;
+            color: var(--text-primary);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .chapter-details p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .chapter-duration {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Grille des capacités - Responsive */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Boutons CTA - Responsive */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation header commune */
+        .header-nav {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: var(--bg-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .nav-icon {
+            font-size: 1.2em;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .nav-title {
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 15px;
+                margin: 10px;
             }
             
+            /* Navigation des chapitres mobile */
+            .chapter-link {
+                padding: 12px 15px;
+                margin: 8px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .chapter-info {
+                width: 100%;
+                gap: 12px;
+            }
+            
+            .chapter-num {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8em;
+            }
+            
+            .chapter-details h4 {
+                font-size: 1em;
+            }
+            
+            .chapter-details p {
+                font-size: 0.85em;
+            }
+            
+            .chapter-duration {
+                align-self: flex-end;
+                margin-top: -5px;
+            }
+            
+            /* Boutons CTA mobile */
+            .cta-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .cta-button {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+            
+            /* Flow container mobile */
             .flow-container {
                 flex-direction: column;
                 gap: 20px;
@@ -484,150 +906,337 @@
             .flow-arrow {
                 display: none;
             }
+
+            /* Navigation flottante mobile */
+            .floating-nav {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .floating-nav button {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            /* Grilles responsive */
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            /* Navigation header responsive */
+            .nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .nav-item {
+                padding: 10px 12px;
+                font-size: 0.9em;
+            }
+            
+            .nav-icon {
+                font-size: 1.1em;
+            }
+            
+            /* Endpoint cards mobile */
+            .endpoint-card {
+                padding: 15px;
+            }
+            
+            /* Titre principal mobile */
+            h1 {
+                font-size: 1.8em;
+                text-align: center;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+                margin: 5px;
+            }
+            
+            .chapter-link {
+                padding: 10px 12px;
+            }
+            
+            .chapter-num {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7em;
+            }
+            
+            .chapter-details h4 {
+                font-size: 0.9em;
+            }
+            
+            .chapter-details p {
+                font-size: 0.8em;
+            }
+            
+            .cta-button {
+                padding: 10px 15px;
+                font-size: 0.85em;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .subtitle {
+                font-size: 0.9em;
+            }
+            
+            /* Navigation header très petit écran */
+            .nav-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .nav-item {
+                padding: 8px 10px;
+                font-size: 0.85em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📋 MCP Task Manager <span style="font-size: 0.6em; color: #7f8c8d;">Protocol v1.0</span></h1>
-        <p class="subtitle">Exemple complet d'implémentation d'un serveur MCP de gestion de tâches</p>
+        <h1>MCP Task Manager</h1>
+        <p class="subtitle">Guide Complet du Model Context Protocol - Maîtrisez MCP en 45 minutes</p>
 
-        <div class="tabs">
-            <button class="tab active" onclick="showSection('introduction')">📖 Introduction MCP</button>
-            <button class="tab" onclick="showSection('structure')">🏗️ Structure</button>
-            <button class="tab" onclick="showSection('lifecycle')">🔄 Cycle de Vie</button>
-            <button class="tab" onclick="showSection('endpoints')">📡 Endpoints</button>
-            <button class="tab" onclick="showSection('tools')">🔧 Tools</button>
-            <button class="tab" onclick="showSection('resources')">📚 Resources</button>
-            <button class="tab" onclick="showSection('prompts')">💬 Prompts</button>
-            <button class="tab" onclick="showSection('errors')">⚠️ Erreurs</button>
-            <button class="tab" onclick="showSection('demo')">🎮 Démo Live</button>
+        <!-- Navigation Header Commune -->
+        <div class="header-nav">
+            <div class="nav-grid">
+                <div class="nav-item active" onclick="showSection('introduction')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-title">Introduction</span>
+                </div>
+                <div class="nav-item" onclick="showSection('structure')">
+                    <span class="nav-icon">🏗️</span>
+                    <span class="nav-title">Architecture</span>
+                </div>
+                <div class="nav-item" onclick="showSection('lifecycle')">
+                    <span class="nav-icon">🔄</span>
+                    <span class="nav-title">Cycle de Vie</span>
+                </div>
+                <div class="nav-item" onclick="showSection('endpoints')">
+                    <span class="nav-icon">🔗</span>
+                    <span class="nav-title">Endpoints</span>
+                </div>
+                <div class="nav-item" onclick="showSection('tools')">
+                    <span class="nav-icon">🔧</span>
+                    <span class="nav-title">Tools</span>
+                </div>
+                <div class="nav-item" onclick="showSection('resources')">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-title">Resources</span>
+                </div>
+                <div class="nav-item" onclick="showSection('prompts')">
+                    <span class="nav-icon">💬</span>
+                    <span class="nav-title">Prompts</span>
+                </div>
+                <div class="nav-item" onclick="showSection('errors')">
+                    <span class="nav-icon">⚠️</span>
+                    <span class="nav-title">Erreurs</span>
+                </div>
+                <div class="nav-item" onclick="showSection('demo')">
+                    <span class="nav-icon">🚀</span>
+                    <span class="nav-title">Démo Live</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation flottante -->
+        <div class="floating-nav">
+            <button onclick="scrollToTop()" title="Retour en haut">↑</button>
         </div>
 
         <!-- Section Introduction -->
         <div id="introduction" class="content-section active">
-            <h2>Qu'est-ce que le Model Context Protocol (MCP) ?</h2>
+            <h2>🌟 Guide Complet du Model Context Protocol (MCP)</h2>
             
             <div class="endpoint-card">
-                <h3>🌐 Définition et Vision</h3>
-                <p>Le <strong>Model Context Protocol (MCP)</strong> est un protocole standardisé créé par Anthropic pour permettre aux modèles d'IA d'interagir de manière sécurisée et contrôlée avec des sources de données externes et des outils.</p>
+                <h3>🎯 Qu'est-ce que MCP ?</h3>
+                <p>Le <strong>Model Context Protocol (MCP)</strong> est un protocole standardisé créé par Anthropic qui révolutionne la façon dont les modèles d'IA interagissent avec le monde extérieur.</p>
                 
                 <div style="margin: 20px 0; padding: 20px; background: rgba(255, 107, 53, 0.1); border-radius: 10px; border-left: 4px solid var(--accent);">
                     <p style="margin: 0; font-style: italic; color: var(--text-primary);">
-                        <strong>💡 Analogie :</strong> Imaginez MCP comme un "système de plugins universel" pour l'IA. 
-                        Tout comme votre navigateur peut installer des extensions pour accéder à de nouveaux services, 
+                        <strong>💡 Pensez-y comme :</strong> Un "système de plugins universel" pour l'IA. 
+                        Comme votre navigateur peut installer des extensions pour accéder à de nouveaux services, 
                         MCP permet aux IA d'étendre leurs capacités en se connectant à des serveurs spécialisés.
                     </p>
                 </div>
             </div>
 
             <div class="endpoint-card">
-                <h3>🎯 Pourquoi MCP est Révolutionnaire ?</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
-                    <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <h4 style="color: var(--accent); margin-bottom: 10px;">🔒 Sécurité</h4>
-                        <p style="margin: 0; font-size: 0.9em;">Contrôle granulaire des permissions et isolation des contextes d'exécution</p>
-                    </div>
-                    <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <h4 style="color: var(--gradient-2); margin-bottom: 10px;">⚡ Performance</h4>
-                        <p style="margin: 0; font-size: 0.9em;">Communication optimisée via JSON-RPC 2.0 avec gestion asynchrone</p>
-                    </div>
-                    <div style="background: var(--bg-primary); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <h4 style="color: var(--gradient-3); margin-bottom: 10px;">🔧 Extensibilité</h4>
-                        <p style="margin: 0; font-size: 0.9em;">Architecture modulaire permettant d'ajouter facilement de nouvelles capacités</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="endpoint-card">
-                <h3>🏗️ Architecture MCP : Les 3 Piliers</h3>
+                <h3>🏗️ Les Trois Piliers de MCP</h3>
                 <div class="flow-container">
                     <div class="flow-arrow"></div>
                     <div class="flow-step">
                         <div style="font-size: 2em; margin-bottom: 10px;">🔧</div>
                         <h4 style="color: var(--accent);">Tools</h4>
-                        <p style="margin: 10px 0 0 0; font-size: 0.9em;">Actions que l'IA peut exécuter</p>
-                        <p style="margin: 5px 0 0 0; font-size: 0.8em; color: var(--text-secondary);">Créer, modifier, supprimer</p>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9em;"><strong>Actions</strong> que l'IA peut exécuter</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.8em; color: var(--text-secondary);">Créer, modifier, supprimer des données</p>
                     </div>
                     <div class="flow-step">
                         <div style="font-size: 2em; margin-bottom: 10px;">📚</div>
                         <h4 style="color: var(--gradient-2);">Resources</h4>
-                        <p style="margin: 10px 0 0 0; font-size: 0.9em;">Données que l'IA peut consulter</p>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9em;"><strong>Données</strong> que l'IA peut consulter</p>
                         <p style="margin: 5px 0 0 0; font-size: 0.8em; color: var(--text-secondary);">Fichiers, API, bases de données</p>
                     </div>
                     <div class="flow-step">
                         <div style="font-size: 2em; margin-bottom: 10px;">💬</div>
                         <h4 style="color: var(--gradient-3);">Prompts</h4>
-                        <p style="margin: 10px 0 0 0; font-size: 0.9em;">Templates de conversation</p>
-                        <p style="margin: 5px 0 0 0; font-size: 0.8em; color: var(--text-secondary);">Workflows prédéfinis</p>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9em;"><strong>Templates</strong> de conversation</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.8em; color: var(--text-secondary);">Workflows prédéfinis et automatisés</p>
                     </div>
                 </div>
             </div>
 
+            <!-- Navigation des chapitres avec temps -->
             <div class="endpoint-card">
-                <h3>📋 Ce que vous allez découvrir dans ce guide</h3>
-                <p>Cette documentation vous présente un <strong>exemple complet et fonctionnel</strong> d'un serveur MCP : un gestionnaire de tâches (Task Manager).</p>
+                <h3>📚 Plan du Guide - 45 minutes</h3>
+                <p>Suivez ce parcours structuré pour maîtriser MCP étape par étape :</p>
                 
-                <div style="margin: 20px 0;">
-                    <h4 style="color: var(--accent); margin-bottom: 15px;">🗺️ Parcours de Découverte :</h4>
-                    <ol style="line-height: 1.8; margin-left: 20px;">
-                        <li><strong>Structure</strong> - Architecture générale et concepts fondamentaux</li>
-                        <li><strong>Cycle de Vie</strong> - Flux complet d'une session MCP de A à Z</li>
-                        <li><strong>Endpoints</strong> - Points d'entrée et protocole de communication</li>
-                        <li><strong>Tools</strong> - Actions concrètes sur les tâches (CRUD complet)</li>
-                        <li><strong>Resources</strong> - Consultation des données et statistiques</li>
-                        <li><strong>Prompts</strong> - Templates pour automatiser les workflows</li>
-                        <li><strong>Gestion d'Erreurs</strong> - Codes d'erreur et debugging</li>
-                        <li><strong>Démo Interactive</strong> - Testez en temps réel !</li>
-                    </ol>
-                </div>
-
-                <div class="example-box">
-                    <h4 style="color: var(--accent); margin-bottom: 10px;">💻 Exemple Pratique Inclus</h4>
-                    <p style="margin-bottom: 10px;">Notre Task Manager permet de :</p>
-                    <ul style="margin: 0 0 0 20px; line-height: 1.6;">
-                        <li>✅ Créer et gérer des tâches avec priorités</li>
-                        <li>📊 Consulter des statistiques en temps réel</li>
-                        <li>🔄 Automatiser des workflows (revues, planning)</li>
-                        <li>👥 Gérer les assignations et équipes</li>
-                        <li>📈 Suivre les métriques de performance</li>
-                    </ul>
+                <div class="chapter-links">
+                    <div class="chapter-link" onclick="showSection('structure')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">01</span>
+                            <div class="chapter-details">
+                                <h4>Architecture MCP</h4>
+                                <p>Structure et protocoles fondamentaux</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">8 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('lifecycle')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">02</span>
+                            <div class="chapter-details">
+                                <h4>Cycle de Vie</h4>
+                                <p>Flux de communication complet</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">6 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('endpoints')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">03</span>
+                            <div class="chapter-details">
+                                <h4>Endpoints</h4>
+                                <p>Points d'entrée API détaillés</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">7 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('tools')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">04</span>
+                            <div class="chapter-details">
+                                <h4>Tools</h4>
+                                <p>Actions et modifications</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">6 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('resources')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">05</span>
+                            <div class="chapter-details">
+                                <h4>Resources</h4>
+                                <p>Lecture de données</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">5 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('prompts')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">06</span>
+                            <div class="chapter-details">
+                                <h4>Prompts</h4>
+                                <p>Templates et workflows</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">4 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('errors')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">07</span>
+                            <div class="chapter-details">
+                                <h4>Gestion d'Erreurs</h4>
+                                <p>Codes d'erreur et debugging</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">2 min</span>
+                    </div>
+                    
+                    <div class="chapter-link" onclick="showSection('demo')">
+                        <div class="chapter-info">
+                            <span class="chapter-num">08</span>
+                            <div class="chapter-details">
+                                <h4>Démo Interactive</h4>
+                                <p>Pratique en temps réel</p>
+                            </div>
+                        </div>
+                        <span class="chapter-duration">5 min</span>
+                    </div>
                 </div>
             </div>
 
             <div class="endpoint-card">
-                <h3>🚀 Cas d'Usage MCP dans le Monde Réel</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
-                    <div style="background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(233, 30, 99, 0.1)); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 107, 53, 0.3);">
-                        <h5 style="margin: 0 0 8px 0; color: var(--accent);">🏢 Entreprise</h5>
-                        <p style="margin: 0; font-size: 0.85em;">ERP, CRM, outils métier, bases de données internes</p>
-                    </div>
-                    <div style="background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1)); padding: 15px; border-radius: 8px; border: 1px solid rgba(233, 30, 99, 0.3);">
-                        <h5 style="margin: 0 0 8px 0; color: var(--gradient-2);">🔬 Recherche</h5>
-                        <p style="margin: 0; font-size: 0.85em;">APIs scientifiques, datasets, outils d'analyse</p>
-                    </div>
-                    <div style="background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(142, 68, 173, 0.1)); padding: 15px; border-radius: 8px; border: 1px solid rgba(156, 39, 176, 0.3);">
-                        <h5 style="margin: 0 0 8px 0; color: var(--gradient-3);">🎨 Créatif</h5>
-                        <p style="margin: 0; font-size: 0.85em;">Outils design, génération de contenu, médias</p>
-                    </div>
-                    <div style="background: linear-gradient(135deg, rgba(142, 68, 173, 0.1), rgba(255, 107, 53, 0.1)); padding: 15px; border-radius: 8px; border: 1px solid rgba(142, 68, 173, 0.3);">
-                        <h5 style="margin: 0 0 8px 0; color: var(--dragon-purple);">⚡ DevOps</h5>
-                        <p style="margin: 0; font-size: 0.85em;">CI/CD, monitoring, infrastructure cloud</p>
+                <h3>📋 Notre Exemple Pratique : Task Manager</h3>
+                <p>Ce guide vous présente un <strong>serveur MCP complet et fonctionnel</strong> : un gestionnaire de tâches professionnel.</p>
+                
+                <div class="example-box">
+                    <h4 style="color: var(--accent); margin-bottom: 15px;">🎯 Ce que vous allez maîtriser :</h4>
+                    <div class="capabilities-grid">
+                        <div>
+                            <h5 style="color: var(--text-primary); margin-bottom: 8px;">💻 Capacités Techniques</h5>
+                            <ul style="margin: 0; padding-left: 20px; line-height: 1.6; font-size: 0.9em;">
+                                <li>✅ CRUD complet sur les tâches</li>
+                                <li>📊 Statistiques en temps réel</li>
+                                <li>🔄 Workflows automatisés</li>
+                                <li>👥 Gestion d'équipes</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--text-primary); margin-bottom: 8px;">🎓 Compétences Acquises</h5>
+                            <ul style="margin: 0; padding-left: 20px; line-height: 1.6; font-size: 0.9em;">
+                                <li>🏗️ Architecture MCP</li>
+                                <li>🔐 Sécurité et validation</li>
+                                <li>⚡ Optimisation des performances</li>
+                                <li>🐛 Debugging et monitoring</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div style="text-align: center; margin: 30px 0; padding: 25px; background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(233, 30, 99, 0.1)); border-radius: 15px; border: 1px solid rgba(255, 107, 53, 0.3);">
-                <h3 style="color: var(--accent); margin-bottom: 15px;">🎯 Prêt à Plonger ?</h3>
-                <p style="margin-bottom: 20px; color: var(--text-primary);">
-                    Explorez les onglets suivants pour maîtriser MCP à travers notre exemple concret !
+            <div style="text-align: center; margin: 40px 0; padding: 30px; background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(233, 30, 99, 0.1)); border-radius: 15px; border: 1px solid rgba(255, 107, 53, 0.3);">
+                <h3 style="color: var(--accent); margin-bottom: 15px;">🚀 Prêt à Devenir Expert MCP ?</h3>
+                <p style="margin-bottom: 25px; color: var(--text-primary); font-size: 1.1em;">
+                    Suivez le parcours structuré ci-dessus pour maîtriser MCP en <strong>45 minutes</strong> !
                 </p>
-                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                    <button onclick="showSection('structure')" style="padding: 10px 20px; background: linear-gradient(135deg, var(--accent), var(--gradient-2)); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
-                        Commencer par la Structure →
+                <div class="cta-buttons">
+                    <button onclick="showSection('structure')" class="cta-button primary">
+                        Commencer le Parcours →
                     </button>
-                    <button onclick="showSection('demo')" style="padding: 10px 20px; background: linear-gradient(135deg, var(--gradient-2), var(--gradient-3)); color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
-                        Aller à la Démo →
+                    <button onclick="showSection('demo')" class="cta-button secondary">
+                        Voir la Démo Live →
                     </button>
                 </div>
             </div>
@@ -1804,20 +2413,33 @@
 
     <script>
         function showSection(sectionId) {
+            // Masquer toutes les sections
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
             
+            // Afficher la section demandée
             document.getElementById(sectionId).classList.add('active');
             
-            // Find and activate the corresponding tab
-            document.querySelectorAll('.tab').forEach(tab => {
-                if (tab.onclick && tab.onclick.toString().includes(sectionId)) {
-                    tab.classList.add('active');
-                }
+            // Mettre à jour l'état de la navigation header
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Activer l'élément de navigation correspondant
+            const activeNavItem = document.querySelector(`.nav-item[onclick="showSection('${sectionId}')"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+            
+            // Faire défiler vers le haut de la page
+            scrollToTop();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         }
 
@@ -1825,7 +2447,7 @@
             const output = document.getElementById('demoOutput');
             const buttons = document.querySelectorAll('.demo-button');
             
-            // Mark button as active
+            // Marquer le bouton comme actif
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
@@ -2033,6 +2655,16 @@
                 </div>
             `;
         }
+
+        // Auto-scroll smooth sur tous les liens internes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Rendre toutes les cartes de chapitre cliquables
+            document.querySelectorAll('.chapter-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    scrollToTop();
+                });
+            });
+        });
     </script>
 </body>
 </html>
